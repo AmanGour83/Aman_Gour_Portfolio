@@ -1,6 +1,3 @@
-Here’s the complete code for your `README.md` file, formatted in Markdown and ready to be used in your portfolio repository:
-
-```markdown
 # 🚀 Aman Gour - Portfolio Website
 
 Welcome to my personal portfolio website! This site showcases my skills, projects, internships, and certificates with a cyber-hacker themed design inspired by the Matrix. It features smooth animations, interactive elements, and a responsive layout.
@@ -38,21 +35,12 @@ Portfolio/
 - **JavaScript**: Matrix effect, typing animation, smooth scrolling  
 - **Form Handling**: Formspree API  
 
-## 📸 Screenshots
-
-> You can add screenshots by uploading images to your repository and linking them here.
-
-- Hero Section (Matrix background + Typing Effect)
-- Projects Section (Scrollable Project Cards with GitHub links)
-- Certificates Modal (Enlarged on click)
-
 ## 🔗 Live Demo
 
 Deploy this project easily using:
 
 - [GitHub Pages](https://pages.github.com/)
 - [Netlify](https://www.netlify.com/)
-- [Vercel](https://vercel.com/)
 
 ## ⚡ How to Run Locally
 
@@ -79,5 +67,3 @@ This portfolio is free to use for inspiration. If you reuse any design or code, 
 
 Thanks for checking out my work! Feel free to connect or contribute.
 ```
-
-Let me know if you'd like to add badges, SEO metadata, or deployment instructions for GitHub Pages or Netlify.
