@@ -91,7 +91,7 @@ body {font-family: 'Fira Code', monospace;
 .hero::before {
     content: '';
     position: absolute;
-    top: 0;
+    top: 80px;
     left: 0;
     right: 0;
     bottom: 0;
@@ -110,6 +110,7 @@ body {font-family: 'Fira Code', monospace;
     font-weight: 900;
     color: var(--primary-green);
     text-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+    margin-top: 6rem;
     margin-bottom: 1rem;
 }
 
@@ -141,6 +142,7 @@ body {font-family: 'Fira Code', monospace;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
+    margin-top: 1rem;
 }
 
 .btn-hacker:hover {
