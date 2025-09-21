@@ -37,9 +37,9 @@ Portfolio/
 
 ## 🔗 Live Demo
 
-Deploy this project easily using:
+Deployed this project on:
 
-- [GitHub Pages](https://pages.github.com/)
+- [GitHub Pages](https://amangour83.github.io/Aman_Gour_Portfolio/)
 - [Netlify](https://www.netlify.com/)
 
 ## ⚡ How to Run Locally
