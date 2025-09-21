@@ -56,7 +56,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Typing effect
 const typeText = document.querySelector('.typing-effect');
-const names = ['Aman Gour', 'a Learner', 'a Hacker', 'a Creator', 'a Cyber Security Entusiats'];
+const names = ['Aman Gour', 'a Learner', 'a Hacker', 'a Creator', 'a Cyber Security Enthusiast'];
 let nameIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
