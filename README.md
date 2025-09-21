@@ -1,6 +1,9 @@
 # 🚀 Aman Gour - Portfolio Website
 
 Welcome to my personal portfolio website! This site showcases my skills, projects, internships, and certificates with a cyber-hacker themed design inspired by the Matrix. It features smooth animations, interactive elements, and a responsive layout.
+## 🔗 Live Demo
+- [Aman_Gour](https://amangour.netlify.app/)
+
 
 ## 🧠 Features
 
@@ -35,12 +38,6 @@ Portfolio/
 - **JavaScript**: Matrix effect, typing animation, smooth scrolling  
 - **Form Handling**: Formspree API  
 
-## 🔗 Live Demo
-
-Deployed this project on:
-
-- [GitHub Pages](https://amangour83.github.io/Aman_Gour_Portfolio/)
-- [Netlify](https://www.netlify.com/)
 
 ## ⚡ How to Run Locally
 
