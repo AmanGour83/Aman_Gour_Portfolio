@@ -408,3 +408,12 @@ body {font-family: 'Fira Code', monospace;
 ::-webkit-scrollbar-thumb:hover {
     background: var(--secondary-green);
 }
+
+/* Hide scrollbar but keep scrolling functionality */
+body, .section, .row, .container, .project-card, .hacker-card {
+     scrollbar-width: none; /* Firefox */
+     -ms-overflow-style: none; /* IE and Edge */
+}
+body::-webkit-scrollbar, .section::-webkit-scrollbar, .row::-webkit-scrollbar, .container::-webkit-scrollbar, .project-card::-webkit-scrollbar, .hacker-card::-webkit-scrollbar {
+     display: none; /* Chrome, Safari, Opera */
+}
