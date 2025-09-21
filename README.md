@@ -2,7 +2,7 @@
 
 Welcome to my personal portfolio website! This site showcases my skills, projects, internships, and certificates with a cyber-hacker themed design inspired by the Matrix. It features smooth animations, interactive elements, and a responsive layout.
 ## 🔗 Live Demo
-- [Netlify](https://amangour.netlify.app/)
+- [Aman_Gour](https://amangour.netlify.app/)
 
 
 ## 🧠 Features
