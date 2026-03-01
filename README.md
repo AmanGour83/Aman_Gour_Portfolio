@@ -13,7 +13,7 @@ Welcome to my personal portfolio website! This site showcases my skills, project
 - **About Section** – Personal introduction and technical skills with tag styling.
 - **Projects Section** – Scrollable gallery of Python, Flask, and JavaScript projects with GitHub links.
 - **Internships Section** – Internship details with certificate previews.
-- **Certificates Section** – Clickable certificate images with modal enlargement.
+- **Certifications & Achievements Section** – grouped by internships, courses, and co‑curricular activities; clickable images with modal enlargement.
 - **Contact Form** – Integrated with Formspree API for message handling.
 - **Footer** – Quick navigation and social media links.
 
@@ -24,8 +24,10 @@ Portfolio/
 │── index.html                  # Main website file
 │── style.css                   # Custom styles for hacker-themed UI
 │── script.js                   # JavaScript for effects & form handling
-│── Certificates/               # Folder containing certificates
-│── internship_certificate/     # Folder with internship certificates
+│── Certificates/               # Root folder for all certificates
+│   │── course_Certificates/    # Completed course certificates and diplomas
+│   │── internship_certificate/ # Internship certificates
+│   │── Workshop_certificates/  # Workshop / co-curricular certificates
 │── Resuma/                     # Folder with Resume PDF
 │── README.md                   # Documentation
 ```

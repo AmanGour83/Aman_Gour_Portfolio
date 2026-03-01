@@ -167,6 +167,21 @@ if (contactForm) {
     observer.observe(contactForm);
 }
 
+// scroll achievement boxes to show newest (bottom) by default
+function scrollToBottom() {
+    document.querySelectorAll('.scroll-box').forEach(el => {
+        el.scrollTop = el.scrollHeight;
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    scrollToBottom();
+});
+// re‑scroll after all assets (images) have loaded, ensuring container height is final
+window.addEventListener('load', () => {
+    scrollToBottom();
+});
+
 // Enlarge certificate image on click
       document.querySelectorAll('.certificate-img').forEach(function(img) {
         img.addEventListener('click', function() {
