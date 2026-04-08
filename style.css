@@ -250,6 +250,17 @@ body {font-family: 'Fira Code', monospace;
     font-weight: 500;
 }
 
+.scroll-box {
+    max-height: 450px;
+    overflow-y: auto;
+    padding-right: 8px;
+    scrollbar-gutter: stable;
+}
+
+.projects-scroll .project-card {
+    min-width: auto;
+}
+
 /* Footer */
 .footer {
     background: var(--darker-bg);
