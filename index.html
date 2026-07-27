@@ -1,609 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aman Gour - Portfolio</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aman Gour — Portfolio</title>
+<meta name="description" content="Aman Gour — Cybersecurity student, aspiring ethical hacker, and developer. Projects, internships, and certifications.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"
+  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <!-- Matrix Background -->
-    <canvas class="matrix-bg" id="matrix"></canvas>
+<body data-page="home">
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="#home">&lt;Aman Gour&gt;</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#projects">Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#achievements">Achievements</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Resuma/Aman_Gour_Resume.pdf" target="_blank">Resume</a>
-                    </li>
-                </ul>
+  <canvas id="matrix-rain"></canvas>
+  <canvas id="mesh-canvas"></canvas>
+  <div id="bg-scrim"></div>
+
+
+  <!-- Boot sequence overlay -->
+  <div id="boot-overlay">
+    <div class="boot-lines">
+      <div>&gt; initializing session...</div>
+      <div>&gt; loading dossier: AMAN_GOUR.PORTFOLIO</div>
+      <div>&gt; access granted</div>
+      <div>&gt; click anywhere to continue_</div>
+    </div>
+  </div>
+
+  <div id="page-transition">&gt; loading more data...</div>
+
+  <!-- Nav -->
+  <nav class="navbar">
+    <div class="container">
+      <a class="brand" href="#home"><span class="dot"></span>Aman Gour</a>
+      <ul class="nav-links">
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="work.html" data-page-transition>Full Archive</a></li>
+        <li><a href="Resuma/Aman_Gour_Resume.pdf" target="_blank" class="nav-cta">Resume ↗</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="home" class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-photo-col reveal">
+          <div class="hero-photo-frame" id="heroPhotoFrame">
+            <div class="frame-bar">
+              <span class="fdot red"></span><span class="fdot amber"></span><span class="fdot green"></span>
+              <span class="frame-path">~/profile.png</span>
             </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6">
-                    <div class="hero-content">
-                        <h1>Hello, I'm <span class="typing-effect">Aman Gour</span></h1>
-                        <p class="subtitle">Full Stack Developer | Python Devloper | Cybersecurity Enthusiast | </p>
-                        <p class="lead mb-4">Aspiring ethical hacker and forensics expert—driven by truth, precision, and curiosity. Welcome to my realm.</p>
-                        <a href="#projects" class="btn btn-hacker me-3">Explore My Work</a>
-                        <a href="Resuma/Aman_Gour_Resume.pdf" download="Aman_Gour_Resume.pdf" class="btn btn-hacker">Download Resume</a>
-                    </div>
-                </div>
-                <div class="col-lg-6 text-center">
-                    <div style="font-size: 12rem; color: var(--primary-green); opacity: 0.1;">
-                        <i class="fas fa-terminal"></i>
-                    </div>
-                </div>
+            <div class="frame-media">
+              <img src="Certificates/profile-pic/profile.png" alt="Aman Gour">
+              <div class="scan-sweep"></div>
             </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="hacker-card">
-                        <h4><i class="fas fa-user-secret me-2"></i>Who Am I?</h4>
-                        <p>Passionate about ethical hacking, digital forensics, and SOC operations, I'm on a mission to master cyber defense. Driven by curiosity and hands-on learning, I strive to uncover threats and stay ahead in the ever-evolving world of cybersecurity.</p>
-                        <div class="social-links justify-content-start">
-                            <a href="https://wa.me/+918125267557" class="social-link" title="WhatsApp">
-                                <i class="fab fa-whatsapp"></i>
-                            </a>
-                            <a href="https://www.linkedin.com/in/amangour-/" class="social-link" title="LinkedIn">
-                                <i class="fab fa-linkedin-in"></i>
-                            </a>
-                            <a href="mailto:amangour5488@gmail.com" class="social-link" title="Email">
-                                <i class="fas fa-envelope"></i>
-                            </a>
-                            <a href="https://github.com/AmanGour83" class="social-link" title="GitHub">
-                                <i class="fab fa-github"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="hacker-card">
-                        <h4><i class="fas fa-code me-2"></i>Technical Skills</h4>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Python</span>
-                            <span class="tech-tag">HTML</span>
-                            <span class="tech-tag">CSS & Bootstrap</span>
-                            <span class="tech-tag">JavaScript</span>
-                            <span class="tech-tag">Networking</span>
-                            <span class="tech-tag">Basic of Kali</span>
-                            <span class="tech-tag">Cybersecurity Learner</span>
-                            <span class="tech-tag">Git & GitHub</span>
-                            <span class="tech-tag">Nmap / Zenmap</span>
-                            <span class="tech-tag">Wireshark</span>
-                            <span class="tech-tag">BurpSuite</span>
-                            <span class="tech-tag">Metasploit</span>
-                            <span class="tech-tag">Learning Never Ends....</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="section">
-        <div class="container">
-            <h2 class="section-title">Projects</h2>
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="scroll-box projects-scroll">
-                        <div class="row g-3"> <!-- row -->
-                            <!-- Registration Checkup -->
-                            <div class="col-md-4 mb-3">
-                                <div class="project-card hacker-card" style="min-width: auto; flex: 0 0 320px;">
-                                    <h4><span style="font-size:1.5rem;">✅</span>Registration Checkup</h4>
-                                    <p>A command-line tool developed in Python to manage and update student details from a CSV file. Designed for schools or educational institutions to maintain and review student information efficiently.</p>
-                                    <div class="tech-stack">
-                                        <span class="tech-tag">
-                                            <a href="https://github.com/AmanGour83/Regestration_check_up" title="GitHub" style="text-decoration: none;">GitHub Repository</a>
-                                        </span>
-                                        <span class="tech-tag">Python</span>
-                                        <span class="tech-tag">pandas</span>
-                                        <span class="tech-tag">numpy</span>
-                                        <span class="tech-tag">CSV file</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Smart Resume -->
-                            <div class="col-md-4 mb-3">
-                                <div class="project-card hacker-card" style="min-width: auto; flex: 0 0 320px;">
-                                    <h4><span style="font-size:1.5rem;">📝</span>Smart Resume</h4>
-                                    <p>A professional web app that helps you craft beautiful, effective resumes with intelligent AI-powered guidance!</p>
-                                    <div class="tech-stack">
-                                        <span class="tech-tag">
-                                            <a href="https://github.com/AmanGour83/Regestration_check_up" title="GitHub" style="text-decoration: none;">GitHub Repository</a>
-                                        </span>
-                                        <span class="tech-tag">JavaScript</span>
-                                        <span class="tech-tag">HTML</span>
-                                        <span class="tech-tag">CSS</span>
-                                        <span class="tech-tag">Python</span>
-                                        <span class="tech-tag">Flask</span>
-                                        <span class="tech-tag">AI using API</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Expense Tracker -->
-                            <div class="col-md-4 mb-3">
-                                <div class="project-card hacker-card" style="min-width: auto; flex: 0 0 320px;">
-                                    <h4><span style="font-size:1.5rem;">💸</span>Expense Tracker</h4>
-                                    <p>A simple command-line Python tool to log expenses, view summaries, and track spending—ideal for managing finances without spreadsheets or apps.</p>
-                                    <div class="tech-stack">
-                                        <span class="tech-tag">
-                                            <a href="https://github.com/AmanGour83/Expense_Tracers" title="GitHub" style="text-decoration: none;">GitHub Repository</a>
-                                        </span>
-                                        <span class="tech-tag">Python</span>
-                                        <span class="tech-tag">JSON</span>
-                                        <span class="tech-tag">datetime</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Result Desk -->
-                            <div class="col-md-4 mb-3">
-                                <div class="project-card hacker-card" style="min-width: auto; flex: 0 0 320px;">
-                                    <h4><span style="font-size:1.5rem;">📊</span>Result Desk</h4>
-                                    <p>Result Desk is a Python 🐍 CLI tool that loads CSV marksheets and visualizes student performance—ideal for educators and data lovers 🧑‍💻!</p>
-                                    <div class="tech-stack">
-                                        <span class="tech-tag">
-                                            <a href="https://github.com/AmanGour83/Result-Desk" title="GitHub" style="text-decoration: none;">GitHub Repository</a>
-                                        </span>
-                                        <span class="tech-tag">Python</span>
-                                        <span class="tech-tag">pandas</span>
-                                        <span class="tech-tag">numpy</span>
-                                        <span class="tech-tag">matplotlib</span>
-                                        <span class="tech-tag">CSV file</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Student Performance Tracker -->
-                            <div class="col-md-4 mb-3">
-                                <div class="project-card hacker-card" style="min-width: auto; flex: 0 0 320px;">
-                                    <h4><span style="font-size:1.5rem;">📃</span>Student Performance Tracker</h4>
-                                    <p>A user-friendly Flask + SQLite web app for teachers and admins to track student performance, manage grades, and generate class reports.🧑‍💼</p>
-                                    <div class="tech-stack">
-                                        <span class="tech-tag">
-                                            <a href="https://github.com/AmanGour83/student_performance_tracker" title="GitHub" style="text-decoration: none;">GitHub Repository</a>
-                                        </span>
-                                        <span class="tech-tag">Python</span>
-                                        <span class="tech-tag">Flask</span>
-                                        <span class="tech-tag">SQLite</span>
-                                        <span class="tech-tag">HTML</span>
-                                        <span class="tech-tag">CSS</span>
-                                        <span class="tech-tag">Bootstrap</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Secret Cipher -->
-                            <div class="col-md-4 mb-3">
-                                <div class="project-card hacker-card" style="min-width: auto; flex: 0 0 320px;">
-                                    <h4><span style="font-size:1.5rem;">🕵️‍♀️</span>Secret Cipher</h4>
-                                    <p>Secret Cipher Agent is a sleek Python tool for encoding and decoding messages using Caesar cipher logic. Perfect for secret notes or cryptography fun with your undercover companion in code! 🕵️‍♂️</p>
-                                    <div class="tech-stack">
-                                        <span class="tech-tag">
-                                            <a href="https://github.com/AmanGour83/Secret_Cipher" title="GitHub" style="text-decoration: none;">GitHub Repository</a>
-                                        </span>
-                                        <span class="tech-tag">Python</span>
-                                    </div>
-                                </div>
-                            </div> 
-                            <!--Key Logger  -->
-                            <div class="col-md-4 mb-3">
-                                <div class="project-card hacker-card" style="min-width: auto; flex: 0 0 320px;">
-                                    <h4><span style="font-size:1.5rem;">⌨️</span>Key Logger</h4>
-                                    <p>A Python-based keylogger that captures keystrokes and saves them to a log file. Designed for educational purposes to demonstrate the importance of cybersecurity and ethical hacking practices.</p>
-                                    <div class="tech-stack">
-                                        <span class="tech-tag">
-                                            <a href="https://github.com/AmanGour83/Key-Logger" title="GitHub" style="text-decoration: none;">GitHub Repository</a>
-                                        </span>
-                                        <span class="tech-tag">Python</span>
-                                        <span class="tech-tag">pynput</span>
-                                        <span class="tech-tag">datetime</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Network Mapper -->
-                            <div class="col-md-4 mb-3">
-                                <div class="project-card hacker-card" style="min-width: auto; flex: 0 0 320px;">
-                                    <h4><span style="font-size:1.5rem;">🌐</span>Network Mapper</h4>
-                                    <p>A Python tool for scanning and mapping network topology, identifying active hosts, and discovering open ports. Useful for network administration and security assessments.</p>
-                                    <div class="tech-stack">
-                                        <span class="tech-tag">
-                                            <a href="https://github.com/AmanGour83/Network-Mapper" title="GitHub" style="text-decoration: none;">GitHub Repository</a>
-                                        </span>
-                                        <span class="tech-tag">Python</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        
-                        
-                        <!-- /////////// Add more projects here as needed ////////// -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- Achievements Section with Scroll and Image Modal -->
-    <section id="achievements" class="section">
-        <div class="container">
-            <h2 class="section-title">Achievements</h2>
-
-            <!-- Internships -->
-            <div class="ach-category mb-5">
-                <h3>Internships</h3>
-                <div class="row justify-content-center scroll-box" style="max-height: 420px; overflow-y: auto;">
-                    <div class="col-lg-15 mb-10">
-                        <div class="row">
-                            <!-- Web Dev InternShip -->
-                            <div class="col-md-4 mb-4">
-                                <div class="hacker-card h-100">
-                                    <h4><i class="fas fa-building me-2"></i>Elevate Lab</h4>
-                                    <p><strong>WebDevelopment</strong> | May 2025 - June 2025</p>
-                                    <div class="text-center">
-                                        <img src="Certificates/internship_certificate/Elevate_Lab.jpg" alt="Elevate Lab Internship Certificate" class="img-fluid certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                        <p class="text-secondary mt-2">Certificate of Completion</p>
-                                    </div>
-                                    <div class="tech-stack mb-3">
-                                        <span class="tech-tag">HTML</span>
-                                        <span class="tech-tag">CSS & bootstrap</span>
-                                        <span class="tech-tag">JavaScript</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Python Internship -->
-                            <div class="col-md-4 mb-4">
-                                <div class="hacker-card h-100">
-                                    <h4><i class="fas fa-building me-2"></i>ValutsOfCode</h4>
-                                    <p><strong>Python</strong> | August 2025 - September 2025</p>
-                                    <div class="text-center">
-                                        <img src="Certificates/internship_certificate/Vaultofcodes.jpg" alt="VaultOfCode Internship Certificate" class="img-fluid certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                        <p class="text-secondary mt-2">Certificate of Completion</p>
-                                    </div>
-                                    <div class="tech-stack mb-3">
-                                        <span class="tech-tag">Python</span>
-                                        <span class="tech-tag">Flask</span>
-                                        <span class="tech-tag">SQLite3</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- OASIS Internship -->
-                            <div class="col-md-4 mb-4">
-                                <div class="hacker-card h-100">
-                                    <h4><i class="fas fa-building me-2"></i>OASIS</h4>
-                                    <p><strong>Cybersecurity</strong> | Feb 2025 - March 2025</p>
-                                    <div class="text-center">
-                                        <img src="Certificates/internship_certificate/OASIS_COMPLETION CERTIFICATE.jpg" alt="OASIS Completion Certificate" class="img-fluid certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                        <p class="text-secondary mt-2">Certificate of Completion</p>
-                                    </div>
-                                    <div class="tech-stack mb-3">
-                                        <span class="tech-tag">Network Security</span>
-                                        <span class="tech-tag">Penetration Testing</span>
-                                        <span class="tech-tag">Incident Response</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- OASIS Star Performer -->
-                            <div class="col-md-4 mb-4">
-                                <div class="hacker-card h-100">
-                                    <h4><i class="fas fa-building me-2"></i>OASIS (Star Performer)</h4>
-                                    <p><strong>Cybersecurity</strong> | March 2025</p>
-                                    <div class="text-center">
-                                        <img src="Certificates/internship_certificate/OASIS_sTAR_PERFORMER CERTIFICATE.jpg" alt="OASIS Star Performer Certificate" class="img-fluid certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                        <p class="text-secondary mt-2">Star Performer Recognition</p>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-                            <!-- Cyber War Labs -->
-                            <div class="col-md-4 mb-4">
-                                <div class="hacker-card h-100">
-                                    <h4><i class="fas fa-building me-2"></i>Cyber War Labs</h4>
-                                    <p><strong>Cybersecurity</strong> | March 2026 - April 2026</p>
-                                    <div class="text-center">
-                                        <img src="Certificates/internship_certificate/Cyber_warlabs.png" alt="Cyber War Labs Internship Certificate" class="img-fluid certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                        <p class="text-secondary mt-2">Certificate of Completion</p>
-                                    </div>
-                                    <div class="tech-stack mb-3">
-                                        <span class="tech-tag">VAPT</span>
-                                        <span class="tech-tag">CTF</span>
-                                        <span class="tech-tag">Offensive Security</span>
-                                        <span class="tech-tag">Defensive Security</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- VOIS Virtual Internship -->
-                            <div class="col-md-4 mb-4">
-                                <div class="hacker-card h-100">
-                                    <h4><i class="fas fa-building me-2"></i>VOIS Virtual Internship</h4>
-                                    <p><strong>Cybersecurity</strong> | March 2026 - April 2026</p>
-                                    <div class="text-center">
-                                        <img src="Certificates/internship_certificate/VOIS.png" alt="VOIS Virtual Internship Certificate" class="img-fluid certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                        <p class="text-secondary mt-2">Certificate of Completion</p>
-                                    </div>
-                                    <div class="tech-stack mb-3">
-                                        <span class="tech-tag">Cybersecurity</span>
-                                        <span class="tech-tag">Python</span>
-                                        <span class="tech-tag">Port Scanner</span>
-                                        <span class="tech-tag">Key Logger</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Course Completion Certificates -->
-            <div class="ach-category mb-5">
-                <h3>Course Completion Certificates</h3>
-                <div class="row scroll-box" style="max-height: 420px; overflow-y: auto;">
-                    <!-- Diploma In Ms-Word -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/course_Certificates/DIPLOMA IN MS-OFFICE CERTIFIATE.jpg" alt="Diploma In Ms-Word" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">Diploma In Ms-Word</h5>
-                                <p class="mb-2">Issued by GEENI Computer Education, November 2020</p>
-                            </div>
-                        </div>
-                    </div>
-                     <!-- Diploma In Python -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/course_Certificates/DIPLOMA IN PYTHON CERTIFIATE.jpg" alt="Diploma In Python" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">Diploma In Python</h5>
-                                <p class="mb-2">Issued by GEENI Computer Education, November 2020</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- API Authentication -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/course_Certificates/API Authentication.jpg" alt="API Authentication Certificate" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">API Authentication</h5>
-                                <p class="mb-2">Issued by APISEC UNIVERSITY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- API Security Fundamentals -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/course_Certificates/API Sec Fundamental.jpg" alt="API Security Fundamentals Certificate" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">API Security Fundamentals</h5>
-                                <p class="mb-2">Issued by APISEC UNIVERSITY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- API Documentation -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/course_Certificates/APIDocumentation.jpg" alt="API Documentation Certificate" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">API Documentation</h5>
-                                <p class="mb-2">Issued by APISEC UNIVERSITY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Securing API -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/course_Certificates/Securing API.jpg" alt="Securing API Certificate" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">Securing API</h5>
-                                <p class="mb-2">Issued by APISEC UNIVERSITY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- OWASP API Security -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/course_Certificates/OWASP API.jpg" alt="OWASP API Security Certificate" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">OWASP API Security</h5>
-                                <p class="mb-2">Issued by APISEC UNIVERSITY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- ACP Certificate -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/course_Certificates/ACP.jpg" alt="ACP Certificate" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">ACP Certificate</h5>
-                                <p class="mb-2">Issued by APISEC UNIVERSITY</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- TD_CEH Certificate -->
-                    <div class="col-md-4 mb-4">
-                         <div class="hacker-card h-100">
-                             <div class="certificate-card text-center p-3">
-                                 <img src="Certificates/course_Certificates/TD_EH_AMAN-EH-1908.jpg" alt="Threat Detection & Ethical Hacking" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                 <h5 class="mb-2">Certified Ethical Hacking <br>[ CEH ]</h5>
-                                 <p class="mb-2">Issued by TuteDude</p>
-                             </div>
-                         </div>
-                     </div>
-                </div>
-            </div>
-
-            <!-- Co-Curricular Activities -->
-            <div class="ach-category mb-5">
-                <h3>Co-Curricular Activities</h3>
-                <div class="row scroll-box" style="max-height: 420px; overflow-y: auto;">
-                    <!-- JNTUH Workshop first -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/Workshop_certificates/JNTUH_WORKSHOAP.jpg" alt="Cyber Security Workshop" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">Cyber Security Workshop</h5>
-                                <p class="mb-2">Issued by Blue Team Cybersecurity Under JNTUH</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Advent Of Cyber as co-curricular activity -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/Workshop_certificates/AOC2025.png" alt="AOC 2025 Certificate" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">Advent Of Cyber 2025</h5>
-                                <p class="mb-2">Issued by TryHackMe.com</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- IIT Hyderabd Workshop -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/Workshop_certificates/IITH workshop.jpg" alt="IITH Workshop" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">IITH Workshop</h5>
-                                <p class="mb-2">Issued by IITH</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Shield 2.0 -->
-                    <div class="col-md-4 mb-4">
-                        <div class="hacker-card h-100">
-                            <div class="certificate-card text-center p-3">
-                                <img src="Certificates/Workshop_certificates/Shield2.0.jpeg" alt="Shield 2.0 Workshop" class="img-fluid mb-3 certificate-img" style="max-height: 400px; object-fit: contain; cursor: pointer;">
-                                <h5 class="mb-2">Shield 2.0</h5>
-                                <p class="mb-2">Issued by Telangana Cyber Security Bureau.
-</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section>                
-    <!-- Modal for Enlarged Certificate Image -->
-    <div class="modal fade" id="certificateModal" tabindex="-1" aria-labelledby="certificateModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content bg-dark">
-          <div class="modal-header border-0">
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="frame-footer"><span class="blink-dot"></span> STATUS: ONLINE</div>
           </div>
-          <div class="modal-body text-center">
-            <img id="modalCertificateImg" src="" alt="Certificate" class="img-fluid" style="max-height: 80vh; object-fit: contain;">
+        </div>
+        <div class="hero-text-col">
+          <div class="hero-eyebrow"><span class="blink">●</span> SESSION ACTIVE — TELANGANA, IN</div>
+          <h1>Hello, I'm <span class="accent typing-target"></span><span class="hero-cursor"></span></h1>
+          <p class="hero-tagline">Red Teaming · Digital Forensics · Cybersecurity Enthusiast . Learner</p>
+          <p class="hero-lead">Aspiring ethical hacker and forensics expert — driven by truth, precision, and curiosity. B.Tech Cybersecurity student at SVIT, Secunderabad. Welcome to my realm.</p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn btn-primary">Explore My Work</a>
+            <a href="Resuma/Aman_Gour_Resume.pdf" download class="btn btn-ghost">↓ Download Resume</a>
           </div>
         </div>
       </div>
-    </div>  
+    </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-    </section>
-        <div class="container">
-            <div class="row">
-                <!-- Left Side - Navigation and Social Links -->
-                <div class="col-lg-6">
-                    <div class="footer-nav mb-4">
-                        <ul style="list-style-type: none;">
-                            <li><a href="#home">Home</a></li>
-                            <li><a href="#about">About</a></li>
-                            <li><a href="#projects">Projects</a></li>
-                            <li><a href="#achievements">Achievements</a></li>
-                            <li><a href="Resuma/Aman_Gour_Resume.pdf" target="_blank">Resume</a></li>
-                        </ul>                                             
-                    </div>
-                    
-                    <div class="social-links justify-content-start">
-                        <a href="https://wa.me/+918125267557" class="social-link" title="WhatsApp">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/amangour-/" class="social-link" title="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                        <a href="mailto:amangour5488@gmail.com" class="social-link" title="Email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                        <a href="https://github.com/AmanGour83" class="social-link" title="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Right Side - Contact Form -->
-                <div class="col-lg-6">
-                    <div class="contact-form" id="contact">
-                        <h4 class="form-title mb-4"><i class="fas fa-terminal me-2"></i>Contact Me</h4>
-                        <form id="contactForm" action="https://formspree.io/f/mdkwnokv" method="POST">
-                            <div class="mb-3">
-                                <input type="text" class="form-control hacker-input" id="name" 
-                                name="name" placeholder="Your Name" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="email" class="form-control hacker-input" id="email" name="email" placeholder="Your Email" required>
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" class="form-control hacker-input" id="subject" name="subject" placeholder="Subject" required>
-                            </div>
-                            <div class="mb-3">
-                                <textarea class="form-control hacker-input" id="message" name="message" rows="4" placeholder="Your Message" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-hacker w-100">
-                                <i class="fas fa-paper-plane me-2"></i>Send Message
-                            </button>
-                        </form>
-                        <div id="formStatus" class="mt-3"></div>
- 
-                    </div>
-                </div>
-            </div>
-            
-            <hr style="border-color: var(--border-color); margin: 2rem 0 1rem;">
-            
-            <div class="text-center">
-                <p class="mb-0" style="color: var(--text-secondary); font-size: 0.9rem;">
-                    &copy;  Aman Gour. All rights reserved. | Built with 💚 and lots of ☕
-                </p>
-            </div>
+  <!-- Live stats -->
+  <section class="stats-bar">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat is-loading" data-node="NODE/GH-01">
+          <div class="stat-value" id="stat-repos">···</div>
+          <div class="stat-label">Public Repos</div>
         </div>
-    </footer>
+        <div class="stat is-loading" data-node="NODE/GH-02">
+          <div class="stat-value" id="stat-stars">···</div>
+          <div class="stat-label">GitHub Stars</div>
+        </div>
+        <div class="stat is-loading" data-node="NODE/THM-01">
+          <div class="stat-value" id="stat-thm-rank">···</div>
+          <div class="stat-label">TryHackMe Rank</div>
+        </div>
+        <div class="stat is-loading" data-node="NODE/THM-02">
+          <div class="stat-value" id="stat-thm-rooms">···</div>
+          <div class="stat-label">Rooms Completed</div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="container">
+      <div class="eyebrow">01 / Dossier</div>
+      <h2 class="section-title">About Me</h2>
+      <p class="section-sub">Who I am and what I work with.</p>
+      <div class="grid-2">
+        <div class="card reveal">
+          <h4><i class="fas fa-user-secret"></i> Who Am I?</h4>
+          <p>Passionate about ethical hacking, digital forensics, and SOC operations, I'm on a mission to master cyber defense. Driven by curiosity and hands-on learning, I strive to uncover threats and stay ahead in the ever-evolving world of cybersecurity.</p>
+          <div class="social-row">
+            <a class="social-btn" href="https://wa.me/+918125267557" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a class="social-btn" href="https://www.linkedin.com/in/amangour-/" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a class="social-btn" href="mailto:amangour5488@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <a class="social-btn" href="https://github.com/AmanGour83" title="GitHub"><i class="fab fa-github"></i></a>
+            <a class="social-btn" href="https://tryhackme.com/p/demonslave738" target="_blank" title="TryHackMe"><i class="fas fa-shield-halved"></i></a>
+          </div>
+        </div>
+        <div class="card reveal">
+          <h4><i class="fas fa-code"></i> Technical Skills</h4>
+          <div class="tag-row" id="skills-list"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent work -->
+  <section id="projects" class="section">
+    <div class="container">
+      <div class="eyebrow">02 / Case Files</div>
+      <h2 class="section-title">Recent Work</h2>
+      <p class="section-sub">A curated set of recent builds. See the full archive for everything.</p>
+      <div class="work-grid" id="recent-work-grid"></div>
+      <div class="section-footer-link">
+        <a href="work.html" class="btn btn-ghost" data-page-transition>View Full Archive →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Achievements -->
+  <section id="achievements" class="section">
+    <div class="container">
+      <div class="eyebrow">03 / Record</div>
+      <h2 class="section-title">Internships</h2>
+      <p class="section-sub">Click any entry to open the full record.</p>
+      <div class="timeline" id="internship-timeline"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow">04 / Verified</div>
+      <h2 class="section-title">Course Completion Certificates</h2>
+      <p class="section-sub">Click a card to flip it and view the certificate.</p>
+      <div class="flip-grid" id="cert-flip-grid"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="eyebrow">05 / Unlocked</div>
+      <h2 class="section-title">Co-Curricular Activities</h2>
+      <p class="section-sub">Scroll to reveal.</p>
+      <div class="badge-grid" id="cocurr-grid"></div>
+    </div>
+  </section>
+
+  <!-- Footer / contact -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand"><span class="dot"></span>Aman Gour</div>
+          <ul class="footer-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="work.html" data-page-transition>Full Archive</a></li>
+          </ul>
+          <div class="social-row">
+            <a class="social-btn" href="https://wa.me/+918125267557" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a class="social-btn" href="https://www.linkedin.com/in/amangour-/" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a class="social-btn" href="mailto:amangour5488@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <a class="social-btn" href="https://github.com/AmanGour83" title="GitHub"><i class="fab fa-github"></i></a>
+            <a class="social-btn" href="https://tryhackme.com/p/demonslave738" target="_blank" title="TryHackMe"><i class="fas fa-shield-halved"></i></a>
+          </div>
+        </div>
+        <div id="contact">
+          <div class="terminal-form-frame">
+            <div class="frame-bar">
+              <span class="fdot red"></span><span class="fdot amber"></span><span class="fdot green"></span>
+              <span class="frame-path">~/contact.sh</span>
+            </div>
+            <form id="contactForm" class="terminal-form" action="https://formspree.io/f/mdkwnokv" method="POST">
+              <div class="term-field">
+                <label class="term-prompt" for="name">$ name &gt;</label>
+                <input type="text" id="name" name="name" placeholder="enter_your_name" required>
+              </div>
+              <div class="term-field">
+                <label class="term-prompt" for="email">$ email &gt;</label>
+                <input type="email" id="email" name="email" placeholder="enter_your_email" required>
+              </div>
+              <div class="term-field">
+                <label class="term-prompt" for="subject">$ subject &gt;</label>
+                <input type="text" id="subject" name="subject" placeholder="reason_for_contact" required>
+              </div>
+              <div class="term-field term-field-area">
+                <label class="term-prompt" for="message">$ message &gt;</label>
+                <textarea id="message" name="message" rows="4" placeholder="type_message_here..." required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary term-submit">./send_message.sh <i class="fas fa-paper-plane"></i></button>
+            </form>
+            <div id="formStatus" class="form-status"></div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <a href="https://amangour.netlify.app" target="_blank">amangour.netlify.app</a> · © Aman Gour. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared modal -->
+  <div class="modal-overlay" id="shared-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close" aria-label="Close"><i class="fas fa-times"></i></button>
+      <div class="modal-eyebrow"></div>
+      <h3 class="modal-title"></h3>
+      <div class="modal-meta"></div>
+      <div class="modal-img-wrap">
+        <img class="modal-img" src="" alt="">
+        <div class="modal-img-nav">
+          <button class="modal-nav-btn modal-nav-prev" aria-label="Previous image">&#8249;</button>
+          <button class="modal-nav-btn modal-nav-next" aria-label="Next image">&#8250;</button>
+        </div>
+        <div class="modal-img-counter"></div>
+      </div>
+      <p class="modal-desc"></p>
+      <div class="modal-tags"></div>
+      <a class="modal-link" href="" target="_blank" rel="noopener"></a>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

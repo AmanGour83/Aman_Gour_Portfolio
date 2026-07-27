@@ -1,0 +1,9 @@
+{
+  "rank": null,
+  "points": null,
+  "roomsCompleted": null,
+  "badges": null,
+  "stale": true,
+  "lastUpdated": null,
+  "note": "Seed file — populated by .github/workflows/update-thm-stats.yml on its first scheduled run."
+}

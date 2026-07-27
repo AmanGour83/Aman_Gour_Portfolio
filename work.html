@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Archive — Aman Gour</title>
+<meta name="description" content="Full project archive — Aman Gour.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"
+  integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+  crossorigin="anonymous" referrerpolicy="no-referrer">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-page="archive">
+
+  <canvas id="matrix-rain"></canvas>
+  <canvas id="mesh-canvas"></canvas>
+  <div id="bg-scrim"></div>
+
+
+  <div id="page-transition">&gt; loading more data...</div>
+
+  <!-- Nav -->
+  <nav class="navbar">
+    <div class="container">
+      <a class="brand" href="index.html"><span class="dot"></span>Aman Gour</a>
+      <ul class="nav-links">
+        <li><a href="index.html" data-page-transition>Home</a></li>
+        <li><a href="index.html#about" data-page-transition>About</a></li>
+        <li><a href="index.html#achievements" data-page-transition>Achievements</a></li>
+        <li><a href="index.html#contact" data-page-transition>Contact</a></li>
+        <li><a href="work.html" class="active">Full Archive</a></li>
+        <li><a href="Resuma/Aman_Gour_Resume.pdf" target="_blank" class="nav-cta">Resume ↗</a></li>
+      </ul>
+      <button class="nav-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
+    </div>
+  </nav>
+
+  <section class="section" style="padding-top: calc(var(--nav-h) + 64px);">
+    <div class="container">
+      <div class="eyebrow">Full Archive</div>
+      <h2 class="section-title">All Projects</h2>
+      <p class="section-sub">Every project, sorted newest-first. Click any card for the full dossier.</p>
+      <div class="work-grid" id="archive-grid"></div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="brand"><span class="dot"></span>Aman Gour</div>
+          <ul class="footer-links">
+            <li><a href="index.html" data-page-transition>Home</a></li>
+            <li><a href="index.html#about" data-page-transition>About</a></li>
+            <li><a href="index.html#projects" data-page-transition>Recent Work</a></li>
+            <li><a href="index.html#achievements" data-page-transition>Achievements</a></li>
+          </ul>
+          <div class="social-row">
+            <a class="social-btn" href="https://wa.me/+918125267557" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a class="social-btn" href="https://www.linkedin.com/in/amangour-/" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a class="social-btn" href="mailto:amangour5488@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+            <a class="social-btn" href="https://github.com/AmanGour83" title="GitHub"><i class="fab fa-github"></i></a>
+            <a class="social-btn" href="https://tryhackme.com/p/demonslave738" target="_blank" title="TryHackMe"><i class="fas fa-shield-halved"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 style="font-family:var(--font-mono); color:var(--text-0); margin-bottom:16px;">Looking for the full picture?</h4>
+          <p style="font-size:0.9rem; color:var(--text-2); max-width:40ch;">Head back to the homepage for internships, certifications, and a way to get in touch.</p>
+          <a href="index.html#contact" class="btn btn-ghost mt-lg" data-page-transition>Get In Touch →</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <a href="https://amangour.netlify.app" target="_blank">amangour.netlify.app</a> · © Aman Gour. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared modal -->
+  <div class="modal-overlay" id="shared-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-box">
+      <button class="modal-close" aria-label="Close"><i class="fas fa-times"></i></button>
+      <div class="modal-eyebrow"></div>
+      <h3 class="modal-title"></h3>
+      <div class="modal-meta"></div>
+      <div class="modal-img-wrap">
+        <img class="modal-img" src="" alt="">
+        <div class="modal-img-nav">
+          <button class="modal-nav-btn modal-nav-prev" aria-label="Previous image">&#8249;</button>
+          <button class="modal-nav-btn modal-nav-next" aria-label="Next image">&#8250;</button>
+        </div>
+        <div class="modal-img-counter"></div>
+      </div>
+      <p class="modal-desc"></p>
+      <div class="modal-tags"></div>
+      <a class="modal-link" href="" target="_blank" rel="noopener"></a>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
