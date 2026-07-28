@@ -31,6 +31,19 @@ const SITE_DATA = {
   // id: stable key used for modal lookups + deep links (?item=id)
   // recent: true => eligible for the curated home strip
   projects: [
+    // GhostMode ON
+    {
+      id: "ghostmode-on",
+      icon: "👻",
+      title: "GhostMode ON",
+      date: "2026",
+      summary: "A Flask web app that hides encrypted secrets inside images and audio using AES-256 steganography, with a full drag-and-drop UI.",
+      description: "A full-stack Flask web application for concealing secret messages inside images and audio files using LSB (Least Significant Bit) steganography. Every payload is compressed with zlib, encrypted with AES-256-CBC (key derived via PBKDF2-HMAC-SHA256), and embedded at randomized bit positions seeded from the user's password — with SHA-256 integrity verification on extraction to detect tampering or corruption. Built with a custom glassmorphic dark-mode UI featuring drag-and-drop uploads, live encoding/decoding feedback, and support for common image (PNG, JPG, BMP, WEBP) and audio (WAV, MP3, FLAC, AAC) formats.",
+      tech: ["Python", "Flask", "OpenCV", "PyCryptodome", "Bootstrap 5", "JavaScript"],
+      github: "https://github.com/AmanGour83/GHOSTMODEON",
+      demo: "https://ghostmodeon.onrender.com",
+      recent: true
+    },
       
     // Webcam Security Auditor
     {
@@ -66,7 +79,7 @@ const SITE_DATA = {
       description: "A Python-based keylogger that captures keystrokes and saves them to a log file. Designed for educational purposes to demonstrate the importance of cybersecurity and ethical hacking practices.",
       tech: ["Python", "pynput", "datetime"],
       github: "https://github.com/AmanGour83/Key-Logger",
-      recent: true
+      recent: false
     },
     //Secret Cipher
     {
