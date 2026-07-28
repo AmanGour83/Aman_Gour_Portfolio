@@ -28,12 +28,9 @@ jobs:
 
       - name: Commit updated stats (if changed)
         run: |
-          git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          if ! git diff --quiet -- thm-stats.json; then
-            git add thm-stats.json
-            git commit -m "chore: update TryHackMe stats [skip ci]"
-            git push
-          else
-            echo "No changes to thm-stats.json — skipping commit."
-          fi
+          git config user.name "github-actions[bot]"
+          git add thm-stats.json
+          git diff --staged --quiet || git commit -m "chore: update TryHackMe stats [skip ci]"
+          git pull --rebase origin main
+          git push
