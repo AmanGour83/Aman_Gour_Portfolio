@@ -25,8 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderTimeline();
   renderFlipCerts();
   renderCoCurricular();
-  loadGitHubStats();
-  loadTryHackMeStats();
 
   // Must run last: it scans the page for .reveal elements, and most of
   // those are created by the render* calls above. Running this any
@@ -306,88 +304,7 @@ function initScrollReveal() {
   items.forEach(i => io.observe(i));
 }
 
-/* --------------------------------------------------------------------------
-   Count-up numbers
-   -------------------------------------------------------------------------- */
 
-function countUp(el, target, duration = 1100) {
-  const start = performance.now();
-  const from = 0;
-  function frame(now) {
-    const p = Math.min(1, (now - start) / duration);
-    const eased = 1 - Math.pow(1 - p, 3);
-    el.textContent = Math.round(from + (target - from) * eased).toLocaleString();
-    if (p < 1) requestAnimationFrame(frame);
-  }
-  requestAnimationFrame(frame);
-}
-
-/* --------------------------------------------------------------------------
-   Live stats — GitHub (Netlify Function) + TryHackMe (static JSON)
-   -------------------------------------------------------------------------- */
-
-async function loadGitHubStats() {
-  const repoEl = document.getElementById('stat-repos');
-  const starEl = document.getElementById('stat-stars');
-  if (!repoEl && !starEl) return;
-  try {
-    const res = await fetch('/.netlify/functions/github-stats');
-    if (!res.ok) throw new Error('bad response');
-    const data = await res.json();
-    if (repoEl && typeof data.publicRepos === 'number') {
-      repoEl.closest('.stat')?.classList.remove('is-loading');
-      countUp(repoEl, data.publicRepos);
-    }
-    if (starEl && typeof data.totalStars === 'number') {
-      starEl.closest('.stat')?.classList.remove('is-loading');
-      countUp(starEl, data.totalStars);
-    }
-  } catch (err) {
-    [repoEl, starEl].forEach(el => {
-      if (!el) return;
-      el.closest('.stat')?.classList.remove('is-loading');
-      el.closest('.stat')?.classList.add('is-stale');
-      el.textContent = '—';
-    });
-  }
-}
-
-async function loadTryHackMeStats() {
-  const rankEl = document.getElementById('stat-thm-rank');
-  const roomsEl = document.getElementById('stat-thm-rooms');
-  if (!rankEl && !roomsEl) return;
-  try {
-    const res = await fetch('thm-stats.json', { cache: 'no-store' });
-    if (!res.ok) throw new Error('missing');
-    const data = await res.json();
-    // Graceful fallback: if the scrape marked itself stale, still show the
-    // last cached numbers rather than blank UI — just flag it visually.
-    // The committed seed file ships with nulls until the first scheduled
-    // scrape runs, so treat null the same as "no data yet".
-    if (rankEl) {
-      rankEl.closest('.stat')?.classList.remove('is-loading');
-      rankEl.textContent = (data.rank === null || typeof data.rank === 'undefined') ? '—' : data.rank;
-    }
-    if (roomsEl) {
-      roomsEl.closest('.stat')?.classList.remove('is-loading');
-      if (typeof data.roomsCompleted === 'number') {
-        countUp(roomsEl, data.roomsCompleted);
-      } else {
-        roomsEl.textContent = '—';
-      }
-    }
-    if (data.stale) {
-      [rankEl, roomsEl].forEach(el => el?.closest('.stat')?.classList.add('is-stale'));
-    }
-  } catch (err) {
-    [rankEl, roomsEl].forEach(el => {
-      if (!el) return;
-      el.closest('.stat')?.classList.remove('is-loading');
-      el.closest('.stat')?.classList.add('is-stale');
-      el.textContent = '—';
-    });
-  }
-}
 
 /* --------------------------------------------------------------------------
    Recent work strip (home) + full archive (work.html)
@@ -397,7 +314,7 @@ function workCardHTML(project, index) {
   const caseId = `CASE-${String(index + 1).padStart(2, '0')}`;
   return `
     <button class="work-card reveal" data-modal-type="project" data-modal-id="${project.id}">
-      <div class="work-card-id">${caseId} · ${project.date}</div>
+      <div class="work-card-id">${caseId} · ${project.date}${project.demo ? ' · <span class="live-badge">● LIVE</span>' : ''}</div>
       <h4><span>${project.icon}</span>${escapeHTML(project.title)}</h4>
       <p>${escapeHTML(project.summary)}</p>
       <div class="tag-row">${project.tech.slice(0, 3).map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('')}</div>
@@ -545,6 +462,28 @@ function setGallery(images) {
   updateGalleryImage();
 }
 
+// function updateGalleryImage() {
+//   const overlay = document.getElementById('shared-modal');
+//   if (!overlay) return;
+//   const img = overlay.querySelector('.modal-img');
+//   const wrap = overlay.querySelector('.modal-img-wrap');
+//   const nav = overlay.querySelector('.modal-img-nav');
+//   const counter = overlay.querySelector('.modal-img-counter');
+//   const { images, index } = galleryState;
+
+//   if (!images.length) {
+//     wrap.style.display = 'none';
+//     return;
+//   }
+//   wrap.style.display = 'block';
+//   const current = images[index];
+//   img.src = current.src;
+//   img.alt = current.label || '';
+//   nav.style.display = images.length > 1 ? 'flex' : 'none';
+//   counter.textContent = images.length > 1
+//     ? `${current.label ? escapeHTML(current.label) + ' · ' : ''}${index + 1} / ${images.length}`
+//     : (current.label || '');
+// }
 function updateGalleryImage() {
   const overlay = document.getElementById('shared-modal');
   if (!overlay) return;
@@ -556,11 +495,19 @@ function updateGalleryImage() {
 
   if (!images.length) {
     wrap.style.display = 'none';
+    img.src = '';
     return;
   }
   wrap.style.display = 'block';
   const current = images[index];
+
+  // Clear the old image immediately so the previous card's certificate
+  // never lingers on screen while the new one downloads/decodes.
+  img.src = '';
+  img.style.opacity = '0';
+  img.onload = () => { img.style.opacity = '1'; };
   img.src = current.src;
+
   img.alt = current.label || '';
   nav.style.display = images.length > 1 ? 'flex' : 'none';
   counter.textContent = images.length > 1
@@ -602,6 +549,18 @@ function openModal(type, id) {
     link.style.display = 'inline-flex';
     link.href = item.github;
     link.innerHTML = '↗ View on GitHub';
+
+    const demoLink = overlay.querySelector('.modal-link-demo');
+    if (demoLink) {
+      if (item.demo) {
+        demoLink.style.display = 'inline-flex';
+        demoLink.href = item.demo;
+        demoLink.innerHTML = '↗ View Live Demo';
+      } else {
+        demoLink.style.display = 'none';
+      }
+    }
+
     typeOutDescription(desc, item.description);
   } else if (type === 'internship') {
     eyebrow.textContent = 'INTERNSHIP RECORD';

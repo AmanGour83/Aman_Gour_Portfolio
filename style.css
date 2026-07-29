@@ -655,13 +655,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-size: 1rem;
   cursor: pointer;
 }
-.modal-close:hover { color: var(--cyan); border-color: var(--cyan); }
+.modal-close:hover {
+  color: var(--cyan);
+  border-color: var(--cyan); 
+}
 
 .modal-eyebrow { font-family: var(--font-mono); font-size: 0.7rem; color: var(--cyan); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
 .modal-title { font-family: var(--font-mono); font-size: 1.4rem; color: var(--text-0); margin-bottom: 6px; padding-right: 40px; }
 .modal-meta { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-2); margin-bottom: 18px; }
 .modal-img-wrap { position: relative; margin-bottom: 20px; }
-.modal-img { width: 100%; border-radius: 3px; border: 1px solid var(--border); display: block; }
+.modal-img { width: 100%; border-radius: 3px; border: 1px solid var(--border); display: block; transition: opacity 0.15s ease;}
 .modal-img-nav {
   position: absolute; inset: 0;
   display: none;
