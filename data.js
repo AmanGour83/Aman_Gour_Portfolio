@@ -199,12 +199,13 @@ const SITE_DATA = {
       org: "Supraja Technologies",
       role: "Cybersecurity Intern",
       via: "",
-      dates: "June 2026 – July 2026",
+      dates: "February 2026 – July 2026",
       description: "Cybersecurity internship focused on defensive security for Windows environments — built a webcam security auditor that scans HKCU/HKLM registry hives to surface per-app camera permissions, detect live camera use in real time, and let users revoke or restore access from a password-gated desktop tool.",
       tech: ["Python", "Tkinter", "Windows Registry Auditing", "Defensive Security"],
       images: [
-        { src: "Certificates/internship_certificate/Supraja_Technologies.jpg", label: "Certificate" },
-        { src: "Certificates/lor/Supraja_Technologies_lor.png", label: "LOR" }
+        { src: "Certificates/internship_certificate/Supraja_tech.png", label: "Certificate" },
+        { src: "Certificates/lor/supraja_lor_1.png", label: "LOR" },
+        { src: "Certificates/lor/supraja_lor_2.png", label: "LOR For Higher Studies" }
       ]
     },
     // VOIS internship
