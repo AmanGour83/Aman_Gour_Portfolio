@@ -9,7 +9,7 @@ const SITE_DATA = {
   profile: {
     name: "Aman Gour",
     // Cycled by the hero typing effect (types, pauses, deletes, moves to next).
-    typingPhrases: ["Aman Gour", "a Learner", "a Hacker", "a Creator", "a Cyber Security Enthusiast"],
+    typingPhrases: ["Aman Gour", "a Learner", "a Hacker", "a Cyber Security Enthusiast","Tester"],
     tagline: "Full Stack Developer · Python Developer · Cybersecurity Enthusiast",
     bio: "Aspiring ethical hacker and forensics expert — driven by truth, precision, and curiosity. B.Tech Cybersecurity student at SVIT, Secunderabad (2024–2028).",
     email: "amangour5488@gmail.com",
