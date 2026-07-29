@@ -27,7 +27,7 @@ function loadExisting() {
   try {
     return JSON.parse(fs.readFileSync(OUTPUT_PATH, "utf8"));
   } catch {
-    return { rank: null, points: null, roomsCompleted: null, badges: null };
+    return { rank: null, points: null, roomsCompleted: null, badges: null, streak: null };
   }
 }
 
@@ -96,14 +96,14 @@ async function extractByLabel(page, labelPattern) {
     // Give the SPA a little extra time to hydrate/render past initial load.
     await new Promise(r => setTimeout(r, 3000));
 
-    const rank = await extractByLabel(page, "^rank$|global rank");
-    const points = await extractByLabel(page, "^points$");
-    const roomsCompleted = await extractByLabel(page, "rooms completed");
-    const badges = await extractByLabel(page, "^badges$");
-
+    const rank = await extractByLabel(page, "rank");
+    const points = await extractByLabel(page, "points");
+const roomsCompleted = await extractByLabel(page, "completed rooms|rooms completed");
+const badges = await extractByLabel(page, "badges");
+const streak = await extractByLabel(page, "streak");
     await browser.close();
 
-    const gotAnything = [rank, points, roomsCompleted, badges].some(v => v !== null);
+    const gotAnything = [rank, points, roomsCompleted, badges, streak].some(v => v !== null);
 
     if (!gotAnything) {
       // Structure likely changed — don't clobber good data, just flag it.
@@ -118,6 +118,7 @@ async function extractByLabel(page, labelPattern) {
       points: points !== null ? Number(points) : existing.points,
       roomsCompleted: roomsCompleted !== null ? Number(roomsCompleted) : existing.roomsCompleted,
       badges: badges !== null ? Number(badges) : existing.badges,
+      streak: streak !== null ? Number(streak) : existing.streak,
       stale: false,
       lastUpdated: now
     };
