@@ -95,6 +95,8 @@ async function extractByLabel(page, labelPattern) {
     await page.goto(PROFILE_URL, { waitUntil: "networkidle2", timeout: 45000 });
     // Give the SPA a little extra time to hydrate/render past initial load.
     await new Promise(r => setTimeout(r, 3000));
+    await page.screenshot({ path: path.join(__dirname, "..", "debug-screenshot.png"), fullPage: true });
+    
 
     const rank = await extractByLabel(page, "rank");
     const points = await extractByLabel(page, "points");
