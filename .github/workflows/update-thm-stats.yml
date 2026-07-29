@@ -20,9 +20,6 @@ jobs:
         with:
           node-version: "20"
 
-      - name: Install dependencies
-        run: npm install puppeteer@22
-
       - name: Run scraper
         run: node scripts/scrape-thm-stats.js
 
