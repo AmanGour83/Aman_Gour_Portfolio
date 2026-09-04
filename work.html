@@ -4,7 +4,26 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Full Archive — Aman Gour</title>
-<meta name="description" content="Full project archive — Aman Gour.">
+<meta name="description" content="Full cybersecurity project and research archive — Aman Gour.">
+<meta name="theme-color" content="#070b10">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<!-- Open Graph / Twitter Cards -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://amangour.netlify.app/work.html">
+<meta property="og:title" content="Full Project Archive — Aman Gour">
+<meta property="og:description" content="Full cybersecurity project and research archive — Aman Gour.">
+<meta property="og:image" content="https://amangour.netlify.app/Certificates/profile-pic/profile.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://amangour.netlify.app/work.html">
+<meta name="twitter:title" content="Full Project Archive — Aman Gour">
+<meta name="twitter:description" content="Full cybersecurity project and research archive — Aman Gour.">
+<meta name="twitter:image" content="https://amangour.netlify.app/Certificates/profile-pic/profile.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"
   integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
@@ -33,7 +52,7 @@
         <li><a href="index.html#activities" data-page-transition>Activities</a></li>
         <li><a href="index.html#contact" data-page-transition>Contact</a></li>
         <li><a href="work.html" class="active">Full Archive</a></li>
-        <li><a href="Resuma/Aman_Gour_Resume.pdf" target="_blank" class="nav-cta">Resume ↗</a></li>
+        <li><a href="Resuma/Aman_Gour_Resume.pdf" target="_blank" rel="noopener noreferrer" class="nav-cta">Resume ↗</a></li>
       </ul>
       <button class="nav-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
     </div>
@@ -61,11 +80,11 @@
             <li><a href="index.html#achievements" data-page-transition>Achievements</a></li>
           </ul>
           <div class="social-row">
-            <a class="social-btn" href="https://wa.me/+918125267557" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            <a class="social-btn" href="https://www.linkedin.com/in/amangour-/" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a class="social-btn" href="https://wa.me/+918125267557" target="_blank" rel="noopener noreferrer" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+            <a class="social-btn" href="https://www.linkedin.com/in/amangour-/" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
             <a class="social-btn" href="mailto:amangour5488@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-            <a class="social-btn" href="https://github.com/AmanGour83" title="GitHub"><i class="fab fa-github"></i></a>
-            <a class="social-btn" href="https://tryhackme.com/p/demonslave738" target="_blank" title="TryHackMe"><i class="fas fa-shield-halved"></i></a>
+            <a class="social-btn" href="https://github.com/AmanGour83" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
+            <a class="social-btn" href="https://tryhackme.com/p/demonslave738" target="_blank" rel="noopener noreferrer" title="TryHackMe"><i class="fas fa-shield-halved"></i></a>
           </div>
         </div>
         <div>
@@ -75,15 +94,28 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <a href="https://amangour.netlify.app" target="_blank">amangour.netlify.app</a> · © Aman Gour. All rights reserved.
+        <a href="https://amangour.netlify.app" target="_blank" rel="noopener noreferrer">amangour.netlify.app</a> · © Aman Gour. All rights reserved.
       </div>
     </div>
   </footer>
 
   <!-- Shared modal -->
-  <div class="modal-overlay" id="shared-modal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="modal-overlay" id="shared-modal" role="dialog" aria-modal="true" aria-hidden="true" title="Click outside to close">
     <div class="modal-box">
-      <button class="modal-close" aria-label="Close"><i class="fas fa-times"></i></button>
+      <!-- Sticky Modal Header with Record Navigation & Close -->
+      <div class="modal-header-bar">
+        <div class="modal-nav-group">
+          <button type="button" class="modal-nav-btn modal-nav-prev" id="modal-nav-prev" aria-label="Previous record" title="Previous entry [← Left Arrow]">
+            <i class="fas fa-chevron-left"></i> <span>Prev</span>
+          </button>
+          <span class="modal-nav-counter" id="modal-nav-counter">RECORD 01 / 08</span>
+          <button type="button" class="modal-nav-btn modal-nav-next" id="modal-nav-next" aria-label="Next record" title="Next entry [Right Arrow →]">
+            <span>Next</span> <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+        <button class="modal-close" aria-label="Close dialog" title="Close [ESC]"><span class="modal-close-txt">CLOSE</span> <i class="fas fa-times"></i></button>
+      </div>
+
       <div class="modal-eyebrow"></div>
       <h3 class="modal-title"></h3>
       <div class="modal-meta"></div>
@@ -106,14 +138,29 @@
       <p class="modal-desc"></p>
       <div class="modal-tags"></div>
       <div class="modal-link-row">
-        <a class="modal-link" href="" target="_blank" rel="noopener"></a>
-        <a class="modal-link modal-link-demo" href="" target="_blank" rel="noopener" style="display:none;"></a>
-        <a class="modal-link modal-pdf-action" href="" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-file-pdf"></i> Open Original PDF ↗</a>
+        <a class="modal-link" href="" target="_blank" rel="noopener noreferrer"></a>
+        <a class="modal-link modal-link-demo" href="" target="_blank" rel="noopener noreferrer" style="display:none;"></a>
+        <a class="modal-link modal-pdf-action" href="" target="_blank" rel="noopener noreferrer" style="display:none;"><i class="fas fa-file-pdf"></i> Open Original PDF ↗</a>
+      </div>
+
+      <!-- Bottom dossier navigation bar -->
+      <div class="modal-bottom-nav">
+        <button type="button" class="btn btn-ghost modal-btn-nav-btm modal-nav-prev modal-nav-prev-btm" id="modal-btn-prev-btm" aria-label="Previous record" title="Previous entry"><i class="fas fa-arrow-left"></i> Previous Dossier</button>
+        <button type="button" class="btn btn-ghost modal-btn-nav-btm modal-nav-next modal-nav-next-btm" id="modal-btn-next-btm" aria-label="Next record" title="Next entry">Next Dossier <i class="fas fa-arrow-right"></i></button>
       </div>
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <!-- Floating Back to Top Button -->
+  <button type="button" id="btn-back-to-top" class="back-to-top-btn" aria-label="Back to top" title="Scroll back to top">
+    <i class="fas fa-chevron-up"></i>
+    <span class="btt-label">~/top</span>
+  </button>
+
+  <!-- Cyber Toast Notification -->
+  <div id="cyber-toast" class="cyber-toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js" integrity="sha384-/1qUCSGwTur9vjf/z9lmu/eCUYbpOTgSjmpbMQZ1/CtX2v/WcAIKqRv+U1DUCG6e" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="data.js"></script>
   <script src="script.js"></script>
 </body>

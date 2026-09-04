@@ -9,8 +9,8 @@ const SITE_DATA = {
   profile: {
     name: "Aman Gour",
     // Cycled by the hero typing effect (types, pauses, deletes, moves to next).
-    typingPhrases: ["Aman Gour", "a Learner", "a Hacker", "a Cyber Security Enthusiast","Tester"],
-    tagline: "Full Stack Developer · Python Developer · Cybersecurity Enthusiast",
+    typingPhrases: ["Aman Gour", "Cybersecurity Enthusiast", "Ethical Hacker", "Security Researcher", "Python Developer"],
+    tagline: "Red Teaming · Digital Forensics · Cybersecurity Enthusiast · Python Developer",
     bio: "Aspiring ethical hacker and forensics expert — driven by truth, precision, and curiosity. B.Tech Cybersecurity student at SVIT, Secunderabad (2024–2028).",
     email: "amangour5488@gmail.com",
     github: "https://github.com/AmanGour83",
@@ -238,7 +238,7 @@ const SITE_DATA = {
       badge: "🏛️ AICTE & Edunet Virtual Internship",
       badgeClass: "badge-auth",
       org: "VOIS (Vodafone Idea Foundation)",
-      role: "Cybersecurity Virtual Internship",
+      role: "Cybersecurity Virtual Intern",
       via: "via AICTE & Edunet Foundation",
       dates: "Mar 2026 – Apr 2026",
       description: "A virtual cybersecurity internship covering foundational defensive security practice, delivered through AICTE and the Edunet Foundation in partnership with the Vodafone Idea Foundation.",
@@ -254,7 +254,7 @@ const SITE_DATA = {
       badge: "🎯 VAPT & CTF Offensive Security",
       badgeClass: "badge-conclave",
       org: "Cyber War Labs",
-      role: "Cybersecurity Internship",
+      role: "Cybersecurity Intern",
       via: "",
       dates: "Mar 2026 – Apr 2026",
       description: "Hands-on cybersecurity internship covering both offensive and defensive practice, including vulnerability assessment and penetration testing (VAPT) exercises and capture-the-flag challenges.",
@@ -270,7 +270,7 @@ const SITE_DATA = {
       badge: "🏆 Star Performer Cybersecurity Internship",
       badgeClass: "badge-winner",
       org: "OASIS",
-      role: "Cybersecurity Internship",
+      role: "Cybersecurity Intern",
       via: "",
       dates: "Feb 2025 – Mar 2025",
       description: "Cybersecurity internship covering network security fundamentals, penetration testing methodology, and incident response procedures.",
@@ -282,13 +282,13 @@ const SITE_DATA = {
         { src: "Certificates/offer_letters/OASIS_Offer_letter.pdf", label: "Offer Letter" }
       ]
     },
-    // vaultsofcede internship
+    // Vault of Codes internship
     {
       id: "vaultofcode",
       badge: "🐍 Python Backend & Flask Internship",
       badgeClass: "badge-challenge",
-      org: "ValutsOfCode",
-      role: "Python Internship",
+      org: "Vault of Codes",
+      role: "Python Development Intern",
       via: "",
       dates: "Aug 2025 – Sep 2025",
       description: "Python-focused development internship building backend features with Flask and SQLite.",
@@ -298,13 +298,13 @@ const SITE_DATA = {
         { src: "Certificates/offer_letters/VaultofCodes_offer_letter.pdf", label: "Offer Letter" }
       ]
     },
-    // elevate lab internship
+    // Elevate Lab internship
     {
       id: "elevate-lab",
       badge: "⚡ Responsive Web Development Internship",
       badgeClass: "badge-workshop",
       org: "Elevate Lab",
-      role: "Web Development Internship",
+      role: "Web Development Intern",
       via: "",
       dates: "May 2025 – Jun 2025",
       description: "Web development internship focused on building responsive front-end interfaces.",
@@ -434,7 +434,7 @@ const SITE_DATA = {
       id: "diploma-python", 
       badge: "🐍 Python Programming",
       badgeClass: "badge-challenge",
-      title: "Diploma In Python", 
+      title: "Diploma in Python", 
       issuer: "GEENI Computer Education · Nov 2020", 
       image: "Certificates/course_Certificates/DIPLOMA IN PYTHON CERTIFIATE.pdf", 
       description: "Foundational diploma covering core Python programming concepts." 
@@ -445,7 +445,7 @@ const SITE_DATA = {
       id: "diploma-msword", 
       badge: "📄 Office Productivity",
       badgeClass: "badge-office",
-      title: "Diploma In Ms-Word", 
+      title: "Diploma in MS Word", 
       issuer: "GEENI Computer Education · Nov 2020", 
       image: "Certificates/course_Certificates/DIPLOMA IN MS-OFFICE CERTIFIATE.pdf", 
       description: "Foundational diploma covering Microsoft Word document creation and formatting." 

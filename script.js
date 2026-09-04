@@ -11,11 +11,13 @@ document.addEventListener('DOMContentLoaded', () => {
   initHeroTyping();
   initHeroPhoto();
   initModal();
+  initAllProjectsModal();
   initAllInternshipsModal();
   initAllCertsModal();
   initAllCocurrModal();
   initContactForm();
   initPageTransitionLinks();
+  initBackToTop();
 
   if (document.body.dataset.page === 'home') {
     renderRecentWork();
@@ -27,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderTimeline();
   initTimelineToggle();
+  initProjectsToggle();
   renderFlipCerts();
   initCertsToggle();
   renderCoCurricular();
@@ -181,9 +184,9 @@ function initMatrixRain() {
 
   function resize() {
     w = canvas.width = window.innerWidth;
-    h = canvas.height = document.documentElement.scrollHeight;
-    canvas.style.width = w + 'px';
-    canvas.style.height = h + 'px';
+    h = canvas.height = window.innerHeight;
+    canvas.style.width = '100vw';
+    canvas.style.height = '100vh';
     columns = Math.floor(w / fontSize);
     drops = Array.from({ length: columns }, () => Math.random() * (h / fontSize));
   }
@@ -408,11 +411,11 @@ function renderTag(t) {
   return `<span class="tag"><span class="tag-emoji">${emoji}</span> <span class="tag-name">${escapeHTML(name)}</span></span>`;
 }
 
-function workCardHTML(project, index) {
+function workCardHTML(project, index, extraClass = '') {
   const caseId = `CASE-${String(index + 1).padStart(2, '0')}`;
   const badgeText = project.badge || `⚡ Security Case Study`;
   return `
-    <button class="work-card reveal ${project.badgeClass || 'badge-hackathon'}" data-modal-type="project" data-modal-id="${project.id}">
+    <button class="work-card reveal ${project.badgeClass || 'badge-hackathon'}${extraClass ? ' ' + extraClass : ''}" data-modal-type="project" data-modal-id="${project.id}">
       <div class="badge-icon">${escapeHTML(badgeText)}</div>
       <div class="work-card-id">${caseId} · ${project.date}${project.demo ? ' · <span class="live-badge">● LIVE</span>' : ''}</div>
       <h4><span>${project.icon}</span>${escapeHTML(project.title)}</h4>
@@ -421,12 +424,59 @@ function workCardHTML(project, index) {
     </button>`;
 }
 
+let projectsExpanded = false;
+
 function renderRecentWork() {
   const mount = document.getElementById('recent-work-grid');
   if (!mount) return;
-  const recent = SITE_DATA.projects.filter(p => p.recent);
-  mount.innerHTML = recent.map((p, i) => workCardHTML(p, i)).join('');
+  mount.innerHTML = SITE_DATA.projects.map((p, i) => {
+    const isExtra = i >= 3;
+    const extraClass = isExtra ? ('work-item-extra' + (projectsExpanded ? '' : ' is-collapsed')) : '';
+    return workCardHTML(p, i, extraClass);
+  }).join('');
   attachModalTriggers(mount);
+}
+
+function initProjectsToggle() {
+  const toggleBtn = document.getElementById('btn-projects-toggle');
+  if (!toggleBtn) return;
+
+  const remainingCount = Math.max(0, SITE_DATA.projects.length - 3);
+  const initialLabel = document.getElementById('projects-toggle-label');
+  if (initialLabel && !projectsExpanded) {
+    initialLabel.innerHTML = `Show Remaining (${remainingCount}) <span class="label-arrow">↓</span>`;
+  }
+
+  toggleBtn.addEventListener('click', () => {
+    projectsExpanded = !projectsExpanded;
+    const extras = document.querySelectorAll('.work-item-extra');
+    const toggleLabel = document.getElementById('projects-toggle-label');
+    const toggleIcon = toggleBtn.querySelector('i');
+
+    if (projectsExpanded) {
+      toggleBtn.classList.add('is-expanded');
+      extras.forEach((el, idx) => {
+        el.classList.remove('is-collapsed');
+        setTimeout(() => el.classList.add('is-visible'), idx * 50);
+      });
+      if (toggleLabel) toggleLabel.innerHTML = 'Show Less <span class="label-arrow">↑</span>';
+      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-up toggle-arrow';
+    } else {
+      toggleBtn.classList.remove('is-expanded');
+      extras.forEach(el => {
+        el.classList.remove('is-visible');
+        el.classList.add('is-collapsed');
+      });
+      const count = Math.max(0, SITE_DATA.projects.length - 3);
+      if (toggleLabel) toggleLabel.innerHTML = `Show Remaining (${count}) <span class="label-arrow">↓</span>`;
+      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-down toggle-arrow';
+
+      const thirdCard = document.querySelectorAll('#recent-work-grid .work-card')[2];
+      if (thirdCard) {
+        thirdCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  });
 }
 
 function renderSkills() {
@@ -441,6 +491,9 @@ function renderFullArchive() {
   const sorted = [...SITE_DATA.projects].sort((a, b) => b.date.localeCompare(a.date));
   mount.innerHTML = sorted.map((p, i) => workCardHTML(p, i)).join('');
   attachModalTriggers(mount);
+  mount.querySelectorAll('.reveal').forEach((el, idx) => {
+    setTimeout(() => el.classList.add('is-visible'), Math.min(idx * 40, 300));
+  });
 }
 
 /* --------------------------------------------------------------------------
@@ -492,6 +545,12 @@ function initTimelineToggle() {
   const toggleBtn = document.getElementById('btn-timeline-toggle');
   if (!toggleBtn) return;
 
+  const remainingCount = Math.max(0, SITE_DATA.internships.length - 3);
+  const initialLabel = document.getElementById('timeline-toggle-label');
+  if (initialLabel && !timelineExpanded) {
+    initialLabel.innerHTML = `Show Remaining (${remainingCount}) <span class="label-arrow">↓</span>`;
+  }
+
   toggleBtn.addEventListener('click', () => {
     timelineExpanded = !timelineExpanded;
     const extras = document.querySelectorAll('.tl-item-extra');
@@ -499,20 +558,22 @@ function initTimelineToggle() {
     const toggleIcon = toggleBtn.querySelector('i');
 
     if (timelineExpanded) {
+      toggleBtn.classList.add('is-expanded');
       extras.forEach((el, idx) => {
         el.classList.remove('is-collapsed');
         setTimeout(() => el.classList.add('is-visible'), idx * 70);
       });
-      if (toggleLabel) toggleLabel.textContent = 'Show Less (Latest 3 only) ↑';
-      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-up';
+      if (toggleLabel) toggleLabel.innerHTML = 'Show Less <span class="label-arrow">↑</span>';
+      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-up toggle-arrow';
     } else {
+      toggleBtn.classList.remove('is-expanded');
       extras.forEach(el => {
         el.classList.remove('is-visible');
         el.classList.add('is-collapsed');
       });
-      const remainingCount = Math.max(0, SITE_DATA.internships.length - 3);
-      if (toggleLabel) toggleLabel.textContent = `Show Remaining Internships (${remainingCount}) ↓`;
-      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-down';
+      const count = Math.max(0, SITE_DATA.internships.length - 3);
+      if (toggleLabel) toggleLabel.innerHTML = `Show Remaining (${count}) <span class="label-arrow">↓</span>`;
+      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-down toggle-arrow';
 
       const thirdCard = document.querySelectorAll('.tl-item')[2];
       if (thirdCard) {
@@ -627,6 +688,12 @@ function initCertsToggle() {
   const toggleBtn = document.getElementById('btn-certs-toggle');
   if (!toggleBtn) return;
 
+  const remainingCount = Math.max(0, SITE_DATA.courseCertificates.length - 4);
+  const initialLabel = document.getElementById('certs-toggle-label');
+  if (initialLabel && !certsExpanded) {
+    initialLabel.innerHTML = `Show Remaining (${remainingCount}) <span class="label-arrow">↓</span>`;
+  }
+
   toggleBtn.addEventListener('click', () => {
     certsExpanded = !certsExpanded;
     const extras = document.querySelectorAll('.cert-item-extra');
@@ -635,21 +702,23 @@ function initCertsToggle() {
     const mount = document.getElementById('cert-flip-grid');
 
     if (certsExpanded) {
+      toggleBtn.classList.add('is-expanded');
       extras.forEach((el, idx) => {
         el.classList.remove('is-collapsed');
         setTimeout(() => el.classList.add('is-visible'), idx * 50);
       });
       if (mount) initFlipPdfThumbnails(mount);
-      if (toggleLabel) toggleLabel.textContent = 'Show Less (Top 4 only) ↑';
-      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-up';
+      if (toggleLabel) toggleLabel.innerHTML = 'Show Less <span class="label-arrow">↑</span>';
+      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-up toggle-arrow';
     } else {
+      toggleBtn.classList.remove('is-expanded');
       extras.forEach(el => {
         el.classList.remove('is-visible');
         el.classList.add('is-collapsed');
       });
-      const remainingCount = Math.max(0, SITE_DATA.courseCertificates.length - 4);
-      if (toggleLabel) toggleLabel.textContent = `Show Remaining Certificates (${remainingCount}) ↓`;
-      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-down';
+      const count = Math.max(0, SITE_DATA.courseCertificates.length - 4);
+      if (toggleLabel) toggleLabel.innerHTML = `Show Remaining (${count}) <span class="label-arrow">↓</span>`;
+      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-down toggle-arrow';
 
       const fourthCard = document.querySelectorAll('.cc-flip')[3];
       if (fourthCard) {
@@ -659,40 +728,75 @@ function initCertsToggle() {
   });
 }
 
+let flipThumbnailsObserver = null;
+
+async function renderCardThumbnailForCard(card) {
+  if (!card) return;
+  if (card.dataset.pdfStatus === 'rendered' || card.dataset.pdfStatus === 'rendering') return;
+
+  const pdfSrc = card.getAttribute('data-pdf-src');
+  const canvas = card.querySelector('.cc-pdf-canvas');
+  const loader = card.querySelector('.cc-pdf-loader');
+  if (!pdfSrc || !canvas) return;
+
+  card.dataset.pdfStatus = 'rendering';
+
+  try {
+    const doc = await loadPdfDoc(pdfSrc);
+    await renderCardPdfThumbnail(doc, canvas);
+    card.dataset.pdfStatus = 'rendered';
+    if (loader) loader.style.display = 'none';
+    canvas.style.opacity = '1';
+  } catch (err) {
+    if (err?.name === 'RenderingCancelledException') return;
+    console.warn('PDF thumbnail preview fallback for', pdfSrc, err);
+    card.dataset.pdfStatus = 'error';
+    if (loader) loader.innerHTML = '<span class="cc-pdf-tag">📄 PDF CERTIFICATE</span>';
+  }
+}
+
 function initFlipPdfThumbnails(mount) {
   if (typeof pdfjsLib === 'undefined') return;
-  const cards = mount.querySelectorAll('.cc-face-back[data-pdf-src]');
-  if (!cards.length) return;
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const card = entry.target;
-        const pdfSrc = card.getAttribute('data-pdf-src');
-        const canvas = card.querySelector('.cc-pdf-canvas');
-        const loader = card.querySelector('.cc-pdf-loader');
-        observer.unobserve(card);
-
-        if (pdfSrc && canvas) {
-          loadPdfDoc(pdfSrc)
-            .then(doc => renderCardPdfThumbnail(doc, canvas))
-            .then(() => {
-              if (loader) loader.style.display = 'none';
-              canvas.style.opacity = '1';
-            })
-            .catch(err => {
-              console.warn('PDF thumbnail preview fallback for', pdfSrc, err);
-              if (loader) loader.innerHTML = '<span class="cc-pdf-tag">📄 PDF CERTIFICATE</span>';
-            });
+  if (!flipThumbnailsObserver) {
+    flipThumbnailsObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const card = entry.target;
+          flipThumbnailsObserver.unobserve(card);
+          renderCardThumbnailForCard(card);
         }
-      }
-    });
-  }, { rootMargin: '150px' });
+      });
+    }, { rootMargin: '200px' });
+  }
 
-  cards.forEach(c => observer.observe(c));
+  const cards = mount.querySelectorAll('.cc-face-back[data-pdf-src]');
+  cards.forEach(card => {
+    if (!card.dataset.pdfStatus) {
+      flipThumbnailsObserver.observe(card);
+    }
+
+    const btn = card.closest('.cc-flip');
+    if (btn && !btn.dataset.hoverThumbInit) {
+      btn.dataset.hoverThumbInit = 'true';
+      const triggerRender = () => {
+        if (flipThumbnailsObserver) flipThumbnailsObserver.unobserve(card);
+        renderCardThumbnailForCard(card);
+      };
+      btn.addEventListener('mouseenter', triggerRender, { once: true });
+      btn.addEventListener('focus', triggerRender, { once: true });
+    }
+  });
 }
 
 async function renderCardPdfThumbnail(doc, canvas) {
+  if (canvas._renderTask) {
+    try {
+      canvas._renderTask.cancel();
+    } catch (_) {}
+    canvas._renderTask = null;
+  }
+
   const page = await doc.getPage(1);
   const unscaled = page.getViewport({ scale: 1 });
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -705,10 +809,16 @@ async function renderCardPdfThumbnail(doc, canvas) {
   canvas.style.height = 'auto';
 
   const ctx = canvas.getContext('2d');
-  await page.render({
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const renderTask = page.render({
     canvasContext: ctx,
     viewport: viewport
-  }).promise;
+  });
+  canvas._renderTask = renderTask;
+  await renderTask.promise;
+  canvas._renderTask = null;
 }
 
 /* --------------------------------------------------------------------------
@@ -748,6 +858,12 @@ function initCocurrToggle() {
   const toggleBtn = document.getElementById('btn-cocurr-toggle');
   if (!toggleBtn) return;
 
+  const remainingCount = Math.max(0, SITE_DATA.coCurricular.length - 4);
+  const initialLabel = document.getElementById('cocurr-toggle-label');
+  if (initialLabel && !cocurrExpanded) {
+    initialLabel.innerHTML = `Show Remaining (${remainingCount}) <span class="label-arrow">↓</span>`;
+  }
+
   toggleBtn.addEventListener('click', () => {
     cocurrExpanded = !cocurrExpanded;
     const extras = document.querySelectorAll('.cocurr-item-extra');
@@ -755,6 +871,7 @@ function initCocurrToggle() {
     const toggleIcon = toggleBtn.querySelector('i');
 
     if (cocurrExpanded) {
+      toggleBtn.classList.add('is-expanded');
       extras.forEach((el, idx) => {
         el.classList.remove('is-collapsed');
         setTimeout(() => {
@@ -762,16 +879,17 @@ function initCocurrToggle() {
           el.classList.add('is-unlocked');
         }, idx * 60);
       });
-      if (toggleLabel) toggleLabel.textContent = 'Show Less (Top 4 only) ↑';
-      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-up';
+      if (toggleLabel) toggleLabel.innerHTML = 'Show Less <span class="label-arrow">↑</span>';
+      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-up toggle-arrow';
     } else {
+      toggleBtn.classList.remove('is-expanded');
       extras.forEach(el => {
         el.classList.remove('is-visible');
         el.classList.add('is-collapsed');
       });
-      const remainingCount = Math.max(0, SITE_DATA.coCurricular.length - 4);
-      if (toggleLabel) toggleLabel.textContent = `Show Remaining Activities (${remainingCount}) ↓`;
-      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-down';
+      const count = Math.max(0, SITE_DATA.coCurricular.length - 4);
+      if (toggleLabel) toggleLabel.innerHTML = `Show Remaining (${count}) <span class="label-arrow">↓</span>`;
+      if (toggleIcon) toggleIcon.className = 'fas fa-chevron-down toggle-arrow';
 
       const fourthCard = document.querySelectorAll('.cocurr-badge')[3];
       if (fourthCard) {
@@ -809,9 +927,35 @@ function initModal() {
   const overlay = document.getElementById('shared-modal');
   if (!overlay) return;
   overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeModal();
+    if (e.target === overlay) {
+      closeModal();
+      return;
+    }
+    const prevBtn = e.target.closest('.modal-nav-prev, .modal-nav-prev-btm, #modal-btn-prev-btm');
+    if (prevBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      navigateModalPrev();
+      return;
+    }
+    const nextBtn = e.target.closest('.modal-nav-next, .modal-nav-next-btm, #modal-btn-next-btm');
+    if (nextBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      navigateModalNext();
+      return;
+    }
+    const closeBtn = e.target.closest('.modal-close, .modal-link-dismiss');
+    if (closeBtn) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeModal();
+      return;
+    }
   });
-  overlay.querySelector('.modal-close')?.addEventListener('click', closeModal);
+  overlay.querySelectorAll('.modal-close, .modal-link-dismiss').forEach(btn => {
+    btn.addEventListener('click', closeModal);
+  });
 
   // PDF page navigation buttons
   const pdfPrevBtn = overlay.querySelector('.modal-page-prev');
@@ -829,21 +973,37 @@ function initModal() {
     });
   }
 
+  // Prev / Next record navigation buttons
+  overlay.querySelectorAll('.modal-nav-prev, .modal-nav-prev-btm, #modal-btn-prev-btm').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      navigateModalPrev();
+    });
+  });
+  overlay.querySelectorAll('.modal-nav-next, .modal-nav-next-btm, #modal-btn-next-btm').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      navigateModalNext();
+    });
+  });
+
   document.addEventListener('keydown', (e) => {
     if (!overlay.classList.contains('is-open')) return;
     if (e.key === 'Escape') closeModal();
     if (e.key === 'ArrowLeft') {
       if (galleryState.currentPdfDoc && galleryState.totalPdfPages > 1) {
         pdfPagePrev();
-      } else if (galleryState.images && galleryState.images.length > 1) {
-        galleryPrev();
+      } else {
+        navigateModalPrev();
       }
     }
     if (e.key === 'ArrowRight') {
       if (galleryState.currentPdfDoc && galleryState.totalPdfPages > 1) {
         pdfPageNext();
-      } else if (galleryState.images && galleryState.images.length > 1) {
-        galleryNext();
+      } else {
+        navigateModalNext();
       }
     }
   });
@@ -888,6 +1048,100 @@ function findItem(type, id) {
     cocurricular: SITE_DATA.coCurricular
   };
   return (map[type] || []).find(i => i.id === id);
+}
+
+/* --------------------------------------------------------------------------
+   Modal Record Navigation Context (Prev / Next & Counter)
+   -------------------------------------------------------------------------- */
+
+let currentModalContext = {
+  type: null,
+  id: null,
+  index: 0,
+  list: []
+};
+
+function getListForType(type) {
+  if (type === 'project') return SITE_DATA.projects || [];
+  if (type === 'internship') return SITE_DATA.internships || [];
+  if (type === 'coursecert') return SITE_DATA.courseCertificates || [];
+  if (type === 'cocurricular') return SITE_DATA.coCurricular || [];
+  return [];
+}
+
+function updateModalNavUI() {
+  const overlay = document.getElementById('shared-modal');
+  if (!overlay) return;
+
+  const { type, index, list } = currentModalContext;
+  const navGroup = overlay.querySelector('.modal-nav-group');
+  const btmNav = overlay.querySelector('.modal-bottom-nav');
+  const counter = overlay.querySelector('#modal-nav-counter');
+  const prevBtnBtm = overlay.querySelector('#modal-btn-prev-btm');
+  const nextBtnBtm = overlay.querySelector('#modal-btn-next-btm');
+
+  if (!list || list.length <= 1) {
+    if (navGroup) navGroup.style.display = 'none';
+    if (btmNav) btmNav.style.display = 'none';
+    return;
+  }
+
+  if (navGroup) navGroup.style.display = 'inline-flex';
+  if (btmNav) btmNav.style.display = 'flex';
+
+  let typeName = 'ENTRY';
+  let singular = 'Entry';
+  if (type === 'project') { typeName = 'PROJECT'; singular = 'Dossier'; }
+  else if (type === 'internship') { typeName = 'INTERNSHIP'; singular = 'Role'; }
+  else if (type === 'coursecert') { typeName = 'CERTIFICATE'; singular = 'Certificate'; }
+  else if (type === 'cocurricular') { typeName = 'ACTIVITY'; singular = 'Activity'; }
+
+  if (counter) {
+    counter.textContent = `${typeName} ${String(index + 1).padStart(2, '0')} / ${String(list.length).padStart(2, '0')}`;
+  }
+
+  if (prevBtnBtm) {
+    prevBtnBtm.innerHTML = `<i class="fas fa-arrow-left"></i> Previous ${singular}`;
+  }
+  if (nextBtnBtm) {
+    nextBtnBtm.innerHTML = `Next ${singular} <i class="fas fa-arrow-right"></i>`;
+  }
+}
+
+function navigateModalPrev() {
+  const { type, index, list } = currentModalContext;
+  if (!list || list.length <= 1) return;
+  const newIndex = (index - 1 + list.length) % list.length;
+  const prevItem = list[newIndex];
+  if (prevItem) {
+    openModal(type, prevItem.id, 0);
+  }
+}
+
+function navigateModalNext() {
+  const { type, index, list } = currentModalContext;
+  if (!list || list.length <= 1) return;
+  const newIndex = (index + 1) % list.length;
+  const nextItem = list[newIndex];
+  if (nextItem) {
+    openModal(type, nextItem.id, 0);
+  }
+}
+
+function switchDirectoryModal(targetDir) {
+  closeAllProjectsModal();
+  closeAllInternshipsModal();
+  closeAllCertsModal();
+  closeAllCocurrModal();
+  if (targetDir === 'projects') {
+    openAllProjectsModal();
+  } else if (targetDir === 'internships') {
+    openAllInternshipsModal();
+  } else if (targetDir === 'certs') {
+    openAllCertsModal();
+  } else if (targetDir === 'cocurr') {
+    openAllCocurrModal();
+  }
 }
 
 function renderDocTabs() {
@@ -984,7 +1238,7 @@ async function updateGalleryImage() {
   if (isDocPdf) {
     // PDF Mode
     if (pdfActionBtn) {
-      pdfActionBtn.href = current.src;
+      pdfActionBtn.href = sanitizeUrl(current.src);
       pdfActionBtn.style.display = 'inline-flex';
     }
     if (img) {
@@ -1067,6 +1321,16 @@ function openModal(type, id, initialDocIndex = 0) {
   const overlay = document.getElementById('shared-modal');
   if (!overlay) return;
 
+  const list = getListForType(type);
+  const foundIndex = list.findIndex(i => i.id === id);
+  currentModalContext = {
+    type,
+    id,
+    index: foundIndex >= 0 ? foundIndex : 0,
+    list
+  };
+  updateModalNavUI();
+
   const eyebrow = overlay.querySelector('.modal-eyebrow');
   const title = overlay.querySelector('.modal-title');
   const meta = overlay.querySelector('.modal-meta');
@@ -1087,19 +1351,19 @@ function openModal(type, id, initialDocIndex = 0) {
 
   if (type === 'project') {
     eyebrow.textContent = 'PROJECT DOSSIER';
-    title.textContent = item.title;
+    title.innerHTML = `${item.icon ? `<span class="modal-title-emoji">${item.icon}</span>` : ''}<span>${escapeHTML(item.title)}</span>`;
     meta.textContent = item.date;
     setGallery([], 0);
     tags.innerHTML = item.tech.map(t => renderTag(t)).join('');
     link.style.display = 'inline-flex';
-    link.href = item.github;
+    link.href = sanitizeUrl(item.github);
     link.innerHTML = '↗ View on GitHub';
 
     const demoLink = overlay.querySelector('.modal-link-demo');
     if (demoLink) {
       if (item.demo) {
         demoLink.style.display = 'inline-flex';
-        demoLink.href = item.demo;
+        demoLink.href = sanitizeUrl(item.demo);
         demoLink.innerHTML = '↗ View Live Demo';
       } else {
         demoLink.style.display = 'none';
@@ -1109,7 +1373,8 @@ function openModal(type, id, initialDocIndex = 0) {
     typeOutDescription(desc, item.description);
   } else if (type === 'internship') {
     eyebrow.textContent = 'INTERNSHIP RECORD';
-    title.textContent = item.org;
+    const orgEmoji = item.badge ? item.badge.split(' ')[0] : '💼';
+    title.innerHTML = `<span class="modal-title-emoji">${orgEmoji}</span><span>${escapeHTML(item.org)}</span>`;
     meta.textContent = `${item.role} · ${item.dates}`;
     setGallery(item.images || [], initialDocIndex);
     tags.innerHTML = item.tech.map(t => renderTag(t)).join('');
@@ -1117,7 +1382,8 @@ function openModal(type, id, initialDocIndex = 0) {
     typeOutDescription(desc, item.description);
   } else if (type === 'coursecert') {
     eyebrow.textContent = 'CERTIFICATE RECORD';
-    title.textContent = item.title;
+    const certEmoji = item.badge ? item.badge.split(' ')[0] : '📜';
+    title.innerHTML = `<span class="modal-title-emoji">${certEmoji}</span><span>${escapeHTML(item.title)}</span>`;
     meta.textContent = item.issuer;
     setGallery([{ src: item.image, label: item.badge ? item.badge.replace(/^[^\w]+/, '').trim() : 'Course Certificate' }], 0);
     tags.innerHTML = '';
@@ -1125,7 +1391,8 @@ function openModal(type, id, initialDocIndex = 0) {
     typeOutDescription(desc, item.description || '');
   } else if (type === 'cocurricular') {
     eyebrow.textContent = 'ACTIVITY LOG — WHAT I LEARNED';
-    title.textContent = item.title;
+    const actEmoji = item.badge ? item.badge.split(' ')[0] : '🏆';
+    title.innerHTML = `<span class="modal-title-emoji">${actEmoji}</span><span>${escapeHTML(item.title)}</span>`;
     meta.textContent = item.issuer;
     const galleryDocs = (item.images && item.images.length)
       ? item.images
@@ -1176,7 +1443,10 @@ function closeModal() {
   }
   galleryState.currentPdfDoc = null;
 
-  if (returnToDirectory === 'internships') {
+  if (returnToDirectory === 'projects') {
+    returnToDirectory = null;
+    openAllProjectsModal();
+  } else if (returnToDirectory === 'internships') {
     returnToDirectory = null;
     openAllInternshipsModal();
   } else if (returnToDirectory === 'certs') {
@@ -1188,6 +1458,139 @@ function closeModal() {
   } else {
     document.body.classList.remove('modal-open');
   }
+}
+
+/* --------------------------------------------------------------------------
+   All Projects Directory Popup Modal
+   -------------------------------------------------------------------------- */
+
+function openAllProjectsModal() {
+  const modal = document.getElementById('all-projects-modal');
+  if (!modal) return;
+  modal.classList.add('is-open');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('modal-open');
+  const modalBox = modal.querySelector('.modal-box');
+  if (modalBox) modalBox.scrollTop = 0;
+  const searchInput = document.getElementById('project-search-input');
+  if (searchInput) {
+    searchInput.value = '';
+    renderAllProjectsCards('');
+    setTimeout(() => searchInput.focus(), 80);
+  }
+}
+
+function closeAllProjectsModal() {
+  const modal = document.getElementById('all-projects-modal');
+  if (!modal) return;
+  modal.classList.remove('is-open');
+  modal.setAttribute('aria-hidden', 'true');
+  if (!returnToDirectory) {
+    document.body.classList.remove('modal-open');
+  }
+}
+
+function renderAllProjectsCards(filterQuery = '') {
+  const container = document.getElementById('all-projects-list');
+  const countBadge = document.getElementById('projects-count-badge');
+  if (!container) return;
+
+  const q = filterQuery.trim().toLowerCase();
+  const filtered = SITE_DATA.projects.filter(item => {
+    if (!q) return true;
+    const matchTitle = (item.title || '').toLowerCase().includes(q);
+    const matchSummary = (item.summary || '').toLowerCase().includes(q);
+    const matchDesc = (item.description || '').toLowerCase().includes(q);
+    const matchTech = (item.tech || []).some(t => t.toLowerCase().includes(q));
+    const matchBadge = (item.badge || '').toLowerCase().includes(q);
+    return matchTitle || matchSummary || matchDesc || matchTech || matchBadge;
+  });
+
+  if (countBadge) {
+    countBadge.textContent = `${filtered.length} / ${SITE_DATA.projects.length} RECORDS`;
+  }
+
+  if (!filtered.length) {
+    container.innerHTML = `
+      <div style="grid-column: 1 / -1; padding: 40px 20px; text-align: center; color: var(--text-2); font-family: var(--font-mono); font-size: 0.9rem;">
+        &gt; no project dossiers match "${escapeHTML(filterQuery)}". Try another query_
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = filtered.map(item => {
+    const techTags = (item.tech || []).slice(0, 4).map(t => renderTag(t)).join('');
+
+    return `
+      <div class="all-internship-card ${item.badgeClass || 'badge-hackathon'}" data-project-id="${item.id}">
+        <div class="aic-header">
+          ${item.badge ? `<div class="badge-icon" style="margin-bottom:8px;">${item.badge}</div>` : ''}
+          <div class="aic-org"><span>${item.icon || '💻'}</span> ${escapeHTML(item.title)}</div>
+          <div class="aic-role">${escapeHTML(item.date)}${item.demo ? ' · <span class="live-badge">● LIVE DEMO</span>' : ''}</div>
+          <div class="aic-dates"><i class="fab fa-github"></i> Open Source Repository</div>
+        </div>
+        <p class="aic-desc">${escapeHTML(item.summary)}</p>
+        <div class="aic-footer">
+          <div class="aic-tech-row">${techTags}</div>
+          <div class="aic-action-btn">
+            <span>Inspect Project Dossier</span>
+            <i class="fas fa-arrow-right"></i>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  container.querySelectorAll('.all-internship-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const projectId = card.dataset.projectId;
+      returnToDirectory = 'projects';
+      closeAllProjectsModal();
+      openModal('project', projectId, 0);
+    });
+  });
+}
+
+function initAllProjectsModal() {
+  const modal = document.getElementById('all-projects-modal');
+  if (!modal) return;
+  const topBtn = document.getElementById('btn-all-projects-top');
+  const btmBtn = document.getElementById('btn-all-projects-bottom');
+  const closeBtn = document.getElementById('all-projects-close');
+  const footerCloseBtn = document.getElementById('btn-close-projects-footer');
+  const searchInput = document.getElementById('project-search-input');
+
+  if (topBtn) topBtn.addEventListener('click', openAllProjectsModal);
+  if (btmBtn) btmBtn.addEventListener('click', openAllProjectsModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeAllProjectsModal();
+  });
+
+  if (closeBtn) closeBtn.addEventListener('click', closeAllProjectsModal);
+  if (footerCloseBtn) footerCloseBtn.addEventListener('click', closeAllProjectsModal);
+
+  modal.querySelectorAll('.modal-dir-tab[data-switch-dir]').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.stopPropagation();
+      switchDirectoryModal(tab.dataset.switchDir);
+    });
+  });
+
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      renderAllProjectsCards(e.target.value);
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+      closeAllProjectsModal();
+    }
+  });
+
+  renderAllProjectsCards('');
 }
 
 /* --------------------------------------------------------------------------
@@ -1299,9 +1702,10 @@ function renderAllInternshipsCards(filterQuery = '') {
 }
 
 function initAllInternshipsModal() {
+  const modal = document.getElementById('all-internships-modal');
+  if (!modal) return;
   const topBtn = document.getElementById('btn-all-internships-top');
   const btmBtn = document.getElementById('btn-all-internships-bottom');
-  const modal = document.getElementById('all-internships-modal');
   const closeBtn = document.getElementById('all-internships-close');
   const searchInput = document.getElementById('internship-search-input');
 
@@ -1315,6 +1719,15 @@ function initAllInternshipsModal() {
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closeAllInternshipsModal);
+  const footerCloseBtn = document.getElementById('btn-close-internships-footer');
+  if (footerCloseBtn) footerCloseBtn.addEventListener('click', closeAllInternshipsModal);
+
+  modal.querySelectorAll('.modal-dir-tab[data-switch-dir]').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.stopPropagation();
+      switchDirectoryModal(tab.dataset.switchDir);
+    });
+  });
 
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -1422,9 +1835,10 @@ function renderAllCertsCards(filterQuery = '') {
 }
 
 function initAllCertsModal() {
+  const modal = document.getElementById('all-certs-modal');
+  if (!modal) return;
   const topBtn = document.getElementById('btn-all-certs-top');
   const btmBtn = document.getElementById('btn-all-certs-bottom');
-  const modal = document.getElementById('all-certs-modal');
   const closeBtn = document.getElementById('all-certs-close');
   const searchInput = document.getElementById('cert-search-input');
 
@@ -1438,6 +1852,15 @@ function initAllCertsModal() {
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closeAllCertsModal);
+  const footerCloseBtn = document.getElementById('btn-close-certs-footer');
+  if (footerCloseBtn) footerCloseBtn.addEventListener('click', closeAllCertsModal);
+
+  modal.querySelectorAll('.modal-dir-tab[data-switch-dir]').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.stopPropagation();
+      switchDirectoryModal(tab.dataset.switchDir);
+    });
+  });
 
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -1547,9 +1970,10 @@ function renderAllCocurrCards(filterQuery = '') {
 }
 
 function initAllCocurrModal() {
+  const modal = document.getElementById('all-cocurr-modal');
+  if (!modal) return;
   const topBtn = document.getElementById('btn-all-cocurr-top');
   const btmBtn = document.getElementById('btn-all-cocurr-bottom');
-  const modal = document.getElementById('all-cocurr-modal');
   const closeBtn = document.getElementById('all-cocurr-close');
   const searchInput = document.getElementById('cocurr-search-input');
 
@@ -1563,6 +1987,15 @@ function initAllCocurrModal() {
   }
 
   if (closeBtn) closeBtn.addEventListener('click', closeAllCocurrModal);
+  const footerCloseBtn = document.getElementById('btn-close-cocurr-footer');
+  if (footerCloseBtn) footerCloseBtn.addEventListener('click', closeAllCocurrModal);
+
+  modal.querySelectorAll('.modal-dir-tab[data-switch-dir]').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      e.stopPropagation();
+      switchDirectoryModal(tab.dataset.switchDir);
+    });
+  });
 
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
@@ -1580,34 +2013,366 @@ function initAllCocurrModal() {
 }
 
 /* --------------------------------------------------------------------------
-   Contact form (Formspree, submitted via fetch to avoid a full page reload)
+   Contact form (Formspree with honeypot, anti-abuse firewall, fake email
+   filtering, rate limiting, and terminal security challenge)
    -------------------------------------------------------------------------- */
+
+const BANNED_PATTERNS = [
+  // Hindi / Hinglish abuse, slurs & troll patterns
+  /\b(chutiya|chutiye|chutye|chootiya|choot|chut|bhenchod|benchod|banchod|behenchod|bc|mc|madarchod|madarjaat|maderchod|gandu|gaand|gand|lodu|lauda|laude|lawda|lawde|bhosadi|bhosdike|bhosadike|harami|kamine|kutta|kamina|saale|sala|randi|rndi|tatte|tatto|tatton|bhadwe|bhadva)\b/i,
+  /\b(baap\s+ko|tere\s+baap|chal\s+naa|apne\s+baap|teri\s+maa|teri\s+behen)\b/i,
+  // English vulgarity, harassment & insults
+  /\b(fuck|fucker|fucking|fck|fuk|shit|bullshit|bitch|bastard|asshole|dick|cock|pussy|whore|slut|retard|stfu|dumbass|moron)\b/i
+];
+
+function containsAbuse(text) {
+  if (!text) return false;
+  // Normalize common leetspeak substitutions
+  const clean = text.toLowerCase().replace(/[@$!01345]/g, c => ({ '@':'a', '$':'s', '!':'i', '0':'o', '1':'i', '3':'e', '4':'a', '5':'s' }[c] || c));
+  return BANNED_PATTERNS.some(regex => regex.test(clean));
+}
+
+function isGibberishOrTroll(text) {
+  if (!text) return false;
+  const clean = text.toLowerCase().trim();
+
+  // 1. Stretched character repetition e.g. "hoooooooooooo", "heeeeee", "aaaaaa"
+  if (/(.)\1{3,}/i.test(clean)) return true;
+
+  // 2. Repeated laughter or syllable patterns e.g. "heee heee hee", "ha ha ha", "ho ho ho", "lol lol lol"
+  if (/(?:^|\s)(he+|ha+|ho+|hi+|hue+|ja+|lol+)(?:\s+(he+|ha+|ho+|hi+|hue+|ja+|lol+)){1,}(?:\s|$)/i.test(clean)) {
+    return true;
+  }
+
+  // 3. Syllables looped without spaces e.g. "hehehe", "hahaha", "hohoho", "huehuehue", "lololol"
+  if (/(he){2,}|(ha){2,}|(ho){2,}|(hi){2,}|(ja){2,}|(lol){2,}|(hue){2,}/i.test(clean.replace(/\s+/g, ''))) {
+    return true;
+  }
+
+  // 4. Consecutive repeated words e.g. "word word word"
+  if (/\b([a-zA-Z0-9]+)\s+\1\s+\1\b/i.test(clean)) return true;
+
+  // 5. Internet troll laughter keywords
+  if (/\b(hehe+|haha+|hoho+|hihi+|huehue+|jaja+|lolol+|rofl+|lmao+|lmfao+)\b/i.test(clean)) return true;
+
+  // 6. Low character entropy / repetitive character pool over length 8+
+  const stripped = clean.replace(/[^a-z0-9]/gi, '');
+  if (stripped.length >= 8) {
+    const uniqueChars = new Set(stripped.split('')).size;
+    if (uniqueChars <= 3) return true;
+  }
+
+  // 7. Keyboard mash: 6+ consonants in a row with no vowels
+  if (/[bcdfghjklmnpqrstvwxyz]{6,}/i.test(clean)) return true;
+
+  // 8. Keyboard row sequences
+  if (/(asdfgh|qwerty|zxcvbn|123456)/i.test(clean)) return true;
+
+  return false;
+}
+
+function isSuspiciousEmail(email) {
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return true;
+  const parts = email.toLowerCase().split('@');
+  if (parts.length !== 2) return true;
+  const [local, domain] = parts;
+
+  // Troll local parts (e.g., hehehehehe, marzimeri, hoooo, fake, spam)
+  if (/^(he+|ha+|ho+|hi+|hue+|jaja+|marzimeri|nobody|spam|trash|fake|test|dummy|random|anon|noname|admin|user)[0-9_.-]*$/i.test(local)) {
+    return true;
+  }
+
+  // Obvious repeated substrings or excessive character repetition
+  if (/(.)\1{3,}/.test(local)) return true;
+  if (/(he){2,}|(ha){2,}|(ho){2,}|(ja){2,}|(lol){2,}/.test(local)) return true;
+
+  // Low entropy in local part
+  const localLetters = local.replace(/[^a-z0-9]/g, '');
+  if (localLetters.length >= 6 && new Set(localLetters.split('')).size <= 2) {
+    return true;
+  }
+
+  // Common disposable / throwaway domains
+  const disposableDomains = [
+    'tempmail.com', 'throwawaymail.com', 'mailinator.com', 'guerrillamail.com',
+    '10minutemail.com', 'sharklasers.com', 'yopmail.com', 'getnada.com',
+    'trashmail.com', 'temp-mail.org', 'dispostable.com', 'fakemailgenerator.com',
+    'burnermail.io', 'dropmail.me', 'mohmal.com'
+  ];
+  if (disposableDomains.some(d => domain === d || domain.endsWith('.' + d))) {
+    return true;
+  }
+
+  const tld = domain.split('.').pop();
+  if (!tld || tld.length < 2) return true;
+
+  return false;
+}
 
 function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
   const status = document.getElementById('formStatus');
+  const btnSubmit = document.getElementById('btn-term-submit') || form.querySelector('button[type="submit"]');
+
+  const inputName = form.querySelector('#name');
+  const inputEmail = form.querySelector('#email');
+  const inputSubject = form.querySelector('#subject');
+  const inputMessage = form.querySelector('#message');
+
+  const errName = document.getElementById('err-name');
+  const errEmail = document.getElementById('err-email');
+  const errSubject = document.getElementById('err-subject');
+  const errMessage = document.getElementById('err-message');
+  const msgCharCounter = document.getElementById('msg-char-counter');
+
+  function showHudStatus(type, title, message) {
+    if (!status) return;
+    const icons = {
+      err: 'fa-shield-halved',
+      warn: 'fa-hourglass-half',
+      ok: 'fa-circle-check',
+      busy: 'fa-circle-notch'
+    };
+    const iconClass = icons[type] || 'fa-circle-info';
+    const spinClass = type === 'busy' ? ' fa-spin' : '';
+
+    status.innerHTML = `
+      <div class="form-status-hud hud-${type}">
+        <div class="hud-icon"><i class="fas ${iconClass}${spinClass}"></i></div>
+        <div class="hud-content">
+          <div class="hud-header">[${escapeHTML(title)}]</div>
+          <div class="hud-msg">${escapeHTML(message)}</div>
+        </div>
+      </div>
+    `;
+  }
+
+  function clearAllFieldErrors() {
+    [inputName, inputEmail, inputSubject, inputMessage].forEach(input => {
+      if (input) input.classList.remove('is-invalid');
+    });
+    [errName, errEmail, errSubject, errMessage].forEach(errEl => {
+      if (errEl) {
+        errEl.classList.remove('is-visible');
+        errEl.innerHTML = '';
+      }
+    });
+  }
+
+  function setFieldError(inputEl, errEl, message) {
+    if (inputEl) {
+      inputEl.classList.remove('is-invalid');
+      void inputEl.offsetWidth; // re-trigger animation
+      inputEl.classList.add('is-invalid');
+      inputEl.focus();
+    }
+    if (errEl) {
+      errEl.innerHTML = `<i class="fas fa-triangle-exclamation"></i> <span>$ err: ${escapeHTML(message)}</span>`;
+      errEl.classList.add('is-visible');
+    }
+  }
+
+  // Live character counter for message
+  const MIN_MSG_CHARS = 15;
+  function updateCharCounter() {
+    if (!inputMessage || !msgCharCounter) return;
+    const len = inputMessage.value.trim().length;
+    if (len === 0) {
+      msgCharCounter.textContent = `0 / ${MIN_MSG_CHARS} chars min`;
+      msgCharCounter.className = 'term-char-counter';
+    } else if (len < MIN_MSG_CHARS) {
+      msgCharCounter.textContent = `${len} / ${MIN_MSG_CHARS} chars (${MIN_MSG_CHARS - len} needed)`;
+      msgCharCounter.className = 'term-char-counter is-low';
+    } else {
+      msgCharCounter.textContent = `✓ ${len} chars (valid)`;
+      msgCharCounter.className = 'term-char-counter is-valid';
+    }
+  }
+
+  if (inputMessage) {
+    inputMessage.addEventListener('input', () => {
+      updateCharCounter();
+      if (inputMessage.classList.contains('is-invalid')) {
+        inputMessage.classList.remove('is-invalid');
+        if (errMessage) errMessage.classList.remove('is-visible');
+      }
+    });
+  }
+
+  // Clear field errors as user types in inputs
+  [
+    [inputName, errName],
+    [inputEmail, errEmail],
+    [inputSubject, errSubject]
+  ].forEach(([input, errEl]) => {
+    if (input) {
+      input.addEventListener('input', () => {
+        if (input.classList.contains('is-invalid')) {
+          input.classList.remove('is-invalid');
+          if (errEl) errEl.classList.remove('is-visible');
+        }
+      });
+    }
+  });
+
+  updateCharCounter();
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    status.textContent = 'Transmitting...';
-    status.className = 'form-status';
+    clearAllFieldErrors();
+
+    // 1. Honeypot check for automated spam bots
+    const gotcha = form.querySelector('input[name="_gotcha"]');
+    if (gotcha && gotcha.value.trim() !== '') {
+      showHudStatus('ok', 'PAYLOAD DELIVERED', 'Your message has been processed successfully.');
+      form.reset();
+      updateCharCounter();
+      return;
+    }
+
+    // 2. Client-side Rate Limiting (90 second cooldown between submissions)
+    const COOLDOWN_MS = 90 * 1000;
+    const lastSubmitTime = parseInt(localStorage.getItem('portfolio_last_submit_ts') || '0', 10);
+    const now = Date.now();
+    if (now - lastSubmitTime < COOLDOWN_MS) {
+      const waitSec = Math.ceil((COOLDOWN_MS - (now - lastSubmitTime)) / 1000);
+      showHudStatus('warn', 'TRANSMISSION THROTTLED', `Rate limit active. Please wait ${waitSec}s before transmitting another message.`);
+      return;
+    }
+
+    const name = inputName?.value?.trim() || '';
+    const email = inputEmail?.value?.trim() || '';
+    const subject = inputSubject?.value?.trim() || '';
+    const message = inputMessage?.value?.trim() || '';
+
+    // 3. Sender Name Validation
+    if (!name) {
+      setFieldError(inputName, errName, 'Name field cannot be blank.');
+      showHudStatus('err', 'FIELD REQUIRED', 'Please specify your name before transmitting.');
+      return;
+    }
+    if (containsAbuse(name)) {
+      setFieldError(inputName, errName, 'Inappropriate or abusive name detected.');
+      showHudStatus('err', 'SECURITY FIREWALL', 'Inappropriate sender name detected. Transmission blocked.');
+      return;
+    }
+    if (isGibberishOrTroll(name)) {
+      setFieldError(inputName, errName, 'Repetitive laughter or gibberish name detected.');
+      showHudStatus('warn', 'SPAM FILTER BLOCKED', 'Repetitive laughter or gibberish detected in sender name.');
+      return;
+    }
+    if (name.length < 2 || /^[^a-zA-Z\s]+$/.test(name) || /^(test|asdf|qwerty|none|na|xyz|admin)$/i.test(name)) {
+      setFieldError(inputName, errName, 'Please enter a genuine name (min 2 letters).');
+      showHudStatus('err', 'VALIDATION ERROR', 'Sender name must be at least 2 characters.');
+      return;
+    }
+
+    // 4. Email Validation
+    if (!email) {
+      setFieldError(inputEmail, errEmail, 'Email address is required for a response.');
+      showHudStatus('err', 'FIELD REQUIRED', 'Please provide an email address so I can get back to you.');
+      return;
+    }
+    if (containsAbuse(email)) {
+      setFieldError(inputEmail, errEmail, 'Inappropriate content in email address.');
+      showHudStatus('err', 'SECURITY FIREWALL', 'Inappropriate email address detected. Transmission blocked.');
+      return;
+    }
+    if (isSuspiciousEmail(email) || isGibberishOrTroll(email.split('@')[0])) {
+      setFieldError(inputEmail, errEmail, 'Please provide a valid, verifiable email (e.g. name@domain.com).');
+      showHudStatus('err', 'VERIFICATION FAILED', 'Disposable, repetitive, or fake emails are rejected.');
+      return;
+    }
+
+    // 5. Subject Validation
+    if (!subject) {
+      setFieldError(inputSubject, errSubject, 'Subject field is required.');
+      showHudStatus('err', 'FIELD REQUIRED', 'Please provide a reason or subject for your inquiry.');
+      return;
+    }
+    if (containsAbuse(subject)) {
+      setFieldError(inputSubject, errSubject, 'Inappropriate language in subject.');
+      showHudStatus('err', 'SECURITY FIREWALL', 'Offensive content detected in subject line. Transmission blocked.');
+      return;
+    }
+    if (isGibberishOrTroll(subject)) {
+      setFieldError(inputSubject, errSubject, 'Repetitive laughter or gibberish detected in subject.');
+      showHudStatus('warn', 'SPAM FILTER BLOCKED', 'Repetitive laughter, stretched sounds, or spam detected in subject.');
+      return;
+    }
+    if (subject.length < 3) {
+      setFieldError(inputSubject, errSubject, 'Subject must contain at least 3 characters.');
+      showHudStatus('err', 'VALIDATION ERROR', 'Subject is too brief.');
+      return;
+    }
+
+    // 6. Message Validation
+    if (!message) {
+      setFieldError(inputMessage, errMessage, 'Message body cannot be empty.');
+      showHudStatus('err', 'FIELD REQUIRED', 'Please type your message in the message area.');
+      return;
+    }
+    if (containsAbuse(message)) {
+      setFieldError(inputMessage, errMessage, 'Inappropriate or abusive language detected.');
+      showHudStatus('err', 'SECURITY FIREWALL', 'Offensive content detected in message body. Transmission blocked.');
+      return;
+    }
+    if (isGibberishOrTroll(message)) {
+      setFieldError(inputMessage, errMessage, 'Repetitive laughter, sound stretching, or spam detected.');
+      showHudStatus('warn', 'SPAM FILTER BLOCKED', 'Repetitive laughter, sound stretching (e.g. hoooo/heeee), or gibberish detected. Please write a genuine inquiry.');
+      return;
+    }
+    if (message.length < MIN_MSG_CHARS) {
+      setFieldError(inputMessage, errMessage, `Please use at least ${MIN_MSG_CHARS} characters (currently using ${message.length} chars, need ${MIN_MSG_CHARS - message.length} more).`);
+      showHudStatus('err', 'VALIDATION ERROR', `Inquiry is too brief (${message.length}/${MIN_MSG_CHARS} min chars). Please provide more details.`);
+      return;
+    }
+    if (/^(.)\1{8,}$/.test(message.replace(/\s+/g, ''))) {
+      setFieldError(inputMessage, errMessage, 'Repetitive character sequence detected.');
+      showHudStatus('err', 'VALIDATION ERROR', 'Repetitive text detected. Please enter a genuine inquiry.');
+      return;
+    }
+
+    // 7. Transmission to Formspree
+    showHudStatus('busy', 'ENCRYPTING & TRANSMITTING', 'Dispatching secure payload to server...');
+    if (btnSubmit) {
+      btnSubmit.disabled = true;
+      btnSubmit.innerHTML = 'Transmitting... <i class="fas fa-spinner fa-spin"></i>';
+    }
+
     try {
+      const formData = new FormData(form);
+
       const res = await fetch(form.action, {
         method: 'POST',
-        body: new FormData(form),
+        body: formData,
         headers: { Accept: 'application/json' }
       });
+
       if (res.ok) {
-        status.textContent = '✓ Message sent — I\'ll get back to you soon.';
-        status.className = 'form-status ok';
+        localStorage.setItem('portfolio_last_submit_ts', Date.now().toString());
+        showHudStatus('ok', 'PAYLOAD DELIVERED', 'Your message has been securely sent to Aman. I will get back to you shortly!');
         form.reset();
+        updateCharCounter();
       } else {
+        const data = await res.json().catch(() => null);
+        if (data && data.errors && data.errors.length) {
+          throw new Error(data.errors.map(err => err.message).join(', '));
+        }
         throw new Error('failed');
       }
     } catch (err) {
-      status.textContent = '✗ Something went wrong — please email me directly instead.';
-      status.className = 'form-status err';
+      console.warn('Form submission error:', err);
+      const userMsg = err?.message && err.message !== 'failed'
+        ? err.message
+        : 'Failed to reach endpoint. Please email directly at amangour5488@gmail.com.';
+      showHudStatus('err', 'TRANSMISSION ERROR', userMsg);
+    } finally {
+      if (btnSubmit) {
+        btnSubmit.disabled = false;
+        btnSubmit.innerHTML = './send_message.sh <i class="fas fa-paper-plane"></i>';
+      }
     }
   });
 }
@@ -1622,9 +2387,11 @@ function initPageTransitionLinks() {
     a.addEventListener('click', (e) => {
       const href = a.getAttribute('href');
       if (!href || href.startsWith('#')) return;
+      const safeHref = sanitizeUrl(href);
+      if (safeHref === '#') return;
       e.preventDefault();
       if (el) el.classList.add('is-active');
-      setTimeout(() => { window.location.href = href; }, 320);
+      setTimeout(() => { window.location.href = safeHref; }, 320);
     });
   });
 }
@@ -1637,4 +2404,65 @@ function escapeHTML(str) {
   const div = document.createElement('div');
   div.textContent = str ?? '';
   return div.innerHTML;
+}
+
+function sanitizeUrl(url) {
+  if (!url || typeof url !== 'string') return '#';
+  const trimmed = url.trim();
+  if (/^(https?:|mailto:|tel:|\/|\.\/|\.\.\/|#)/i.test(trimmed)) {
+    return trimmed;
+  }
+  return '#';
+}
+
+/* --------------------------------------------------------------------------
+   Floating Back to Top Button (~/top)
+   -------------------------------------------------------------------------- */
+
+function initBackToTop() {
+  const btn = document.getElementById('btn-back-to-top');
+  if (!btn) return;
+
+  let ticking = false;
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (window.scrollY > 350) {
+          btn.classList.add('is-visible');
+        } else {
+          btn.classList.remove('is-visible');
+        }
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   Cyber HUD Toast Notification System
+   -------------------------------------------------------------------------- */
+
+let cyberToastTimer = null;
+
+function showCyberToast(htmlContent, duration = 3000) {
+  const toast = document.getElementById('cyber-toast');
+  if (!toast) return;
+
+  toast.innerHTML = htmlContent;
+  toast.classList.add('show');
+
+  if (cyberToastTimer) clearTimeout(cyberToastTimer);
+
+  cyberToastTimer = setTimeout(() => {
+    toast.classList.remove('show');
+  }, duration);
 }
