@@ -351,9 +351,9 @@ function initHeroTyping() {
   let charIndex = 0;
   let isDeleting = false;
 
-  const TYPE_SPEED = 90;
-  const DELETE_SPEED = 45;
-  const HOLD_MS = 1600;
+  const TYPE_SPEED = 140;
+  const DELETE_SPEED = 70;
+  const HOLD_MS = 2200;
 
   (function tick() {
     const current = phrases[phraseIndex];
@@ -1430,8 +1430,8 @@ function typeOutDescription(el, text) {
   (function tick() {
     if (i <= text.length) {
       el.innerHTML = escapeHTML(text.slice(0, i)) + '<span class="caret"></span>';
-      i += 2;
-      modalTypeTimer = setTimeout(tick, 12);
+      i++;
+      modalTypeTimer = setTimeout(tick, 22);
     } else {
       el.textContent = text;
     }
