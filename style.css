@@ -460,13 +460,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   background: var(--bg-card);
   border: 1.5px solid rgba(79, 216, 255, 0.4);
   border-radius: var(--radius);
-  padding: 30px;
+  padding: 28px 26px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 18px rgba(79, 216, 255, 0.08);
   transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
               box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
               transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card > *,
+.work-card > *,
+.tl-trigger > *,
+.all-internship-card > *,
+.cocurr-badge > *,
+.cc-face > * {
+  position: relative;
+  z-index: 2;
 }
 .card::before {
   content: '';
@@ -475,6 +484,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--card-glow, var(--cyan)), transparent);
   opacity: 0.55;
+  z-index: 1;
+  pointer-events: none;
   transition: opacity 0.25s ease, height 0.25s ease, background 0.25s ease;
 }
 .card:hover {
@@ -485,55 +496,125 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height: 3px;
 }
 
+/* About Section Badges with Emojis */
+.about-badge-bio {
+  color: var(--green);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+.about-card-bio:hover .about-badge-bio {
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(79, 216, 255, 0.5);
+}
+
+.about-badge-skills {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+.about-card-skills:hover .about-badge-skills {
+  color: var(--green);
+  text-shadow: 0 0 14px rgba(57, 255, 138, 0.5);
+}
+
 /* Card 1: "Who Am I?" — Resting Green -> Hover Electric Cyan */
-.grid-2 > .card:nth-child(1) {
+.grid-2 > .card:nth-child(1),
+.about-card-bio {
   --card-glow: var(--green);
   border-color: rgba(57, 255, 138, 0.45);
   box-shadow: 0 4px 22px rgba(0, 0, 0, 0.42), 0 0 20px rgba(57, 255, 138, 0.1);
 }
-.grid-2 > .card:nth-child(1):hover {
+.grid-2 > .card:nth-child(1):hover,
+.about-card-bio:hover {
   border-color: var(--cyan);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(79, 216, 255, 0.28);
 }
-.grid-2 > .card:nth-child(1):hover::before {
+.grid-2 > .card:nth-child(1):hover::before,
+.about-card-bio:hover::before {
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
 }
 
 /* Card 2: "Technical Skills" — Resting Cyan -> Hover Matrix Green */
-.grid-2 > .card:nth-child(2) {
+.grid-2 > .card:nth-child(2),
+.about-card-skills {
   --card-glow: var(--cyan);
   border-color: rgba(79, 216, 255, 0.45);
   box-shadow: 0 4px 22px rgba(0, 0, 0, 0.42), 0 0 20px rgba(79, 216, 255, 0.1);
 }
-.grid-2 > .card:nth-child(2):hover {
+.grid-2 > .card:nth-child(2):hover,
+.about-card-skills:hover {
   border-color: var(--green);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(57, 255, 138, 0.28);
 }
-.grid-2 > .card:nth-child(2):hover::before {
+.grid-2 > .card:nth-child(2):hover::before,
+.about-card-skills:hover::before {
   background: linear-gradient(90deg, transparent, var(--green), transparent);
 }
 
 .card h4 {
   font-family: var(--font-mono);
   color: var(--text-0);
-  font-size: 1rem;
-  margin-bottom: 14px;
+  font-size: 1.05rem;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+/* Technical Skills Tags — Elevated & High-Contrast */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+  position: relative;
+  z-index: 2;
+}
 .tag {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-1);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 5px 10px;
+  font-size: 0.74rem;
+  font-weight: 500;
+  color: #e7edf3;
+  background: rgba(13, 22, 34, 0.95);
+  border: 1px solid rgba(79, 216, 255, 0.32);
+  border-radius: 4px;
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  position: relative;
+  z-index: 2;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.tag-emoji {
+  font-size: 0.86rem;
+  line-height: 1;
+  display: inline-block;
+}
+.tag:hover {
+  border-color: var(--green);
+  color: #fff;
+  background: rgba(57, 255, 138, 0.14);
+  box-shadow: 0 0 14px rgba(57, 255, 138, 0.28);
+  transform: translateY(-2px);
 }
 
-.social-row { display: flex; gap: 12px; margin-top: 22px; }
+.social-row { display: flex; gap: 12px; margin-top: 22px; position: relative; z-index: 2; }
 .social-btn {
   width: 38px; height: 38px;
   display: flex; align-items: center; justify-content: center;
@@ -554,7 +635,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   background: var(--bg-card);
   border: 1.5px solid rgba(79, 216, 255, 0.42);
   border-radius: var(--radius);
-  padding: 24px;
+  padding: 24px 22px;
   cursor: pointer;
   text-align: left;
   color: inherit;
@@ -573,6 +654,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height: 2px;
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
   opacity: 0.5;
+  z-index: 1;
+  pointer-events: none;
   transition: opacity 0.25s ease, height 0.25s ease, background 0.25s ease;
 }
 .work-card:hover {
@@ -585,9 +668,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height: 3px;
   background: linear-gradient(90deg, transparent, var(--green), transparent);
 }
-.work-card-id { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-2); letter-spacing: 0.08em; margin-bottom: 10px; }
-.work-card h4 { font-family: var(--font-mono); color: var(--text-0); font-size: 1.02rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-.work-card p { font-size: 0.9rem; color: var(--text-2); }
+.work-card-id { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-2); letter-spacing: 0.08em; margin-bottom: 8px; }
+.work-card h4 {
+  font-family: var(--font-mono);
+  color: var(--text-0);
+  font-size: 1.05rem;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.2s ease;
+}
+.work-card:hover h4 { color: #fff; }
+.work-card p { font-size: 0.9rem; color: var(--text-1); line-height: 1.55; }
 .work-card .tag-row { margin-top: 16px; }
 
 .section-footer-link { margin-top: 36px; text-align: center; }
@@ -626,7 +719,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   background: var(--bg-card);
   border: 1.5px solid rgba(56, 189, 248, 0.42);
   border-radius: var(--radius);
-  padding: 20px 22px;
+  padding: 22px 24px;
   cursor: pointer;
   width: 100%;
   color: inherit;
@@ -644,6 +737,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height: 2px;
   background: linear-gradient(90deg, transparent, #38bdf8, transparent);
   opacity: 0.5;
+  z-index: 1;
+  pointer-events: none;
   transition: opacity 0.25s ease, height 0.25s ease, background 0.25s ease;
 }
 .tl-trigger:hover {
@@ -656,9 +751,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height: 3px;
   background: linear-gradient(90deg, transparent, var(--green), transparent);
 }
-.tl-org { font-family: var(--font-mono); color: var(--text-0); font-size: 0.98rem; font-weight: 600; }
-.tl-role { color: var(--text-2); font-size: 0.85rem; margin-top: 4px; }
-.tl-dates { font-family: var(--font-mono); color: var(--cyan-dim); font-size: 0.72rem; margin-top: 8px; letter-spacing: 0.05em; }
+.tl-org {
+  font-family: var(--font-mono);
+  color: var(--text-0);
+  font-size: 1.02rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+.tl-trigger:hover .tl-org { color: #fff; }
+.tl-role { color: var(--cyan); font-size: 0.86rem; margin-top: 4px; font-weight: 500; }
+.tl-dates { font-family: var(--font-mono); color: var(--text-2); font-size: 0.72rem; margin-top: 6px; letter-spacing: 0.05em; }
 
 .tl-doc-pills {
   display: flex;
@@ -844,16 +946,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 1. Winner / 1st Runner Up (Cyber Gold at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-winner.is-unlocked,
 .cc-flip.badge-winner .cc-face,
+.work-card.badge-winner,
+.tl-trigger.badge-winner,
 .all-internship-card.badge-winner {
   border-color: rgba(255, 193, 7, 0.65);
   box-shadow: 0 0 0 1px rgba(255, 191, 0, 0.32), 0 0 24px rgba(255, 191, 0, 0.14);
 }
+.work-card.badge-winner::before,
+.tl-trigger.badge-winner::before,
 .all-internship-card.badge-winner::before {
   background: linear-gradient(90deg, transparent, #ffc107, transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-winner .badge-icon,
 .cc-flip.badge-winner .badge-icon,
+.work-card.badge-winner .badge-icon,
+.tl-trigger.badge-winner .badge-icon,
 .all-internship-card.badge-winner .badge-icon {
   color: #ffc107;
   font-weight: 700;
@@ -861,10 +969,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .cocurr-badge.badge-winner:hover,
 .cc-flip.badge-winner:hover .cc-face,
 .cc-flip.badge-winner:focus-visible .cc-face,
+.work-card.badge-winner:hover,
+.tl-trigger.badge-winner:hover,
 .all-internship-card.badge-winner:hover {
   border-color: var(--cyan);
   box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
 }
+.cocurr-badge.badge-winner:hover .badge-icon,
+.cc-flip.badge-winner:hover .badge-icon,
+.work-card.badge-winner:hover .badge-icon,
+.tl-trigger.badge-winner:hover .badge-icon,
+.all-internship-card.badge-winner:hover .badge-icon {
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(79, 216, 255, 0.6);
+}
+.work-card.badge-winner:hover::before,
+.tl-trigger.badge-winner:hover::before,
 .all-internship-card.badge-winner:hover::before {
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
   opacity: 1;
@@ -873,26 +993,44 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 2. Hackathon / Web Design (Cyber Cyan at rest -> Neon Green on hover) */
 .cocurr-badge.badge-hackathon.is-unlocked,
 .cc-flip.badge-hackathon .cc-face,
+.work-card.badge-hackathon,
+.tl-trigger.badge-hackathon,
 .all-internship-card.badge-hackathon {
   border-color: rgba(79, 216, 255, 0.6);
   box-shadow: 0 0 0 1px rgba(79, 216, 255, 0.3), 0 0 24px rgba(79, 216, 255, 0.14);
 }
+.work-card.badge-hackathon::before,
+.tl-trigger.badge-hackathon::before,
 .all-internship-card.badge-hackathon::before {
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-hackathon .badge-icon,
 .cc-flip.badge-hackathon .badge-icon,
+.work-card.badge-hackathon .badge-icon,
+.tl-trigger.badge-hackathon .badge-icon,
 .all-internship-card.badge-hackathon .badge-icon {
   color: var(--cyan);
 }
 .cocurr-badge.badge-hackathon:hover,
 .cc-flip.badge-hackathon:hover .cc-face,
 .cc-flip.badge-hackathon:focus-visible .cc-face,
+.work-card.badge-hackathon:hover,
+.tl-trigger.badge-hackathon:hover,
 .all-internship-card.badge-hackathon:hover {
   border-color: var(--green);
   box-shadow: 0 0 0 1.5px var(--green), 0 0 32px rgba(57, 255, 138, 0.35);
 }
+.cocurr-badge.badge-hackathon:hover .badge-icon,
+.cc-flip.badge-hackathon:hover .badge-icon,
+.work-card.badge-hackathon:hover .badge-icon,
+.tl-trigger.badge-hackathon:hover .badge-icon,
+.all-internship-card.badge-hackathon:hover .badge-icon {
+  color: var(--green);
+  text-shadow: 0 0 14px rgba(57, 255, 138, 0.6);
+}
+.work-card.badge-hackathon:hover::before,
+.tl-trigger.badge-hackathon:hover::before,
 .all-internship-card.badge-hackathon:hover::before {
   background: linear-gradient(90deg, transparent, var(--green), transparent);
   opacity: 1;
@@ -901,26 +1039,44 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 3. Faculty Development Program / AI (Royal Purple at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-fdp.is-unlocked,
 .cc-flip.badge-fdp .cc-face,
+.work-card.badge-fdp,
+.tl-trigger.badge-fdp,
 .all-internship-card.badge-fdp {
   border-color: rgba(192, 132, 252, 0.65);
   box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.32), 0 0 24px rgba(168, 85, 247, 0.14);
 }
+.work-card.badge-fdp::before,
+.tl-trigger.badge-fdp::before,
 .all-internship-card.badge-fdp::before {
   background: linear-gradient(90deg, transparent, #c084fc, transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-fdp .badge-icon,
 .cc-flip.badge-fdp .badge-icon,
+.work-card.badge-fdp .badge-icon,
+.tl-trigger.badge-fdp .badge-icon,
 .all-internship-card.badge-fdp .badge-icon {
   color: #c084fc;
 }
 .cocurr-badge.badge-fdp:hover,
 .cc-flip.badge-fdp:hover .cc-face,
 .cc-flip.badge-fdp:focus-visible .cc-face,
+.work-card.badge-fdp:hover,
+.tl-trigger.badge-fdp:hover,
 .all-internship-card.badge-fdp:hover {
   border-color: var(--cyan);
   box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
 }
+.cocurr-badge.badge-fdp:hover .badge-icon,
+.cc-flip.badge-fdp:hover .badge-icon,
+.work-card.badge-fdp:hover .badge-icon,
+.tl-trigger.badge-fdp:hover .badge-icon,
+.all-internship-card.badge-fdp:hover .badge-icon {
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(79, 216, 255, 0.6);
+}
+.work-card.badge-fdp:hover::before,
+.tl-trigger.badge-fdp:hover::before,
 .all-internship-card.badge-fdp:hover::before {
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
   opacity: 1;
@@ -929,26 +1085,44 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 4. Conclave / Bureau (Rose Crimson at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-conclave.is-unlocked,
 .cc-flip.badge-conclave .cc-face,
+.work-card.badge-conclave,
+.tl-trigger.badge-conclave,
 .all-internship-card.badge-conclave {
   border-color: rgba(251, 113, 133, 0.65);
   box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.32), 0 0 24px rgba(244, 63, 94, 0.14);
 }
+.work-card.badge-conclave::before,
+.tl-trigger.badge-conclave::before,
 .all-internship-card.badge-conclave::before {
   background: linear-gradient(90deg, transparent, #fb7185, transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-conclave .badge-icon,
 .cc-flip.badge-conclave .badge-icon,
+.work-card.badge-conclave .badge-icon,
+.tl-trigger.badge-conclave .badge-icon,
 .all-internship-card.badge-conclave .badge-icon {
   color: #fb7185;
 }
 .cocurr-badge.badge-conclave:hover,
 .cc-flip.badge-conclave:hover .cc-face,
 .cc-flip.badge-conclave:focus-visible .cc-face,
+.work-card.badge-conclave:hover,
+.tl-trigger.badge-conclave:hover,
 .all-internship-card.badge-conclave:hover {
   border-color: var(--cyan);
   box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
 }
+.cocurr-badge.badge-conclave:hover .badge-icon,
+.cc-flip.badge-conclave:hover .badge-icon,
+.work-card.badge-conclave:hover .badge-icon,
+.tl-trigger.badge-conclave:hover .badge-icon,
+.all-internship-card.badge-conclave:hover .badge-icon {
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(79, 216, 255, 0.6);
+}
+.work-card.badge-conclave:hover::before,
+.tl-trigger.badge-conclave:hover::before,
 .all-internship-card.badge-conclave:hover::before {
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
   opacity: 1;
@@ -957,26 +1131,44 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 5. Workshop / Pre Security (Emerald Green at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-workshop.is-unlocked,
 .cc-flip.badge-workshop .cc-face,
+.work-card.badge-workshop,
+.tl-trigger.badge-workshop,
 .all-internship-card.badge-workshop {
   border-color: rgba(52, 211, 153, 0.65);
   box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.32), 0 0 24px rgba(16, 185, 129, 0.14);
 }
+.work-card.badge-workshop::before,
+.tl-trigger.badge-workshop::before,
 .all-internship-card.badge-workshop::before {
   background: linear-gradient(90deg, transparent, #34d399, transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-workshop .badge-icon,
 .cc-flip.badge-workshop .badge-icon,
+.work-card.badge-workshop .badge-icon,
+.tl-trigger.badge-workshop .badge-icon,
 .all-internship-card.badge-workshop .badge-icon {
   color: #34d399;
 }
 .cocurr-badge.badge-workshop:hover,
 .cc-flip.badge-workshop:hover .cc-face,
 .cc-flip.badge-workshop:focus-visible .cc-face,
+.work-card.badge-workshop:hover,
+.tl-trigger.badge-workshop:hover,
 .all-internship-card.badge-workshop:hover {
   border-color: var(--cyan);
   box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
 }
+.cocurr-badge.badge-workshop:hover .badge-icon,
+.cc-flip.badge-workshop:hover .badge-icon,
+.work-card.badge-workshop:hover .badge-icon,
+.tl-trigger.badge-workshop:hover .badge-icon,
+.all-internship-card.badge-workshop:hover .badge-icon {
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(79, 216, 255, 0.6);
+}
+.work-card.badge-workshop:hover::before,
+.tl-trigger.badge-workshop:hover::before,
 .all-internship-card.badge-workshop:hover::before {
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
   opacity: 1;
@@ -985,26 +1177,44 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 6. CTF / Red Team / Security 101 (TryHackMe Red at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-ctf.is-unlocked,
 .cc-flip.badge-ctf .cc-face,
+.work-card.badge-ctf,
+.tl-trigger.badge-ctf,
 .all-internship-card.badge-ctf {
   border-color: rgba(248, 113, 113, 0.65);
   box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.32), 0 0 24px rgba(239, 68, 68, 0.14);
 }
+.work-card.badge-ctf::before,
+.tl-trigger.badge-ctf::before,
 .all-internship-card.badge-ctf::before {
   background: linear-gradient(90deg, transparent, #f87171, transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-ctf .badge-icon,
 .cc-flip.badge-ctf .badge-icon,
+.work-card.badge-ctf .badge-icon,
+.tl-trigger.badge-ctf .badge-icon,
 .all-internship-card.badge-ctf .badge-icon {
   color: #f87171;
 }
 .cocurr-badge.badge-ctf:hover,
 .cc-flip.badge-ctf:hover .cc-face,
 .cc-flip.badge-ctf:focus-visible .cc-face,
+.work-card.badge-ctf:hover,
+.tl-trigger.badge-ctf:hover,
 .all-internship-card.badge-ctf:hover {
   border-color: var(--cyan);
   box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
 }
+.cocurr-badge.badge-ctf:hover .badge-icon,
+.cc-flip.badge-ctf:hover .badge-icon,
+.work-card.badge-ctf:hover .badge-icon,
+.tl-trigger.badge-ctf:hover .badge-icon,
+.all-internship-card.badge-ctf:hover .badge-icon {
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(79, 216, 255, 0.6);
+}
+.work-card.badge-ctf:hover::before,
+.tl-trigger.badge-ctf:hover::before,
 .all-internship-card.badge-ctf:hover::before {
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
   opacity: 1;
@@ -1013,26 +1223,44 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 7. Blue Team / Defense (Sky Blue at rest -> Neon Green on hover) */
 .cocurr-badge.badge-blueteam.is-unlocked,
 .cc-flip.badge-blueteam .cc-face,
+.work-card.badge-blueteam,
+.tl-trigger.badge-blueteam,
 .all-internship-card.badge-blueteam {
   border-color: rgba(56, 189, 248, 0.65);
   box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.32), 0 0 24px rgba(56, 189, 248, 0.14);
 }
+.work-card.badge-blueteam::before,
+.tl-trigger.badge-blueteam::before,
 .all-internship-card.badge-blueteam::before {
   background: linear-gradient(90deg, transparent, #38bdf8, transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-blueteam .badge-icon,
 .cc-flip.badge-blueteam .badge-icon,
+.work-card.badge-blueteam .badge-icon,
+.tl-trigger.badge-blueteam .badge-icon,
 .all-internship-card.badge-blueteam .badge-icon {
   color: #38bdf8;
 }
 .cocurr-badge.badge-blueteam:hover,
 .cc-flip.badge-blueteam:hover .cc-face,
 .cc-flip.badge-blueteam:focus-visible .cc-face,
+.work-card.badge-blueteam:hover,
+.tl-trigger.badge-blueteam:hover,
 .all-internship-card.badge-blueteam:hover {
   border-color: var(--green);
   box-shadow: 0 0 0 1.5px var(--green), 0 0 32px rgba(57, 255, 138, 0.35);
 }
+.cocurr-badge.badge-blueteam:hover .badge-icon,
+.cc-flip.badge-blueteam:hover .badge-icon,
+.work-card.badge-blueteam:hover .badge-icon,
+.tl-trigger.badge-blueteam:hover .badge-icon,
+.all-internship-card.badge-blueteam:hover .badge-icon {
+  color: var(--green);
+  text-shadow: 0 0 14px rgba(57, 255, 138, 0.6);
+}
+.work-card.badge-blueteam:hover::before,
+.tl-trigger.badge-blueteam:hover::before,
 .all-internship-card.badge-blueteam:hover::before {
   background: linear-gradient(90deg, transparent, var(--green), transparent);
   opacity: 1;
@@ -1041,26 +1269,44 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 8. Forensics / Analysis (Sky Blue at rest -> Neon Green on hover) */
 .cocurr-badge.badge-forensics.is-unlocked,
 .cc-flip.badge-forensics .cc-face,
+.work-card.badge-forensics,
+.tl-trigger.badge-forensics,
 .all-internship-card.badge-forensics {
   border-color: rgba(56, 189, 248, 0.65);
   box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.32), 0 0 24px rgba(56, 189, 248, 0.14);
 }
+.work-card.badge-forensics::before,
+.tl-trigger.badge-forensics::before,
 .all-internship-card.badge-forensics::before {
   background: linear-gradient(90deg, transparent, #38bdf8, transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-forensics .badge-icon,
 .cc-flip.badge-forensics .badge-icon,
+.work-card.badge-forensics .badge-icon,
+.tl-trigger.badge-forensics .badge-icon,
 .all-internship-card.badge-forensics .badge-icon {
   color: #38bdf8;
 }
 .cocurr-badge.badge-forensics:hover,
 .cc-flip.badge-forensics:hover .cc-face,
 .cc-flip.badge-forensics:focus-visible .cc-face,
+.work-card.badge-forensics:hover,
+.tl-trigger.badge-forensics:hover,
 .all-internship-card.badge-forensics:hover {
   border-color: var(--green);
   box-shadow: 0 0 0 1.5px var(--green), 0 0 32px rgba(57, 255, 138, 0.35);
 }
+.cocurr-badge.badge-forensics:hover .badge-icon,
+.cc-flip.badge-forensics:hover .badge-icon,
+.work-card.badge-forensics:hover .badge-icon,
+.tl-trigger.badge-forensics:hover .badge-icon,
+.all-internship-card.badge-forensics:hover .badge-icon {
+  color: var(--green);
+  text-shadow: 0 0 14px rgba(57, 255, 138, 0.6);
+}
+.work-card.badge-forensics:hover::before,
+.tl-trigger.badge-forensics:hover::before,
 .all-internship-card.badge-forensics:hover::before {
   background: linear-gradient(90deg, transparent, var(--green), transparent);
   opacity: 1;
@@ -1069,26 +1315,44 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 9. Challenge / Python (Neon Lime at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-challenge.is-unlocked,
 .cc-flip.badge-challenge .cc-face,
+.work-card.badge-challenge,
+.tl-trigger.badge-challenge,
 .all-internship-card.badge-challenge {
   border-color: rgba(163, 230, 53, 0.65);
   box-shadow: 0 0 0 1px rgba(163, 230, 53, 0.32), 0 0 24px rgba(163, 230, 53, 0.14);
 }
+.work-card.badge-challenge::before,
+.tl-trigger.badge-challenge::before,
 .all-internship-card.badge-challenge::before {
   background: linear-gradient(90deg, transparent, #a3e635, transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-challenge .badge-icon,
 .cc-flip.badge-challenge .badge-icon,
+.work-card.badge-challenge .badge-icon,
+.tl-trigger.badge-challenge .badge-icon,
 .all-internship-card.badge-challenge .badge-icon {
   color: #a3e635;
 }
 .cocurr-badge.badge-challenge:hover,
 .cc-flip.badge-challenge:hover .cc-face,
 .cc-flip.badge-challenge:focus-visible .cc-face,
+.work-card.badge-challenge:hover,
+.tl-trigger.badge-challenge:hover,
 .all-internship-card.badge-challenge:hover {
   border-color: var(--cyan);
   box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
 }
+.cocurr-badge.badge-challenge:hover .badge-icon,
+.cc-flip.badge-challenge:hover .badge-icon,
+.work-card.badge-challenge:hover .badge-icon,
+.tl-trigger.badge-challenge:hover .badge-icon,
+.all-internship-card.badge-challenge:hover .badge-icon {
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(79, 216, 255, 0.6);
+}
+.work-card.badge-challenge:hover::before,
+.tl-trigger.badge-challenge:hover::before,
 .all-internship-card.badge-challenge:hover::before {
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
   opacity: 1;
@@ -1097,26 +1361,44 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 10. Auth / Identity (Indigo Violet at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-auth.is-unlocked,
 .cc-flip.badge-auth .cc-face,
+.work-card.badge-auth,
+.tl-trigger.badge-auth,
 .all-internship-card.badge-auth {
   border-color: rgba(129, 140, 248, 0.65);
   box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.32), 0 0 24px rgba(129, 140, 248, 0.14);
 }
+.work-card.badge-auth::before,
+.tl-trigger.badge-auth::before,
 .all-internship-card.badge-auth::before {
   background: linear-gradient(90deg, transparent, #818cf8, transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-auth .badge-icon,
 .cc-flip.badge-auth .badge-icon,
+.work-card.badge-auth .badge-icon,
+.tl-trigger.badge-auth .badge-icon,
 .all-internship-card.badge-auth .badge-icon {
   color: #818cf8;
 }
 .cocurr-badge.badge-auth:hover,
 .cc-flip.badge-auth:hover .cc-face,
 .cc-flip.badge-auth:focus-visible .cc-face,
+.work-card.badge-auth:hover,
+.tl-trigger.badge-auth:hover,
 .all-internship-card.badge-auth:hover {
   border-color: var(--cyan);
   box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
 }
+.cocurr-badge.badge-auth:hover .badge-icon,
+.cc-flip.badge-auth:hover .badge-icon,
+.work-card.badge-auth:hover .badge-icon,
+.tl-trigger.badge-auth:hover .badge-icon,
+.all-internship-card.badge-auth:hover .badge-icon {
+  color: var(--cyan);
+  text-shadow: 0 0 14px rgba(79, 216, 255, 0.6);
+}
+.work-card.badge-auth:hover::before,
+.tl-trigger.badge-auth:hover::before,
 .all-internship-card.badge-auth:hover::before {
   background: linear-gradient(90deg, transparent, var(--cyan), transparent);
   opacity: 1;
@@ -1125,26 +1407,44 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* 11. Office / Productivity (Ice Blue at rest -> Neon Green on hover) */
 .cocurr-badge.badge-office.is-unlocked,
 .cc-flip.badge-office .cc-face,
+.work-card.badge-office,
+.tl-trigger.badge-office,
 .all-internship-card.badge-office {
   border-color: rgba(147, 197, 253, 0.65);
   box-shadow: 0 0 0 1px rgba(147, 197, 253, 0.32), 0 0 24px rgba(147, 197, 253, 0.14);
 }
+.work-card.badge-office::before,
+.tl-trigger.badge-office::before,
 .all-internship-card.badge-office::before {
   background: linear-gradient(90deg, transparent, #93c5fd, transparent);
   opacity: 0.55;
 }
 .cocurr-badge.badge-office .badge-icon,
 .cc-flip.badge-office .badge-icon,
+.work-card.badge-office .badge-icon,
+.tl-trigger.badge-office .badge-icon,
 .all-internship-card.badge-office .badge-icon {
   color: #93c5fd;
 }
 .cocurr-badge.badge-office:hover,
 .cc-flip.badge-office:hover .cc-face,
 .cc-flip.badge-office:focus-visible .cc-face,
+.work-card.badge-office:hover,
+.tl-trigger.badge-office:hover,
 .all-internship-card.badge-office:hover {
   border-color: var(--green);
   box-shadow: 0 0 0 1.5px var(--green), 0 0 32px rgba(57, 255, 138, 0.35);
 }
+.cocurr-badge.badge-office:hover .badge-icon,
+.cc-flip.badge-office:hover .badge-icon,
+.work-card.badge-office:hover .badge-icon,
+.tl-trigger.badge-office:hover .badge-icon,
+.all-internship-card.badge-office:hover .badge-icon {
+  color: var(--green);
+  text-shadow: 0 0 14px rgba(57, 255, 138, 0.6);
+}
+.work-card.badge-office:hover::before,
+.tl-trigger.badge-office:hover::before,
 .all-internship-card.badge-office:hover::before {
   background: linear-gradient(90deg, transparent, var(--green), transparent);
   opacity: 1;

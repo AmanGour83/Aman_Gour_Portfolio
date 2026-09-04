@@ -35,6 +35,8 @@ const SITE_DATA = {
     {
       id: "ghostmode-on",
       icon: "👻",
+      badge: "🔐 Steganography & AES-256",
+      badgeClass: "badge-hackathon",
       title: "GhostMode ON",
       date: "2026",
       summary: "A Flask web app that hides encrypted secrets inside images and audio using AES-256 steganography, with a full drag-and-drop UI.",
@@ -49,6 +51,8 @@ const SITE_DATA = {
     {
       id: "webcam-security-auditor",
       icon: "🎥",
+      badge: "🛡️ Defensive Security & Windows Audit",
+      badgeClass: "badge-fdp",
       title: "Webcam Security Auditor",
       date: "2026",
       summary: "A Windows desktop app that audits webcam permissions, detects live camera use, and lets you toggle per-app access.",
@@ -61,6 +65,8 @@ const SITE_DATA = {
     {
       id: "network-mapper",
       icon: "🌐",
+      badge: "📡 Network Recon & Port Scanning",
+      badgeClass: "badge-winner",
       title: "Network Mapper",
       date: "2026",
       summary: "A Python tool for scanning and mapping network topology and discovering open ports.",
@@ -73,6 +79,8 @@ const SITE_DATA = {
     {
       id: "key-logger",
       icon: "⌨️",
+      badge: "🔍 Security Research & Telemetry",
+      badgeClass: "badge-ctf",
       title: "Key Logger",
       date: "2026",
       summary: "A Python-based keylogger built for educational purposes to demonstrate cybersecurity concepts.",
@@ -85,6 +93,8 @@ const SITE_DATA = {
     {
       id: "secret-cipher",
       icon: "🕵️",
+      badge: "🗝️ Cryptography & Classical Ciphers",
+      badgeClass: "badge-challenge",
       title: "Secret Cipher",
       date: "2025",
       summary: "A sleek Python tool for encoding and decoding messages using Caesar cipher logic.",
@@ -97,6 +107,8 @@ const SITE_DATA = {
     {
       id: "student-performance-tracker",
       icon: "📃",
+      badge: "📊 Flask & SQLite Web Dashboard",
+      badgeClass: "badge-workshop",
       title: "Student Performance Tracker",
       date: "2025",
       summary: "A user-friendly Flask + SQLite web app for teachers and admins to track student performance and generate reports.",
@@ -109,6 +121,8 @@ const SITE_DATA = {
     {
       id: "expense-tracker",
       icon: "💸",
+      badge: "💰 Financial CLI Engine",
+      badgeClass: "badge-office",
       title: "Expense Tracker",
       date: "2025",
       summary: "A simple command-line Python tool to log expenses, view summaries, and track spending.",
@@ -121,6 +135,8 @@ const SITE_DATA = {
     {
       id: "smart-resume",
       icon: "📝",
+      badge: "🤖 AI Resume Builder & PDF Engine",
+      badgeClass: "badge-auth",
       title: "Smart Resume",
       date: "2025",
       summary: "A professional web app that helps you craft beautiful, effective resumes with intelligent AI-powered guidance.",
@@ -133,6 +149,8 @@ const SITE_DATA = {
     {
       id: "result-desk",
       icon: "📊",
+      badge: "📈 Data Analytics & Marksheet CLI",
+      badgeClass: "badge-winner",
       title: "Result Desk",
       date: "2025",
       summary: "A Python CLI tool that loads CSV marksheets and visualizes student performance.",
@@ -145,6 +163,8 @@ const SITE_DATA = {
     {
       id: "registration-checkup",
       icon: "✅",
+      badge: "🗂️ Student Registry Management",
+      badgeClass: "badge-blueteam",
       title: "Registration Checkup",
       date: "2025",
       summary: "A command-line tool developed in Python to manage and update student details from a CSV file.",
@@ -167,6 +187,8 @@ const SITE_DATA = {
    //IDS internship
     {
       id: "ids",
+      badge: "🛡️ Information Security & ISO 27001",
+      badgeClass: "badge-blueteam",
       org: "Intuitive Data Solution Pvt Ltd (IDS)",
       role: "Information Security Intern",
       via: "",
@@ -181,6 +203,8 @@ const SITE_DATA = {
     //CyArt internship
     {
       id: "cyart",
+      badge: "⚔️ Red Team & Adversary Emulation",
+      badgeClass: "badge-ctf",
       org: "CyArt",
       role: "Red Team Cybersecurity Intern",
       via: "",
@@ -194,6 +218,8 @@ const SITE_DATA = {
     //Supraja technologies internship
     {
       id: "supraja-technologies",
+      badge: "🔍 Windows Security & Registry Auditing",
+      badgeClass: "badge-fdp",
       org: "Supraja Technologies",
       role: "Cybersecurity Intern",
       via: "",
@@ -209,6 +235,8 @@ const SITE_DATA = {
     // VOIS internship
     {
       id: "vois",
+      badge: "🏛️ AICTE & Edunet Virtual Internship",
+      badgeClass: "badge-auth",
       org: "VOIS (Vodafone Idea Foundation)",
       role: "Cybersecurity Virtual Internship",
       via: "via AICTE & Edunet Foundation",
@@ -223,6 +251,8 @@ const SITE_DATA = {
     // Cyber War Labs internship
     {
       id: "cyber-war-labs",
+      badge: "🎯 VAPT & CTF Offensive Security",
+      badgeClass: "badge-conclave",
       org: "Cyber War Labs",
       role: "Cybersecurity Internship",
       via: "",
@@ -237,6 +267,8 @@ const SITE_DATA = {
     //OASIS internship
     {
       id: "oasis",
+      badge: "🏆 Star Performer Cybersecurity Internship",
+      badgeClass: "badge-winner",
       org: "OASIS",
       role: "Cybersecurity Internship",
       via: "",
@@ -253,6 +285,8 @@ const SITE_DATA = {
     // vaultsofcede internship
     {
       id: "vaultofcode",
+      badge: "🐍 Python Backend & Flask Internship",
+      badgeClass: "badge-challenge",
       org: "ValutsOfCode",
       role: "Python Internship",
       via: "",
@@ -267,6 +301,8 @@ const SITE_DATA = {
     // elevate lab internship
     {
       id: "elevate-lab",
+      badge: "⚡ Responsive Web Development Internship",
+      badgeClass: "badge-workshop",
       org: "Elevate Lab",
       role: "Web Development Internship",
       via: "",

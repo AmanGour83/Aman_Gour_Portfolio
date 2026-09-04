@@ -387,14 +387,37 @@ function initScrollReveal() {
    Recent work strip (home) + full archive (work.html)
    -------------------------------------------------------------------------- */
 
+const TECH_EMOJIS = {
+  "python": "🐍", "html": "🌐", "css & bootstrap": "🎨", "css": "🎨", "bootstrap": "🎨", "bootstrap 5": "🎨",
+  "javascript": "⚡", "networking": "📡", "basics of kali": "🐉", "kali": "🐉", "kali linux": "🐉",
+  "git & github": "🐙", "git": "🐙", "github": "🐙", "nmap / zenmap": "🔍", "nmap": "🔍", "zenmap": "🔍",
+  "wireshark": "🦈", "burpsuite": "🎯", "metasploit": "💥", "api security (owasp)": "🛡️",
+  "portswigger": "🧪", "portswigger labs": "🧪", "flask": "🌶️", "opencv": "👁️", "pycryptodome": "🔐",
+  "tkinter": "🖥️", "winreg": "🗃️", "pynput": "⌨️", "datetime": "⏱️", "sqlite": "🗄️", "sqlite3": "🗄️",
+  "pandas": "🐼", "numpy": "🔢", "matplotlib": "📊", "csv file": "📄", "vapt": "🎯",
+  "offensive security": "⚔️", "defensive security": "🛡️", "iso 27001": "📜", "wazuh": "🐺",
+  "suricata": "🚨", "openvas": "🛡️", "mitre att&ck": "🗺️", "ctf": "🚩", "network security": "📡",
+  "penetration testing": "🎯", "incident response": "🚨", "windows registry auditing": "🔍"
+};
+
+function renderTag(t) {
+  if (!t) return '';
+  const name = typeof t === 'object' ? t.name : String(t);
+  const lower = name.toLowerCase().trim();
+  const emoji = (typeof t === 'object' && t.emoji) ? t.emoji : (TECH_EMOJIS[lower] || '💻');
+  return `<span class="tag"><span class="tag-emoji">${emoji}</span> <span class="tag-name">${escapeHTML(name)}</span></span>`;
+}
+
 function workCardHTML(project, index) {
   const caseId = `CASE-${String(index + 1).padStart(2, '0')}`;
+  const badgeText = project.badge || `⚡ Security Case Study`;
   return `
-    <button class="work-card reveal" data-modal-type="project" data-modal-id="${project.id}">
+    <button class="work-card reveal ${project.badgeClass || 'badge-hackathon'}" data-modal-type="project" data-modal-id="${project.id}">
+      <div class="badge-icon">${escapeHTML(badgeText)}</div>
       <div class="work-card-id">${caseId} · ${project.date}${project.demo ? ' · <span class="live-badge">● LIVE</span>' : ''}</div>
       <h4><span>${project.icon}</span>${escapeHTML(project.title)}</h4>
       <p>${escapeHTML(project.summary)}</p>
-      <div class="tag-row">${project.tech.slice(0, 3).map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('')}</div>
+      <div class="tag-row">${project.tech.slice(0, 3).map(t => renderTag(t)).join('')}</div>
     </button>`;
 }
 
@@ -409,7 +432,7 @@ function renderRecentWork() {
 function renderSkills() {
   const mount = document.getElementById('skills-list');
   if (!mount) return;
-  mount.innerHTML = SITE_DATA.skills.map(s => `<span class="tag">${escapeHTML(s)}</span>`).join('');
+  mount.innerHTML = SITE_DATA.skills.map(s => renderTag(s)).join('');
 }
 
 function renderFullArchive() {
@@ -447,10 +470,13 @@ function renderTimeline() {
       `;
     }).join('');
 
+    const badgeText = item.badge || '💼 Verified Internship Role';
+
     return `
     <div class="tl-item reveal ${isExtra ? 'tl-item-extra' + (timelineExpanded ? '' : ' is-collapsed') : ''}">
       <span class="tl-node"></span>
-      <button class="tl-trigger" data-modal-type="internship" data-modal-id="${item.id}">
+      <button class="tl-trigger ${item.badgeClass || 'badge-blueteam'}" data-modal-type="internship" data-modal-id="${item.id}">
+        <div class="badge-icon">${escapeHTML(badgeText)}</div>
         <div class="tl-org">${escapeHTML(item.org)}</div>
         <div class="tl-role">${escapeHTML(item.role)}${item.via ? ' · ' + escapeHTML(item.via) : ''}</div>
         <div class="tl-dates">${escapeHTML(item.dates)}</div>
@@ -1064,7 +1090,7 @@ function openModal(type, id, initialDocIndex = 0) {
     title.textContent = item.title;
     meta.textContent = item.date;
     setGallery([], 0);
-    tags.innerHTML = item.tech.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('');
+    tags.innerHTML = item.tech.map(t => renderTag(t)).join('');
     link.style.display = 'inline-flex';
     link.href = item.github;
     link.innerHTML = '↗ View on GitHub';
@@ -1086,7 +1112,7 @@ function openModal(type, id, initialDocIndex = 0) {
     title.textContent = item.org;
     meta.textContent = `${item.role} · ${item.dates}`;
     setGallery(item.images || [], initialDocIndex);
-    tags.innerHTML = item.tech.map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('');
+    tags.innerHTML = item.tech.map(t => renderTag(t)).join('');
     link.style.display = 'none';
     typeOutDescription(desc, item.description);
   } else if (type === 'coursecert') {
@@ -1234,11 +1260,12 @@ function renderAllInternshipsCards(filterQuery = '') {
       return `<span class="tl-doc-pill" data-doc-index="${i}"><i class="fas ${icon}"></i> ${escapeHTML(label)}</span>`;
     }).join('');
 
-    const techTags = (item.tech || []).map(t => `<span class="tag">${escapeHTML(t)}</span>`).join('');
+    const techTags = (item.tech || []).map(t => renderTag(t)).join('');
 
     return `
-      <div class="all-internship-card" data-intern-id="${item.id}">
+      <div class="all-internship-card ${item.badgeClass || ''}" data-intern-id="${item.id}">
         <div class="aic-header">
+          ${item.badge ? `<div class="badge-icon" style="margin-bottom:8px;">${item.badge}</div>` : ''}
           <div class="aic-org">${escapeHTML(item.org)}</div>
           <div class="aic-role">${escapeHTML(item.role)}${item.via ? ' · ' + escapeHTML(item.via) : ''}</div>
           <div class="aic-dates"><i class="far fa-calendar-alt"></i> ${escapeHTML(item.dates)}</div>
