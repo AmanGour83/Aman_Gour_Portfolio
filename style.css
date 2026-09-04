@@ -248,11 +248,17 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .hero-photo-frame {
   position: relative;
-  border: 1px solid var(--border-hover);
+  border: 1.5px solid rgba(79, 216, 255, 0.42);
   border-radius: 4px;
   overflow: hidden;
   background: var(--bg-card);
-  box-shadow: 0 0 50px rgba(79, 216, 255, 0.16);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 40px rgba(79, 216, 255, 0.16);
+  transition: border-color 0.28s ease, box-shadow 0.28s ease, transform 0.28s ease;
+}
+.hero-photo-frame:hover {
+  border-color: var(--green);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 50px rgba(57, 255, 138, 0.25);
+  transform: translateY(-2px);
 }
 .frame-bar {
   display: flex;
@@ -391,11 +397,32 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .stats-bar { padding: 44px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 24px; }
 .stat {
-  border: 1px solid var(--border);
+  border: 1.5px solid rgba(79, 216, 255, 0.35);
   border-radius: var(--radius);
   padding: 20px 18px;
   background: var(--bg-card);
   position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35), 0 0 16px rgba(79, 216, 255, 0.08);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.stat::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0.45;
+  transition: all 0.25s ease;
+}
+.stat:hover {
+  border-color: var(--green);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.5), 0 0 24px rgba(57, 255, 138, 0.25);
+}
+.stat:hover::after {
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  opacity: 1;
 }
 .stat::before {
   content: attr(data-node);
@@ -423,7 +450,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .stat.is-stale .stat-value::after { content: ' ⚠'; font-size: 0.9rem; color: var(--amber); }
 
 /* --------------------------------------------------------------------------
-   Cards (about, dossier)
+   Cards (about, dossier) — 2-color cyber reactive system
    -------------------------------------------------------------------------- */
 
 .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
@@ -431,12 +458,61 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .card {
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1.5px solid rgba(79, 216, 255, 0.4);
   border-radius: var(--radius);
   padding: 30px;
-  transition: border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 18px rgba(79, 216, 255, 0.08);
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.card:hover { border-color: var(--border-hover); }
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--card-glow, var(--cyan)), transparent);
+  opacity: 0.55;
+  transition: opacity 0.25s ease, height 0.25s ease, background 0.25s ease;
+}
+.card:hover {
+  transform: translateY(-4px);
+}
+.card:hover::before {
+  opacity: 1;
+  height: 3px;
+}
+
+/* Card 1: "Who Am I?" — Resting Green -> Hover Electric Cyan */
+.grid-2 > .card:nth-child(1) {
+  --card-glow: var(--green);
+  border-color: rgba(57, 255, 138, 0.45);
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.42), 0 0 20px rgba(57, 255, 138, 0.1);
+}
+.grid-2 > .card:nth-child(1):hover {
+  border-color: var(--cyan);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(79, 216, 255, 0.28);
+}
+.grid-2 > .card:nth-child(1):hover::before {
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+}
+
+/* Card 2: "Technical Skills" — Resting Cyan -> Hover Matrix Green */
+.grid-2 > .card:nth-child(2) {
+  --card-glow: var(--cyan);
+  border-color: rgba(79, 216, 255, 0.45);
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.42), 0 0 20px rgba(79, 216, 255, 0.1);
+}
+.grid-2 > .card:nth-child(2):hover {
+  border-color: var(--green);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(57, 255, 138, 0.28);
+}
+.grid-2 > .card:nth-child(2):hover::before {
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+}
+
 .card h4 {
   font-family: var(--font-mono);
   color: var(--text-0);
@@ -469,24 +545,46 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .social-btn:hover { border-color: var(--cyan); color: var(--cyan); }
 
 /* --------------------------------------------------------------------------
-   Recent work strip / project grid
+   Recent work strip / project grid — 2-color cyber reactive system
    -------------------------------------------------------------------------- */
 
 .work-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
 
 .work-card {
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1.5px solid rgba(79, 216, 255, 0.42);
   border-radius: var(--radius);
   padding: 24px;
   cursor: pointer;
   text-align: left;
   color: inherit;
   width: 100%;
-  transition: 0.2s ease;
   position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 18px rgba(79, 216, 255, 0.08);
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.work-card:hover { border-color: var(--cyan-dim); transform: translateY(-2px); }
+.work-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0.5;
+  transition: opacity 0.25s ease, height 0.25s ease, background 0.25s ease;
+}
+.work-card:hover {
+  border-color: var(--green);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55), 0 0 28px rgba(57, 255, 138, 0.28);
+}
+.work-card:hover::before {
+  opacity: 1;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+}
 .work-card-id { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-2); letter-spacing: 0.08em; margin-bottom: 10px; }
 .work-card h4 { font-family: var(--font-mono); color: var(--text-0); font-size: 1.02rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
 .work-card p { font-size: 0.9rem; color: var(--text-2); }
@@ -495,7 +593,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .section-footer-link { margin-top: 36px; text-align: center; }
 
 /* --------------------------------------------------------------------------
-   Internship timeline (zigzag)
+   Internship timeline (zigzag) — 2-color cyber reactive system
    -------------------------------------------------------------------------- */
 
 .timeline { position: relative; padding: 0 0 10px; margin-top: -4px; }
@@ -515,21 +613,49 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border-radius: 50%;
   background: var(--bg-0);
   border: 2px solid var(--cyan);
+  transition: all 0.25s ease;
 }
 .tl-item:nth-child(odd) .tl-node { right: -7px; }
 .tl-item:nth-child(even) .tl-node { left: -7px; }
+.tl-item:hover .tl-node {
+  border-color: var(--green);
+  box-shadow: 0 0 14px var(--green);
+}
 
 .tl-trigger {
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1.5px solid rgba(56, 189, 248, 0.42);
   border-radius: var(--radius);
   padding: 20px 22px;
   cursor: pointer;
   width: 100%;
   color: inherit;
-  transition: 0.18s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 18px rgba(56, 189, 248, 0.09);
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.tl-trigger:hover { border-color: var(--cyan-dim); }
+.tl-trigger::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+  opacity: 0.5;
+  transition: opacity 0.25s ease, height 0.25s ease, background 0.25s ease;
+}
+.tl-trigger:hover {
+  border-color: var(--green);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55), 0 0 28px rgba(57, 255, 138, 0.26);
+}
+.tl-trigger:hover::before {
+  opacity: 1;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+}
 .tl-org { font-family: var(--font-mono); color: var(--text-0); font-size: 0.98rem; font-weight: 600; }
 .tl-role { color: var(--text-2); font-size: 0.85rem; margin-top: 4px; }
 .tl-dates { font-family: var(--font-mono); color: var(--cyan-dim); font-size: 0.72rem; margin-top: 8px; letter-spacing: 0.05em; }
@@ -624,14 +750,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .cc-face {
   position: absolute; inset: 0;
   backface-visibility: hidden;
-  border: 1px solid var(--border);
+  border: 1.5px solid rgba(79, 216, 255, 0.42);
   border-radius: var(--radius);
   background: var(--bg-card);
   padding: 20px;
   display: flex; flex-direction: column; justify-content: space-between;
   text-align: left;
   overflow: hidden;
-  transition: border-color 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.38), 0 0 16px rgba(79, 216, 255, 0.08);
+  transition: border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .cc-face-front::after {
   content: '';
@@ -649,6 +777,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .cc-face-back { transform: rotateY(180deg); padding: 10px; align-items: center; }
 .cc-face-back img { max-height: 100%; object-fit: contain; border-radius: 2px; }
 
+/* Default hover for unclassified flip cards */
+.cc-flip:hover .cc-face,
+.cc-flip:focus-visible .cc-face {
+  border-color: var(--green);
+  box-shadow: 0 0 0 1.5px var(--green), 0 0 28px rgba(57, 255, 138, 0.3);
+}
+
 /* --------------------------------------------------------------------------
    Achievement-unlock badges — co-curricular
    -------------------------------------------------------------------------- */
@@ -657,7 +792,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .cocurr-badge {
   background: var(--bg-card);
-  border: 1px solid var(--border);
+  border: 1.5px solid rgba(79, 216, 255, 0.4);
   border-radius: var(--radius);
   padding: 22px;
   text-align: left;
@@ -670,15 +805,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease, border-color 0.2s ease, box-shadow 0.25s ease;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.38), 0 0 16px rgba(79, 216, 255, 0.08);
+  transition: opacity 0.5s ease,
+              filter 0.5s ease,
+              transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
 }
 .cocurr-badge.is-unlocked {
   opacity: 1;
   filter: grayscale(0);
   transform: translateY(0);
-  box-shadow: 0 0 0 1px var(--green-dim), 0 0 26px rgba(57,255,138,0.08);
+  border-color: rgba(57, 255, 138, 0.5);
+  box-shadow: 0 0 0 1px rgba(57, 255, 138, 0.3), 0 0 24px rgba(57, 255, 138, 0.12);
 }
-.cocurr-badge:hover { border-color: var(--cyan-dim); }
+.cocurr-badge:hover {
+  border-color: var(--cyan);
+  transform: translateY(-4px);
+  box-shadow: 0 0 0 1.5px var(--cyan), 0 0 30px rgba(79, 216, 255, 0.32);
+}
 .badge-icon {
   font-family: var(--font-mono);
   font-size: 0.68rem;
@@ -690,160 +835,319 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .badge-title { font-family: var(--font-mono); color: var(--text-0); font-size: 0.95rem; }
 .badge-issuer { color: var(--text-2); font-size: 0.8rem; margin-top: auto; padding-top: 10px; }
 
-/* Custom theme accents for specific badge types (applied to badges & flip cards) */
+/* ==========================================================================
+   Category Badge Accents — 2-Color Cyber Reactive System
+   Resting: Distinct category color & subtle glow
+   Hover: Dynamic contrasting color shift with high-impact glow
+   ========================================================================== */
+
+/* 1. Winner / 1st Runner Up (Cyber Gold at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-winner.is-unlocked,
-.cc-flip.badge-winner:hover .cc-face,
-.cc-flip.badge-winner:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px rgba(255, 191, 0, 0.45), 0 0 26px rgba(255, 191, 0, 0.12);
+.cc-flip.badge-winner .cc-face,
+.all-internship-card.badge-winner {
+  border-color: rgba(255, 193, 7, 0.65);
+  box-shadow: 0 0 0 1px rgba(255, 191, 0, 0.32), 0 0 24px rgba(255, 191, 0, 0.14);
+}
+.all-internship-card.badge-winner::before {
+  background: linear-gradient(90deg, transparent, #ffc107, transparent);
+  opacity: 0.55;
 }
 .cocurr-badge.badge-winner .badge-icon,
-.cc-flip.badge-winner .badge-icon {
+.cc-flip.badge-winner .badge-icon,
+.all-internship-card.badge-winner .badge-icon {
   color: #ffc107;
   font-weight: 700;
 }
 .cocurr-badge.badge-winner:hover,
-.cc-flip.badge-winner:hover .cc-face {
-  border-color: #ffc107;
+.cc-flip.badge-winner:hover .cc-face,
+.cc-flip.badge-winner:focus-visible .cc-face,
+.all-internship-card.badge-winner:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
+}
+.all-internship-card.badge-winner:hover::before {
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 1;
 }
 
+/* 2. Hackathon / Web Design (Cyber Cyan at rest -> Neon Green on hover) */
 .cocurr-badge.badge-hackathon.is-unlocked,
-.cc-flip.badge-hackathon:hover .cc-face,
-.cc-flip.badge-hackathon:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px var(--cyan-dim), 0 0 26px rgba(79, 216, 255, 0.12);
+.cc-flip.badge-hackathon .cc-face,
+.all-internship-card.badge-hackathon {
+  border-color: rgba(79, 216, 255, 0.6);
+  box-shadow: 0 0 0 1px rgba(79, 216, 255, 0.3), 0 0 24px rgba(79, 216, 255, 0.14);
+}
+.all-internship-card.badge-hackathon::before {
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 0.55;
 }
 .cocurr-badge.badge-hackathon .badge-icon,
-.cc-flip.badge-hackathon .badge-icon {
+.cc-flip.badge-hackathon .badge-icon,
+.all-internship-card.badge-hackathon .badge-icon {
   color: var(--cyan);
 }
 .cocurr-badge.badge-hackathon:hover,
-.cc-flip.badge-hackathon:hover .cc-face {
-  border-color: var(--cyan);
+.cc-flip.badge-hackathon:hover .cc-face,
+.cc-flip.badge-hackathon:focus-visible .cc-face,
+.all-internship-card.badge-hackathon:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 0 1.5px var(--green), 0 0 32px rgba(57, 255, 138, 0.35);
+}
+.all-internship-card.badge-hackathon:hover::before {
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  opacity: 1;
 }
 
+/* 3. Faculty Development Program / AI (Royal Purple at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-fdp.is-unlocked,
-.cc-flip.badge-fdp:hover .cc-face,
-.cc-flip.badge-fdp:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.45), 0 0 26px rgba(168, 85, 247, 0.12);
+.cc-flip.badge-fdp .cc-face,
+.all-internship-card.badge-fdp {
+  border-color: rgba(192, 132, 252, 0.65);
+  box-shadow: 0 0 0 1px rgba(168, 85, 247, 0.32), 0 0 24px rgba(168, 85, 247, 0.14);
+}
+.all-internship-card.badge-fdp::before {
+  background: linear-gradient(90deg, transparent, #c084fc, transparent);
+  opacity: 0.55;
 }
 .cocurr-badge.badge-fdp .badge-icon,
-.cc-flip.badge-fdp .badge-icon {
+.cc-flip.badge-fdp .badge-icon,
+.all-internship-card.badge-fdp .badge-icon {
   color: #c084fc;
 }
 .cocurr-badge.badge-fdp:hover,
-.cc-flip.badge-fdp:hover .cc-face {
-  border-color: #c084fc;
+.cc-flip.badge-fdp:hover .cc-face,
+.cc-flip.badge-fdp:focus-visible .cc-face,
+.all-internship-card.badge-fdp:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
+}
+.all-internship-card.badge-fdp:hover::before {
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 1;
 }
 
+/* 4. Conclave / Bureau (Rose Crimson at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-conclave.is-unlocked,
-.cc-flip.badge-conclave:hover .cc-face,
-.cc-flip.badge-conclave:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.45), 0 0 26px rgba(244, 63, 94, 0.12);
+.cc-flip.badge-conclave .cc-face,
+.all-internship-card.badge-conclave {
+  border-color: rgba(251, 113, 133, 0.65);
+  box-shadow: 0 0 0 1px rgba(244, 63, 94, 0.32), 0 0 24px rgba(244, 63, 94, 0.14);
+}
+.all-internship-card.badge-conclave::before {
+  background: linear-gradient(90deg, transparent, #fb7185, transparent);
+  opacity: 0.55;
 }
 .cocurr-badge.badge-conclave .badge-icon,
-.cc-flip.badge-conclave .badge-icon {
+.cc-flip.badge-conclave .badge-icon,
+.all-internship-card.badge-conclave .badge-icon {
   color: #fb7185;
 }
 .cocurr-badge.badge-conclave:hover,
-.cc-flip.badge-conclave:hover .cc-face {
-  border-color: #fb7185;
+.cc-flip.badge-conclave:hover .cc-face,
+.cc-flip.badge-conclave:focus-visible .cc-face,
+.all-internship-card.badge-conclave:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
+}
+.all-internship-card.badge-conclave:hover::before {
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 1;
 }
 
+/* 5. Workshop / Pre Security (Emerald Green at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-workshop.is-unlocked,
-.cc-flip.badge-workshop:hover .cc-face,
-.cc-flip.badge-workshop:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.45), 0 0 26px rgba(16, 185, 129, 0.12);
+.cc-flip.badge-workshop .cc-face,
+.all-internship-card.badge-workshop {
+  border-color: rgba(52, 211, 153, 0.65);
+  box-shadow: 0 0 0 1px rgba(16, 185, 129, 0.32), 0 0 24px rgba(16, 185, 129, 0.14);
+}
+.all-internship-card.badge-workshop::before {
+  background: linear-gradient(90deg, transparent, #34d399, transparent);
+  opacity: 0.55;
 }
 .cocurr-badge.badge-workshop .badge-icon,
-.cc-flip.badge-workshop .badge-icon {
+.cc-flip.badge-workshop .badge-icon,
+.all-internship-card.badge-workshop .badge-icon {
   color: #34d399;
 }
 .cocurr-badge.badge-workshop:hover,
-.cc-flip.badge-workshop:hover .cc-face {
-  border-color: #34d399;
+.cc-flip.badge-workshop:hover .cc-face,
+.cc-flip.badge-workshop:focus-visible .cc-face,
+.all-internship-card.badge-workshop:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
+}
+.all-internship-card.badge-workshop:hover::before {
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 1;
 }
 
+/* 6. CTF / Red Team / Security 101 (TryHackMe Red at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-ctf.is-unlocked,
-.cc-flip.badge-ctf:hover .cc-face,
-.cc-flip.badge-ctf:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.45), 0 0 26px rgba(239, 68, 68, 0.12);
+.cc-flip.badge-ctf .cc-face,
+.all-internship-card.badge-ctf {
+  border-color: rgba(248, 113, 113, 0.65);
+  box-shadow: 0 0 0 1px rgba(239, 68, 68, 0.32), 0 0 24px rgba(239, 68, 68, 0.14);
+}
+.all-internship-card.badge-ctf::before {
+  background: linear-gradient(90deg, transparent, #f87171, transparent);
+  opacity: 0.55;
 }
 .cocurr-badge.badge-ctf .badge-icon,
-.cc-flip.badge-ctf .badge-icon {
+.cc-flip.badge-ctf .badge-icon,
+.all-internship-card.badge-ctf .badge-icon {
   color: #f87171;
 }
 .cocurr-badge.badge-ctf:hover,
-.cc-flip.badge-ctf:hover .cc-face {
-  border-color: #f87171;
+.cc-flip.badge-ctf:hover .cc-face,
+.cc-flip.badge-ctf:focus-visible .cc-face,
+.all-internship-card.badge-ctf:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
+}
+.all-internship-card.badge-ctf:hover::before {
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 1;
 }
 
+/* 7. Blue Team / Defense (Sky Blue at rest -> Neon Green on hover) */
 .cocurr-badge.badge-blueteam.is-unlocked,
-.cc-flip.badge-blueteam:hover .cc-face,
-.cc-flip.badge-blueteam:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 0 26px rgba(56, 189, 248, 0.12);
+.cc-flip.badge-blueteam .cc-face,
+.all-internship-card.badge-blueteam {
+  border-color: rgba(56, 189, 248, 0.65);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.32), 0 0 24px rgba(56, 189, 248, 0.14);
+}
+.all-internship-card.badge-blueteam::before {
+  background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+  opacity: 0.55;
 }
 .cocurr-badge.badge-blueteam .badge-icon,
-.cc-flip.badge-blueteam .badge-icon {
+.cc-flip.badge-blueteam .badge-icon,
+.all-internship-card.badge-blueteam .badge-icon {
   color: #38bdf8;
 }
 .cocurr-badge.badge-blueteam:hover,
-.cc-flip.badge-blueteam:hover .cc-face {
-  border-color: #38bdf8;
+.cc-flip.badge-blueteam:hover .cc-face,
+.cc-flip.badge-blueteam:focus-visible .cc-face,
+.all-internship-card.badge-blueteam:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 0 1.5px var(--green), 0 0 32px rgba(57, 255, 138, 0.35);
+}
+.all-internship-card.badge-blueteam:hover::before {
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  opacity: 1;
 }
 
-.cocurr-badge.badge-challenge.is-unlocked,
-.cc-flip.badge-challenge:hover .cc-face,
-.cc-flip.badge-challenge:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px rgba(163, 230, 53, 0.45), 0 0 26px rgba(163, 230, 53, 0.12);
-}
-.cocurr-badge.badge-challenge .badge-icon,
-.cc-flip.badge-challenge .badge-icon {
-  color: #a3e635;
-}
-.cocurr-badge.badge-challenge:hover,
-.cc-flip.badge-challenge:hover .cc-face {
-  border-color: #a3e635;
-}
-
+/* 8. Forensics / Analysis (Sky Blue at rest -> Neon Green on hover) */
 .cocurr-badge.badge-forensics.is-unlocked,
-.cc-flip.badge-forensics:hover .cc-face,
-.cc-flip.badge-forensics:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45), 0 0 26px rgba(56, 189, 248, 0.12);
+.cc-flip.badge-forensics .cc-face,
+.all-internship-card.badge-forensics {
+  border-color: rgba(56, 189, 248, 0.65);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.32), 0 0 24px rgba(56, 189, 248, 0.14);
+}
+.all-internship-card.badge-forensics::before {
+  background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+  opacity: 0.55;
 }
 .cocurr-badge.badge-forensics .badge-icon,
-.cc-flip.badge-forensics .badge-icon {
+.cc-flip.badge-forensics .badge-icon,
+.all-internship-card.badge-forensics .badge-icon {
   color: #38bdf8;
 }
 .cocurr-badge.badge-forensics:hover,
-.cc-flip.badge-forensics:hover .cc-face {
-  border-color: #38bdf8;
+.cc-flip.badge-forensics:hover .cc-face,
+.cc-flip.badge-forensics:focus-visible .cc-face,
+.all-internship-card.badge-forensics:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 0 1.5px var(--green), 0 0 32px rgba(57, 255, 138, 0.35);
+}
+.all-internship-card.badge-forensics:hover::before {
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  opacity: 1;
 }
 
+/* 9. Challenge / Python (Neon Lime at rest -> Electric Cyan on hover) */
+.cocurr-badge.badge-challenge.is-unlocked,
+.cc-flip.badge-challenge .cc-face,
+.all-internship-card.badge-challenge {
+  border-color: rgba(163, 230, 53, 0.65);
+  box-shadow: 0 0 0 1px rgba(163, 230, 53, 0.32), 0 0 24px rgba(163, 230, 53, 0.14);
+}
+.all-internship-card.badge-challenge::before {
+  background: linear-gradient(90deg, transparent, #a3e635, transparent);
+  opacity: 0.55;
+}
+.cocurr-badge.badge-challenge .badge-icon,
+.cc-flip.badge-challenge .badge-icon,
+.all-internship-card.badge-challenge .badge-icon {
+  color: #a3e635;
+}
+.cocurr-badge.badge-challenge:hover,
+.cc-flip.badge-challenge:hover .cc-face,
+.cc-flip.badge-challenge:focus-visible .cc-face,
+.all-internship-card.badge-challenge:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
+}
+.all-internship-card.badge-challenge:hover::before {
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 1;
+}
+
+/* 10. Auth / Identity (Indigo Violet at rest -> Electric Cyan on hover) */
 .cocurr-badge.badge-auth.is-unlocked,
-.cc-flip.badge-auth:hover .cc-face,
-.cc-flip.badge-auth:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.45), 0 0 26px rgba(129, 140, 248, 0.12);
+.cc-flip.badge-auth .cc-face,
+.all-internship-card.badge-auth {
+  border-color: rgba(129, 140, 248, 0.65);
+  box-shadow: 0 0 0 1px rgba(129, 140, 248, 0.32), 0 0 24px rgba(129, 140, 248, 0.14);
+}
+.all-internship-card.badge-auth::before {
+  background: linear-gradient(90deg, transparent, #818cf8, transparent);
+  opacity: 0.55;
 }
 .cocurr-badge.badge-auth .badge-icon,
-.cc-flip.badge-auth .badge-icon {
+.cc-flip.badge-auth .badge-icon,
+.all-internship-card.badge-auth .badge-icon {
   color: #818cf8;
 }
 .cocurr-badge.badge-auth:hover,
-.cc-flip.badge-auth:hover .cc-face {
-  border-color: #818cf8;
+.cc-flip.badge-auth:hover .cc-face,
+.cc-flip.badge-auth:focus-visible .cc-face,
+.all-internship-card.badge-auth:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1.5px var(--cyan), 0 0 32px rgba(79, 216, 255, 0.35);
+}
+.all-internship-card.badge-auth:hover::before {
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  opacity: 1;
 }
 
+/* 11. Office / Productivity (Ice Blue at rest -> Neon Green on hover) */
 .cocurr-badge.badge-office.is-unlocked,
-.cc-flip.badge-office:hover .cc-face,
-.cc-flip.badge-office:focus-visible .cc-face {
-  box-shadow: 0 0 0 1px rgba(147, 197, 253, 0.45), 0 0 26px rgba(147, 197, 253, 0.12);
+.cc-flip.badge-office .cc-face,
+.all-internship-card.badge-office {
+  border-color: rgba(147, 197, 253, 0.65);
+  box-shadow: 0 0 0 1px rgba(147, 197, 253, 0.32), 0 0 24px rgba(147, 197, 253, 0.14);
+}
+.all-internship-card.badge-office::before {
+  background: linear-gradient(90deg, transparent, #93c5fd, transparent);
+  opacity: 0.55;
 }
 .cocurr-badge.badge-office .badge-icon,
-.cc-flip.badge-office .badge-icon {
+.cc-flip.badge-office .badge-icon,
+.all-internship-card.badge-office .badge-icon {
   color: #93c5fd;
 }
 .cocurr-badge.badge-office:hover,
-.cc-flip.badge-office:hover .cc-face {
-  border-color: #93c5fd;
+.cc-flip.badge-office:hover .cc-face,
+.cc-flip.badge-office:focus-visible .cc-face,
+.all-internship-card.badge-office:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 0 1.5px var(--green), 0 0 32px rgba(57, 255, 138, 0.35);
+}
+.all-internship-card.badge-office:hover::before {
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
+  opacity: 1;
 }
 
 /* --------------------------------------------------------------------------
@@ -1071,36 +1375,37 @@ body.modal-open {
 
 .all-internship-card {
   background: rgba(10, 18, 30, 0.85);
-  border: 1px solid rgba(79, 216, 255, 0.3);
+  border: 1.5px solid rgba(56, 189, 248, 0.42);
   border-radius: 6px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   position: relative;
   overflow: hidden;
   text-align: left;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.38), 0 0 16px rgba(56, 189, 248, 0.08);
 }
 .all-internship-card::before {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-  opacity: 0.3;
-  transition: opacity 0.22s ease;
+  background: linear-gradient(90deg, transparent, #38bdf8, transparent);
+  opacity: 0.5;
+  transition: opacity 0.25s ease, background 0.25s ease;
 }
 .all-internship-card:hover {
-  border-color: var(--cyan);
+  border-color: var(--green);
   background: rgba(13, 25, 42, 0.95);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 0 22px rgba(79, 216, 255, 0.22);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), 0 0 24px rgba(57, 255, 138, 0.28);
 }
 .all-internship-card:hover::before {
   opacity: 1;
+  background: linear-gradient(90deg, transparent, var(--green), transparent);
 }
 
 .aic-header {
@@ -1401,11 +1706,18 @@ body.modal-open {
    -------------------------------------------------------------------------- */
 
 .terminal-form-frame {
-  border: 1px solid var(--border-hover);
+  border: 1.5px solid rgba(79, 216, 255, 0.4);
   border-radius: 4px;
   overflow: hidden;
   background: var(--bg-card);
-  box-shadow: 0 0 40px rgba(79, 216, 255, 0.1);
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.4), 0 0 35px rgba(79, 216, 255, 0.12);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.terminal-form-frame:hover,
+.terminal-form-frame:focus-within {
+  border-color: var(--green);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 45px rgba(57, 255, 138, 0.22);
+  transform: translateY(-2px);
 }
 .terminal-form { padding: 20px 22px 22px; }
 
