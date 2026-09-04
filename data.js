@@ -174,9 +174,8 @@ const SITE_DATA = {
       description: "Information security internship covering hands-on offensive and defensive security practice — vulnerability assessment and penetration testing (VAPT), incident response, and implementation support for ISO 27001 controls.",
       tech: ["Python", "VAPT", "Offensive Security", "Defensive Security", "ISO 27001"],
       images: [
-        {src:"Certificates/offer_letters/IDS_offer_letter_1.png", label: "Offer Letter(Page 1)"},
-        {src:"Certificates/offer_letters/IDS_offer_letter_2.png", label: "Offer Letter(Page 2)"},
-        {src:"Certificates/offer_letters/IDS_offer_letter_3.png", label: "Offer Letter(Page 3)"},
+        { src: "Certificates/internship_certificate/IDS.pdf", label: "Certificate" },
+        { src: "Certificates/offer_letters/IDS_Offer_letter.pdf", label: "Offer Letter" }
       ]
     },
     //CyArt internship
@@ -189,8 +188,7 @@ const SITE_DATA = {
       description: "Red team internship running a full weekly attack-chain progression against an isolated lab environment (Kali Linux vs. Metasploitable2) — vulnerability assessment and exploitation with Metasploit, detection/response analysis via Wazuh, Suricata, and CrowdSec, and multi-phase engagements mapped to MITRE ATT&CK, culminating in a capstone adversary-emulation exercise covering C2 infrastructure and payload evasion.",
       tech: ["Kali Linux", "Metasploit", "Wazuh", "Suricata", "OpenVAS", "MITRE ATT&CK", "VAPT"],
       images: [
-        {src:"Certificates/offer_letters/CyArt_offer_letter_1.png", label: "Offer Letter(Page 1)"},
-        {src:"Certificates/offer_letters/CyArt_offer_letter_2.png", label: "Offer Letter(Page 2)"},
+        { src: "Certificates/offer_letters/CyArt_Offer_letter.pdf", label: "Offer Letter" }
       ]
     },    
     //Supraja technologies internship
@@ -203,9 +201,9 @@ const SITE_DATA = {
       description: "Cybersecurity internship focused on defensive security for Windows environments — built a webcam security auditor that scans HKCU/HKLM registry hives to surface per-app camera permissions, detect live camera use in real time, and let users revoke or restore access from a password-gated desktop tool.",
       tech: ["Python", "Tkinter", "Windows Registry Auditing", "Defensive Security"],
       images: [
-        { src: "Certificates/internship_certificate/Supraja_tech.png", label: "Certificate" },
-        { src: "Certificates/lor/supraja_lor_1.png", label: "LOR" },
-        { src: "Certificates/lor/supraja_lor_2.png", label: "LOR For Higher Studies" }
+        { src: "Certificates/internship_certificate/Supraja_tech.pdf", label: "Certificate" },
+        { src: "Certificates/lor/supraja_lor_1.pdf", label: "LOR" },
+        { src: "Certificates/lor/supraja_lor_2.pdf", label: "LOR For Higher Studies" }
       ]
     },
     // VOIS internship
@@ -218,9 +216,8 @@ const SITE_DATA = {
       description: "A virtual cybersecurity internship covering foundational defensive security practice, delivered through AICTE and the Edunet Foundation in partnership with the Vodafone Idea Foundation.",
       tech: ["Cybersecurity", "Defensive Security"],
       images: [
-        { src: "Certificates/internship_certificate/VOIS.png", label: "Certificate" },
-        { src: "Certificates/offer_letters/VOIS_OFFER_LETTER_1.png", label: "Offer Letter(Page 1)" },
-        { src: "Certificates/offer_letters/VOIS_OFFER_LETTER_2.png", label: "Offer Letter(Page 2)" }
+        { src: "Certificates/internship_certificate/VOIS.pdf", label: "Certificate" },
+        { src: "Certificates/offer_letters/VOIS_OFFER_LETTER.pdf", label: "Offer Letter" }
       ]
     },
     // Cyber War Labs internship
@@ -233,8 +230,8 @@ const SITE_DATA = {
       description: "Hands-on cybersecurity internship covering both offensive and defensive practice, including vulnerability assessment and penetration testing (VAPT) exercises and capture-the-flag challenges.",
       tech: ["VAPT", "CTF", "Offensive Security", "Defensive Security"],
       images: [
-        { src: "Certificates/internship_certificate/Cyber_warlabs.png", label: "Certificate" },
-        { src: "Certificates/offer_letters/Cyberwarlab_Offer_Letter.png", label: "Offer Letter" }
+        { src: "Certificates/internship_certificate/Cyber_warlabs.pdf", label: "Certificate" },
+        { src: "Certificates/offer_letters/Cyberwarlab_Offer_Letter.pdf", label: "Offer Letter" }
       ]
     },
     //OASIS internship
@@ -247,10 +244,10 @@ const SITE_DATA = {
       description: "Cybersecurity internship covering network security fundamentals, penetration testing methodology, and incident response procedures.",
       tech: ["Network Security", "Penetration Testing", "Incident Response"],
       images: [
-        { src: "Certificates/internship_certificate/OASIS_COMPLETION CERTIFICATE.jpg", label: "Certificate" },
-        { src: "Certificates/internship_certificate/OASIS_sTAR_PERFORMER CERTIFICATE.jpg", label: "Star Performer Certificate" },
-        {src: "Certificates/lor/OASIS_LOR.png", label: "LOR"  },
-        {src: "Certificates/offer_letters/OASIS_offer_letter.png", label: "Offer Letter" }
+        { src: "Certificates/internship_certificate/OASIS_COMPLETION CERTIFICATE.pdf", label: "Certificate" },
+        { src: "Certificates/internship_certificate/OASIS_sTAR_PERFORMER CERTIFICATE.pdf", label: "Star Performer Certificate" },
+        { src: "Certificates/lor/OASIS_LOR.pdf", label: "LOR" },
+        { src: "Certificates/offer_letters/OASIS_Offer_letter.pdf", label: "Offer Letter" }
       ]
     },
     // vaultsofcede internship
@@ -263,8 +260,8 @@ const SITE_DATA = {
       description: "Python-focused development internship building backend features with Flask and SQLite.",
       tech: ["Python", "Flask", "SQLite3"],
       images: [
-        { src: "Certificates/internship_certificate/Vaultofcodes.jpg", label: "Certificate" },
-        {src: "Certificates/offer_letters/Vaultofcodes_offer_letter.png", label: "Offer Letter" }
+        { src: "Certificates/internship_certificate/Vaultofcodes.pdf", label: "Certificate" },
+        { src: "Certificates/offer_letters/VaultofCodes_offer_letter.pdf", label: "Offer Letter" }
       ]
     },
     // elevate lab internship
@@ -277,154 +274,234 @@ const SITE_DATA = {
       description: "Web development internship focused on building responsive front-end interfaces.",
       tech: ["HTML", "CSS & Bootstrap", "JavaScript"],
       images: [
-        { src: "Certificates/internship_certificate/Elevate_Lab.jpg", label: "Certificate" },
-        {src: "Certificates/offer_letters/ElevateLab_offer_letter.png", label: "Offer Letter" }
+        { src: "Certificates/internship_certificate/Elevate_Lab.pdf", label: "Certificate" },
+        { src: "Certificates/offer_letters/ElevateLab_offer_letter.pdf", label: "Offer Letter" }
       ]
     }
   ],
 
   // ---- Course completion certificates (hover-flip grid) --------------------
   // `description`: shown in the shared modal when the card is clicked.
-  // TODO(Aman): these are generic placeholders based on the course title —
-  // personalize with what each course actually covered if you'd like.
   courseCertificates: [
+    // Windows Forensic Analysis bootcamp certificate
+    { 
+      id: "windows-forensic-analysis", 
+      badge: "🔍 Digital Forensics",
+      badgeClass: "badge-forensics",
+      title: "Bootcamp on Windows Forensic Analysis", 
+      issuer: "C-DAC Thiruvananthapuram · FutureSkills PRIME", 
+      image: "Certificates/course_Certificates/windows_forensic_analysis.pdf", 
+      description: "Intensive bootcamp conducted by the Centre for Development of Advanced Computing (C-DAC), Thiruvananthapuram under the FutureSkills PRIME initiative. Covers core Windows digital forensics methodology, artifact extraction, registry analysis, event log triage, memory forensics, and incident response analysis." 
+    },
+
     //Cyber Security 101 certificate
     { 
       id: "cyber-security-101", 
+      badge: "🛡️ Security Fundamentals",
+      badgeClass: "badge-ctf",
       title: "Cyber Security 101", 
-      issuer: "Issued by TryHackMe.com", 
-      image: "Certificates/course_Certificates/cyber security 101.png", 
+      issuer: "TryHackMe.com", 
+      image: "Certificates/course_Certificates/cyber security 101.pdf", 
       description: "A 13-module, 50+ hour hands-on path building on Pre Security — networking, Linux and Windows/Active Directory fundamentals, the command line, cryptography, exploitation basics, web hacking, and both offensive and defensive security tooling, including SOC operations and the OWASP Top 10." 
     },
-
 
     //Pre Security certificate by THM
     { 
       id: "pre-security", 
+      badge: "🌐 Pre-Security Path",
+      badgeClass: "badge-workshop",
       title: "Pre Security", 
-      issuer: "Issued by TryHackMe.com", 
-      image: "Certificates/course_Certificates/pre security.png", 
+      issuer: "TryHackMe.com", 
+      image: "Certificates/course_Certificates/pre security.pdf", 
       description: "TryHackMe's true beginner path — no prior experience assumed. Covers computer basics, an introduction to cyber security concepts, network fundamentals, how the web works, and Linux and Windows fundamentals, building the ground-floor knowledge needed before tackling offensive or defensive security work." 
     },
 
-      //CEH certificate
+    //CEH certificate
     { 
       id: "ceh",
+      badge: "⚔️ Ethical Hacking",
+      badgeClass: "badge-winner",
       title: "Certified Ethical Hacking [ CEH ]", 
-      issuer: "Issued by TuteDude", 
-      image: "Certificates/course_Certificates/TD_EH_AMAN-EH-1908.jpg", 
+      issuer: "TuteDude", 
+      image: "Certificates/course_Certificates/TD-AMAN-EH-1908.pdf", 
       description: "Covers core ethical hacking methodology — reconnaissance, scanning, exploitation, and reporting — following the CEH framework." 
     },
 
     //ACP certificate
     { 
       id: "acp", 
+      badge: "🎓 Certified Professional",
+      badgeClass: "badge-fdp",
       title: "ACP Certificate", 
-      issuer: "Issued by APISEC UNIVERSITY", 
-      image: "Certificates/course_Certificates/ACP.jpg", 
+      issuer: "APISEC UNIVERSITY", 
+      image: "Certificates/course_Certificates/ACP.pdf", 
       description: "APIsec University's Associate Certified Professional track, covering foundational API security concepts and practice." 
     },
 
     //API Security certificates
     { 
       id: "owasp-api", 
+      badge: "🔓 OWASP API Security",
+      badgeClass: "badge-conclave",
       title: "OWASP API Security", 
-      issuer: "Issued by APISEC UNIVERSITY", 
-      image: "Certificates/course_Certificates/OWASP API.jpg", 
+      issuer: "APISEC UNIVERSITY", 
+      image: "Certificates/course_Certificates/OWASP API.pdf", 
       description: "Covers the OWASP API Security Top 10 — the most common vulnerability classes affecting modern APIs." 
     },
 
     // API Security certificates
     { 
       id: "securing-api", 
+      badge: "🛡️ API Defense & Hardening",
+      badgeClass: "badge-blueteam",
       title: "Securing API", 
-      issuer: "Issued by APISEC UNIVERSITY", 
-      image: "Certificates/course_Certificates/Securing API.jpg", 
+      issuer: "APISEC UNIVERSITY", 
+      image: "Certificates/course_Certificates/Securing API.pdf", 
       description: "Practical techniques for hardening APIs against common attack vectors." 
     },
 
     // API Security certificates
     { 
       id: "api-documentation", 
+      badge: "📋 API Documentation",
+      badgeClass: "badge-workshop",
       title: "API Documentation", 
-      issuer: "Issued by APISEC UNIVERSITY", 
-      image: "Certificates/course_Certificates/APIDocumentation.jpg", 
+      issuer: "APISEC UNIVERSITY", 
+      image: "Certificates/course_Certificates/APIDocumentation.pdf", 
       description: "Best practices for documenting APIs clearly and securely for consumers and auditors." 
     },
 
     // API Security certificates
     { 
       id: "api-sec-fundamentals", 
+      badge: "🔑 API Security Core",
+      badgeClass: "badge-hackathon",
       title: "API Security Fundamentals", 
-      issuer: "Issued by APISEC UNIVERSITY", 
-      image: "Certificates/course_Certificates/API Sec Fundamental.jpg", 
+      issuer: "APISEC UNIVERSITY", 
+      image: "Certificates/course_Certificates/API Sec Fundamental.pdf", 
       description: "Foundational concepts in API security — authentication, authorization, and common misconfigurations." 
     },
 
     // API Security certificates
     { 
       id: "api-authentication", 
+      badge: "🔐 Auth & Token Security",
+      badgeClass: "badge-auth",
       title: "API Authentication", 
-      issuer: "Issued by APISEC UNIVERSITY", 
-      image: "Certificates/course_Certificates/API Authentication.jpg", 
+      issuer: "APISEC UNIVERSITY", 
+      image: "Certificates/course_Certificates/API Authentication.pdf", 
       description: "Covers authentication mechanisms for APIs, including tokens, keys, and common implementation pitfalls." 
     },
 
     //Diploma certificates in python
     { 
       id: "diploma-python", 
+      badge: "🐍 Python Programming",
+      badgeClass: "badge-challenge",
       title: "Diploma In Python", 
-      issuer: "Issued by GEENI Computer Education, Nov 2020", 
-      image: "Certificates/course_Certificates/DIPLOMA IN PYTHON CERTIFIATE.jpg", 
+      issuer: "GEENI Computer Education · Nov 2020", 
+      image: "Certificates/course_Certificates/DIPLOMA IN PYTHON CERTIFIATE.pdf", 
       description: "Foundational diploma covering core Python programming concepts." 
     },
 
     //Diploma certificates in ms-word
     { 
       id: "diploma-msword", 
+      badge: "📄 Office Productivity",
+      badgeClass: "badge-office",
       title: "Diploma In Ms-Word", 
-      issuer: "Issued by GEENI Computer Education, Nov 2020", 
-      image: "Certificates/course_Certificates/DIPLOMA IN MS-OFFICE CERTIFIATE.jpg", 
+      issuer: "GEENI Computer Education · Nov 2020", 
+      image: "Certificates/course_Certificates/DIPLOMA IN MS-OFFICE CERTIFIATE.pdf", 
       description: "Foundational diploma covering Microsoft Word document creation and formatting." 
     }
   ],
 
   // ---- Co-curricular activities (achievement-unlock badges) ---------------
   // `learned`: shown in the modal alongside the certificate image.
-  // TODO(Aman): these are generic placeholders — swap in your own specifics
-  // (what you actually built/learned) whenever you get a chance.
   coCurricular: [
+    
+    // AICTE ATAL Faculty Development Program (FDP)
+    {
+      id: "aicte-atal-agentic-ai-fdp",
+      badge: "🏛️ Faculty Development Program",
+      badgeClass: "badge-fdp",
+      title: "Agentic AI & Autonomous Data Science Systems",
+      issuer: "AICTE ATAL Academy & SVIT · Aug 2026",
+      image: "Certificates/Workshop_certificates/FDP program.pdf",
+      learned: "Successfully completed the intensive 1-week Faculty Development Programme (FDP) on 'Agentic AI and Autonomous Data Science Systems' organized by the Department of CSE (Data Science), SVIT under the AICTE Training and Learning (ATAL) Academy initiative (Cert ID: ATAL/2026/1775891529). Gained practical experience in agentic workflows, autonomous systems, multi-agent frameworks, and advanced data science pipelines."
+    },
+    
+    // Prompt2Product Hackathon - 1st Runner-Up
+    {
+      id: "prompt2product-hackathon",
+      badge: "🏆 1st Runner-Up",
+      badgeClass: "badge-winner",
+      title: "Prompt2Product Hackathon",
+      issuer: "Cognitive Nexus Club, Dept. of AI & DS, SVIT · Aug 2026",
+      image: "Certificates/Workshop_certificates/Prompt_2_product_1st runner up.pdf",
+      learned: "Secured 1st Runner-Up (Runner 1) in the Prompt2Product Hackathon organized by the Cognitive Nexus Club, Department of Artificial Intelligence & Data Science at Swami Vivekananda Institute of Technology. Recognized for high-velocity innovation, technical architecture, and pitch delivery of an AI-driven product solution under strict hackathon time constraints."
+    },
+
+    // Web Designing Competition 2026 - Participation
+    {
+      id: "synapse-web-designing",
+      badge: "⚡ Hackathon / Competition",
+      badgeClass: "badge-hackathon",
+      title: "Web Designing Competition 2026",
+      issuer: "Synapse AIML Club, SVIT · Aug 2026",
+      image: "Certificates/Workshop_certificates/Synapse_Participant_certificate.pdf",
+      learned: "Actively participated in the Web Designing Competition 2026 hosted by the Synapse AIML Club at Swami Vivekananda Institute of Technology (SVIT). Demonstrated creative UI design, modern layout composition, and responsive styling within competitive time limits."
+    },
+
     // Shield 2.0 certificate
     { 
       id: "shield-2", 
+      badge: "🛡️ Cybersecurity Conclave",
+      badgeClass: "badge-conclave",
       title: "Shield 2.0", 
-      issuer: "Issued by Telangana Cyber Security Bureau", 
-      image: "Certificates/Workshop_certificates/Shield2.0.jpeg", 
+      issuer: "Telangana Cyber Security Bureau · 2025", 
+      image: "Certificates/Workshop_certificates/Shield2.0.pdf", 
       learned: "Part of the Telangana Cyber Security Bureau's SHIELD conclave series — a large-scale cyber safety and security-awareness initiative bringing together students, IT professionals, and citizens for hands-on sessions on common online threats and safe digital practices." 
     },
     // IITH Workshop certificate
     { 
       id: "iith-workshop", 
+      badge: "🎓 Technical Workshop",
+      badgeClass: "badge-workshop",
       title: "IITH Workshop", 
-      issuer: "Issued by IIT Hyderabad", 
-      image: "Certificates/Workshop_certificates/IITH workshop.jpg", 
+      issuer: "IIT Hyderabad · 2025", 
+      image: "Certificates/Workshop_certificates/IITH workshop.pdf", 
       learned: "A technical workshop hosted at IIT Hyderabad, offering hands-on exposure to current tools and techniques in the field." 
     },
     // AOC 2025 certificate
     { 
       id: "aoc-2025", 
+      badge: "🚩 Hands-on Security CTF",
+      badgeClass: "badge-ctf",
       title: "Advent Of Cyber 2025", 
-      issuer: "Issued by TryHackMe.com", 
-      image: "Certificates/Workshop_certificates/AOC2025.png", 
+      issuer: "TryHackMe.com · Dec 2025", 
+      image: "Certificates/Workshop_certificates/Advent of Cyber.pdf", 
       learned: "TryHackMe's annual Advent of Cyber event — a month of daily, hands-on beginner-to-intermediate security challenges covering topics like web exploitation, forensics, and threat hunting." 
     },
     // JNTUH Workshop certificate
     { 
       id: "jntuh-workshop", 
+      badge: "🔒 Blue Team Workshop",
+      badgeClass: "badge-blueteam",
       title: "Cyber Security Workshop", 
-      issuer: "Issued by Blue Team Cybersecurity, under JNTUH", 
-      image: "Certificates/Workshop_certificates/JNTUH_WORKSHOAP.jpg", 
+      issuer: "Blue Team Cybersecurity, under JNTUH · 2025", 
+      image: "Certificates/Workshop_certificates/JNTUH_WORKSHOAP.pdf", 
       learned: "A defensive-security-focused (Blue Team) workshop held under JNTUH, covering monitoring, detection, and incident response fundamentals." 
+    },
+    // Hacker Holiday certificate
+    {
+      id: "hacker-holiday",
+      badge: "🎯 Cyber Challenge",
+      badgeClass: "badge-challenge",
+      title: "Hacker Holiday",
+      issuer: "TryHackMe.com · 2025",
+      image: "Certificates/Workshop_certificates/Hacker_Holiday.pdf",
+      learned: "A holiday cybersecurity event by TryHackMe focusing on foundational and defensive security challenges."
     }
   ]
 };

@@ -27,7 +27,10 @@
       <ul class="nav-links">
         <li><a href="index.html" data-page-transition>Home</a></li>
         <li><a href="index.html#about" data-page-transition>About</a></li>
+        <li><a href="index.html#projects" data-page-transition>Projects</a></li>
         <li><a href="index.html#achievements" data-page-transition>Achievements</a></li>
+        <li><a href="index.html#certificates" data-page-transition>Certificates</a></li>
+        <li><a href="index.html#activities" data-page-transition>Activities</a></li>
         <li><a href="index.html#contact" data-page-transition>Contact</a></li>
         <li><a href="work.html" class="active">Full Archive</a></li>
         <li><a href="Resuma/Aman_Gour_Resume.pdf" target="_blank" class="nav-cta">Resume ↗</a></li>
@@ -84,20 +87,33 @@
       <div class="modal-eyebrow"></div>
       <h3 class="modal-title"></h3>
       <div class="modal-meta"></div>
+      <div class="modal-doc-tabs" style="display:none;"></div>
       <div class="modal-img-wrap">
         <img class="modal-img" src="" alt="">
-        <div class="modal-img-nav">
-          <button class="modal-nav-btn modal-nav-prev" aria-label="Previous image">&#8249;</button>
-          <button class="modal-nav-btn modal-nav-next" aria-label="Next image">&#8250;</button>
+        <div class="modal-pdf-wrap" style="display:none;">
+          <div class="modal-pdf-loader">
+            <span class="cyber-spinner"></span>
+            <span>&gt; decoding document stream...</span>
+          </div>
+          <canvas class="modal-pdf-canvas"></canvas>
+          <div class="modal-pdf-pager" style="display:none;">
+            <button class="modal-page-btn modal-page-prev" aria-label="Previous page" type="button"><i class="fas fa-chevron-left"></i></button>
+            <span class="modal-page-info">Page <span class="modal-current-page">1</span> of <span class="modal-total-pages">1</span></span>
+            <button class="modal-page-btn modal-page-next" aria-label="Next page" type="button"><i class="fas fa-chevron-right"></i></button>
+          </div>
         </div>
-        <div class="modal-img-counter"></div>
       </div>
       <p class="modal-desc"></p>
       <div class="modal-tags"></div>
-      <a class="modal-link" href="" target="_blank" rel="noopener"></a>
+      <div class="modal-link-row">
+        <a class="modal-link" href="" target="_blank" rel="noopener"></a>
+        <a class="modal-link modal-link-demo" href="" target="_blank" rel="noopener" style="display:none;"></a>
+        <a class="modal-link modal-pdf-action" href="" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-file-pdf"></i> Open Original PDF ↗</a>
+      </div>
     </div>
   </div>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="data.js"></script>
   <script src="script.js"></script>
 </body>

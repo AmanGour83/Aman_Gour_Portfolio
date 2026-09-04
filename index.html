@@ -35,12 +35,13 @@
     <div class="container">
       <a class="brand" href="#home"><span class="dot"></span>Aman Gour</a>
       <ul class="nav-links">
-        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#achievements">Achievements</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#activities">Activities</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="work.html" data-page-transition>Full Archive</a></li>
         <li><a href="Resuma/Aman_Gour_Resume.pdf" target="_blank" class="nav-cta">Resume ↗</a></li>
       </ul>
       <button class="nav-toggle" aria-label="Toggle navigation"><i class="fas fa-bars"></i></button>
@@ -120,28 +121,75 @@
   <!-- Achievements -->
   <section id="achievements" class="section">
     <div class="container">
-      <div class="eyebrow">03 / Record</div>
-      <h2 class="section-title">Internships</h2>
-      <p class="section-sub">Click any entry to open the full record.</p>
+      <div class="achieve-header-row">
+        <div>
+          <div class="eyebrow">03 / Record</div>
+          <h2 class="section-title">Internships</h2>
+          <p class="section-sub">Click any entry to open the full record.</p>
+        </div>
+        <button type="button" class="btn btn-primary btn-all-internships" id="btn-all-internships-top">
+          <i class="fas fa-layer-group"></i> View All Internships
+        </button>
+      </div>
       <div class="timeline" id="internship-timeline"></div>
+      <div class="timeline-footer-actions">
+        <button type="button" class="btn btn-ghost" id="btn-timeline-toggle">
+          <i class="fas fa-chevron-down"></i> <span id="timeline-toggle-label">Show Remaining Internships (5) ↓</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-all-internships" id="btn-all-internships-bottom">
+          <i class="fas fa-folder-open"></i> Open Directory Popup
+        </button>
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- Course Completion Certificates -->
+  <section id="certificates" class="section">
     <div class="container">
-      <div class="eyebrow">04 / Verified</div>
-      <h2 class="section-title">Course Completion Certificates</h2>
-      <p class="section-sub">Click a card to flip it and view the certificate.</p>
+      <div class="achieve-header-row">
+        <div>
+          <div class="eyebrow">04 / Verified</div>
+          <h2 class="section-title">Course Completion Certificates</h2>
+          <p class="section-sub">Verified industry credentials and foundational course paths.</p>
+        </div>
+        <button type="button" class="btn btn-primary btn-all-certs" id="btn-all-certs-top">
+          <i class="fas fa-layer-group"></i> View All Certificates
+        </button>
+      </div>
       <div class="flip-grid" id="cert-flip-grid"></div>
+      <div class="timeline-footer-actions">
+        <button type="button" class="btn btn-ghost" id="btn-certs-toggle">
+          <i class="fas fa-chevron-down"></i> <span id="certs-toggle-label">Show Remaining Certificates (8) ↓</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-all-certs" id="btn-all-certs-bottom">
+          <i class="fas fa-folder-open"></i> Open Directory Popup
+        </button>
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <!-- Co-Curricular Activities -->
+  <section id="activities" class="section">
     <div class="container">
-      <div class="eyebrow">05 / Unlocked</div>
-      <h2 class="section-title">Co-Curricular Activities</h2>
-      <p class="section-sub">Scroll to reveal.</p>
+      <div class="achieve-header-row">
+        <div>
+          <div class="eyebrow">05 / Unlocked</div>
+          <h2 class="section-title">Co-Curricular Activities</h2>
+          <p class="section-sub">Highlighted hackathons, faculty development, and tech competitions.</p>
+        </div>
+        <button type="button" class="btn btn-primary btn-all-cocurr" id="btn-all-cocurr-top">
+          <i class="fas fa-trophy"></i> View All Activities
+        </button>
+      </div>
       <div class="badge-grid" id="cocurr-grid"></div>
+      <div class="timeline-footer-actions">
+        <button type="button" class="btn btn-ghost" id="btn-cocurr-toggle">
+          <i class="fas fa-chevron-down"></i> <span id="cocurr-toggle-label">Show Remaining Activities (4) ↓</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-all-cocurr" id="btn-all-cocurr-bottom">
+          <i class="fas fa-folder-open"></i> Open Directory Popup
+        </button>
+      </div>
     </div>
   </section>
 
@@ -156,6 +204,8 @@
             <li><a href="#about">About</a></li>
             <li><a href="#projects">Projects</a></li>
             <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#certificates">Certificates</a></li>
+            <li><a href="#activities">Activities</a></li>
             <li><a href="work.html" data-page-transition>Full Archive</a></li>
           </ul>
           <div class="social-row">
@@ -208,23 +258,93 @@
       <div class="modal-eyebrow"></div>
       <h3 class="modal-title"></h3>
       <div class="modal-meta"></div>
+      <div class="modal-doc-tabs" style="display:none;"></div>
       <div class="modal-img-wrap">
         <img class="modal-img" src="" alt="">
-        <div class="modal-img-nav">
-          <button class="modal-nav-btn modal-nav-prev" aria-label="Previous image">&#8249;</button>
-          <button class="modal-nav-btn modal-nav-next" aria-label="Next image">&#8250;</button>
+        <div class="modal-pdf-wrap" style="display:none;">
+          <div class="modal-pdf-loader">
+            <span class="cyber-spinner"></span>
+            <span>&gt; decoding document stream...</span>
+          </div>
+          <canvas class="modal-pdf-canvas"></canvas>
+          <div class="modal-pdf-pager" style="display:none;">
+            <button class="modal-page-btn modal-page-prev" aria-label="Previous page" type="button"><i class="fas fa-chevron-left"></i></button>
+            <span class="modal-page-info">Page <span class="modal-current-page">1</span> of <span class="modal-total-pages">1</span></span>
+            <button class="modal-page-btn modal-page-next" aria-label="Next page" type="button"><i class="fas fa-chevron-right"></i></button>
+          </div>
         </div>
-        <div class="modal-img-counter"></div>
       </div>
       <p class="modal-desc"></p>
       <div class="modal-tags"></div>
       <div class="modal-link-row">
         <a class="modal-link" href="" target="_blank" rel="noopener"></a>
         <a class="modal-link modal-link-demo" href="" target="_blank" rel="noopener" style="display:none;"></a>
+        <a class="modal-link modal-pdf-action" href="" target="_blank" rel="noopener" style="display:none;"><i class="fas fa-file-pdf"></i> Open Original PDF ↗</a>
       </div>
     </div>
   </div>
 
+  <!-- All Internships Directory Modal -->
+  <div class="modal-overlay" id="all-internships-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-box modal-box-wide">
+      <button class="modal-close" id="all-internships-close" aria-label="Close"><i class="fas fa-times"></i></button>
+      <div class="modal-eyebrow"><i class="fas fa-network-wired"></i> DIRECTORY // 03 — INTERNSHIP ARCHIVE</div>
+      <h3 class="modal-title">All Internship Records</h3>
+      <div class="modal-meta">8 Verified Security Roles &amp; Document Credentials</div>
+
+      <div class="internships-modal-toolbar">
+        <div class="term-search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="internship-search-input" placeholder="filter by organization, role, or skill..." autocomplete="off">
+        </div>
+        <div class="internships-count-badge" id="internships-count-badge">8 RECORDS LOADED</div>
+      </div>
+
+      <div class="all-internships-grid" id="all-internships-list"></div>
+    </div>
+  </div>
+
+  <!-- All Course Completion Certificates Directory Modal -->
+  <div class="modal-overlay" id="all-certs-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-box modal-box-wide">
+      <button class="modal-close" id="all-certs-close" aria-label="Close"><i class="fas fa-times"></i></button>
+      <div class="modal-eyebrow"><i class="fas fa-certificate"></i> DIRECTORY // 04 — CERTIFICATE ARCHIVE</div>
+      <h3 class="modal-title">All Course Completion Certificates</h3>
+      <div class="modal-meta">12 Verified Credentials, Cyber Defense Courses &amp; Technical Certifications</div>
+
+      <div class="internships-modal-toolbar">
+        <div class="term-search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="cert-search-input" placeholder="filter by certificate title, issuer, or topic..." autocomplete="off">
+        </div>
+        <div class="internships-count-badge" id="certs-count-badge">12 RECORDS LOADED</div>
+      </div>
+
+      <div class="all-internships-grid" id="all-certs-list"></div>
+    </div>
+  </div>
+
+  <!-- All Co-Curricular Activities Directory Modal -->
+  <div class="modal-overlay" id="all-cocurr-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-box modal-box-wide">
+      <button class="modal-close" id="all-cocurr-close" aria-label="Close"><i class="fas fa-times"></i></button>
+      <div class="modal-eyebrow"><i class="fas fa-trophy"></i> DIRECTORY // 05 — ACTIVITY ARCHIVE</div>
+      <h3 class="modal-title">All Co-Curricular Activities &amp; Achievements</h3>
+      <div class="modal-meta">8 Competitions, Faculty Development Programs, CTFs &amp; Technical Workshops</div>
+
+      <div class="internships-modal-toolbar">
+        <div class="term-search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" id="cocurr-search-input" placeholder="filter by activity, competition, award, or organizer..." autocomplete="off">
+        </div>
+        <div class="internships-count-badge" id="cocurr-count-badge">8 RECORDS LOADED</div>
+      </div>
+
+      <div class="all-internships-grid" id="all-cocurr-list"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <script src="data.js"></script>
   <script src="script.js"></script>
 </body>
