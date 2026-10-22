@@ -456,6 +456,28 @@ const SITE_DATA = {
   // `learned`: shown in the modal alongside the certificate image.
   coCurricular: [
     
+    // ISEA Phase-III & IIT Hyderabad - Short Term Course
+    {
+      id: "isea-iith-web-security",
+      badge: "🔒 Web App Security Course",
+      badgeClass: "badge-workshop",
+      title: "Web Application Security & Exploitation Techniques",
+      issuer: "ISEA Phase-III & Dept. of CSE, IIT Hyderabad · Sep 2026",
+      image: "Certificates/Workshop_certificates/ISEA IITH.pdf",
+      learned: "Successfully completed the intensive 1-week short-term course on 'Web Application Security & Exploitation Techniques' organized by the Department of Computer Science & Engineering at IIT Hyderabad (Sep 21–26, 2026). Sponsored by ISEA Phase-III under the Ministry of Electronics and Information Technology (MeitY), Government of India, in partnership with the Center for Cryptography and Cybersecurity (CCS) and EXABEE. Gained hands-on experience in modern web exploitation vectors, vulnerability assessment, defense-in-depth principles, and secure architecture."
+    },
+
+    // Kawach.AI - Security & Privacy Training
+    {
+      id: "kawach-ai-security-privacy",
+      badge: "🛡️ Security & Privacy Training",
+      badgeClass: "badge-conclave",
+      title: "Security & Privacy Training",
+      issuer: "Kawach.AI · Sep 2026",
+      image: "Certificates/Workshop_certificates/kawachAi.pdf",
+      learned: "Successfully completed the specialized Security & Privacy Training program conducted by Kawach.AI (Certificate ID: EC332120_1791637316). Mastered enterprise data privacy compliance, personal data protection best practices, organizational cybersecurity hygiene, and incident-mitigation strategies."
+    },
+
     // AICTE ATAL Faculty Development Program (FDP)
     {
       id: "aicte-atal-agentic-ai-fdp",
