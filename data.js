@@ -17,7 +17,7 @@ const SITE_DATA = {
     githubUser: "AmanGour83",
     linkedin: "https://www.linkedin.com/in/amangour-/",
     whatsapp: "https://wa.me/+918125267557",
-    resume: "Resuma/Aman_Gour_Resume.pdf",
+    resume: "Resuma/Aman_Gour_CV.pdf",
     tryhackmeProfile: "https://tryhackme.com/p/demonslave738"
   },
 
@@ -208,10 +208,11 @@ const SITE_DATA = {
       org: "CyArt",
       role: "Red Team Cybersecurity Intern",
       via: "",
-      dates: "April 2026 – continuing",
+      dates: "April 2026 – November 2026",
       description: "Red team internship running a full weekly attack-chain progression against an isolated lab environment (Kali Linux vs. Metasploitable2) — vulnerability assessment and exploitation with Metasploit, detection/response analysis via Wazuh, Suricata, and CrowdSec, and multi-phase engagements mapped to MITRE ATT&CK, culminating in a capstone adversary-emulation exercise covering C2 infrastructure and payload evasion.",
       tech: ["Kali Linux", "Metasploit", "Wazuh", "Suricata", "OpenVAS", "MITRE ATT&CK", "VAPT"],
       images: [
+        { src: "Certificates/internship_certificate/CyArt.pdf", label: "Certificate" },
         { src: "Certificates/offer_letters/CyArt_Offer_letter.pdf", label: "Offer Letter" }
       ]
     },    
